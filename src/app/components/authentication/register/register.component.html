@@ -15,44 +15,72 @@
                     </div>
                     <p>Already have an account? <a routerLink="/authentication/login" class="main-color fw-medium">Login now!</a></p>
                 </div>
-                <form>
+                <form name="form" [formGroup]="signupForm" #f="ngForm">
                     <div class="bg-white border-radius pt-20 ps-20 pe-20">
                         <div class="tagus-form-group without-icon">
-                            <label class="d-block mb-12 fw-semibold gray-color">Name <span>*</span></label>
+                            <label class="d-block mb-12 fw-semibold gray-color">Full name </label>
                             <mat-form-field appearance="fill">
                                 <mat-label>Enter name</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="fullName">
+                                <mat-error *ngIf="signupForm.get('fullName')?.invalid">
+                                    {{getFullNameErrorMessage()}}       
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="tagus-form-group without-icon">
+                            <label class="d-block mb-12 fw-semibold gray-color">Username <span>*</span></label>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Enter a username</mat-label>
+                                <input matInput formControlName="username">
+                                <mat-error *ngIf="signupForm.get('username')?.invalid">
+                                    {{getUserNameErrorMessage()}}       
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Email Address <span>*</span></label>
                             <mat-form-field appearance="fill">
                                 <mat-label>Enter email address</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="email">
+                                <mat-error *ngIf="signupForm.get('email')?.invalid">
+                                    {{getEmailErrorMessage()}}       
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Password <span>*</span></label>
                             <mat-form-field appearance="fill">
                                 <mat-label>Enter your password</mat-label>
-                                <input matInput [type]="hide ? 'password' : 'text'">
+                                <input matInput 
+                                       [type]="hide ? 'password' : 'text'"
+                                       id="password"
+                                       formControlName="password">
                                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>
+                                <mat-error *ngIf="signupForm.get('password')?.invalid">
+                                    {{getPasswordErrorMessage()}}       
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Confirm Password <span>*</span></label>
                             <mat-form-field appearance="fill">
                                 <mat-label>Enter your password</mat-label>
-                                <input matInput [type]="hide ? 'password' : 'text'">
+                                <input matInput 
+                                       [type]="hide ? 'password' : 'text'"
+                                       id="ConfirmPass"
+                                       formControlName="confirmPassword">
                                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>
+                                <mat-error *ngIf="signupForm.get('confirmPassword')?.invalid">
+                                    {{getConPasswordErrorMessage()}}       
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
-                    <button mat-flat-button class="tagus d-block fw-semibold">Register</button>
+                    <button  type="submit" mat-flat-button class="tagus d-block fw-semibold" (click)="onSubmit(f.value)">Register</button>
                 </form>
             </div>
         </div>
