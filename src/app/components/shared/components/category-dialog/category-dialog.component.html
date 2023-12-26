@@ -1,0 +1,28 @@
+<div class="create-dialog-box scrollable-dialog">
+    <div class="title d-flex align-items-center justify-content-space-between">
+        <h4 class="mb-0">Create New Category</h4>
+        <button mat-dialog-close class="close-btn bg-transparent p-0 border-none" ><i class="flaticon-close"></i></button>
+    </div>
+    <form [formGroup]="empForm">
+        <div class="form-group">
+              <label class="d-block fw-semibold">Product Name</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="categoryName"  type="text" class="input-control" placeholder="category">
+                <mat-error *ngIf="empForm.get('categoryName')?.hasError('required') && empForm.get('categoryName')?.touched">
+                Category name is required.
+              </mat-error>
+              <mat-error *ngIf="empForm.get('categoryName')?.hasError('minlength')">
+                Category name must be at least 4 characters long.
+              </mat-error>
+              </mat-form-field>
+        </div>
+        <div class="text-end">
+            <button mat-dialog-close type="button" class="gray" ><i class="ri-close-fill"></i> Cancel</button>
+            <button  mat-flat-button class="save buttons default-btn tagus " (click)="onSubmit()" >
+              {{data.actionButtonText === "Create" ? "Save" : "Update"}} 
+              <mat-icon>{{data.actionButtonText === "Create" ? "add" : "edit"}}</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>
+

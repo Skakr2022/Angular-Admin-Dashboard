@@ -25,22 +25,19 @@
             </a>
         </div>
     </mat-card-header>
-    <mat-card-content >
+    <mat-card-content> 
         <div style="overflow-x:auto; overflow-y:hidden" class="mat-elevation-z8 tagus-mat-table">
          <app-table
-         [imagePosition]="imagePosition"
-         [hasImage]="hasImage"
          [hasAction]="hasAction"
          [filterValue]="filterValue"
-         idField="productId"
+         idField="categoryId"
          [Dialog]="dialog"
-         [dialogData]="dialogProduct" 
+         [dialogData]="dialogCategory"
          [Items]="dropdownItems"
          [sortActive]="sortActive" 
-         [endpoint]="product" 
-         [dataSource]="ProDataSource" 
-         [displayedColumns]="ProDisplayedColumns">
-
+         [endpoint]="category" 
+         [dataSource]="CatDataSource" 
+         [displayedColumns]="CatDisplayedColumns">
          </app-table>  
         </div> 
     </mat-card-content>
