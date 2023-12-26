@@ -402,6 +402,7 @@ import { CategoryComponent } from './components/pages/ecommerce/category/categor
 import { ApiService } from './components/core/services/api.service';
 import { EditCreateDialogComponent } from './components/shared/components/edit-create-dialog/edit-create-dialog.component';
 import { CategoryDialogComponent } from './components/shared/components/category-dialog/category-dialog.component';
+import { httpInterceptorProviders } from './components/core/interceptors/auth.interceptor';
 
 @NgModule({
     declarations: [
@@ -814,7 +815,8 @@ import { CategoryDialogComponent } from './components/shared/components/category
     ],
     providers: [
         DatePipe,
-        ApiService
+        ApiService,
+        httpInterceptorProviders
     ],
     bootstrap: [AppComponent]
 })

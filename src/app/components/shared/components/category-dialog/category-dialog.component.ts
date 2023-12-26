@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/components/core/services/product.service
 import { Category } from '../../models/Category.model';
 import { EditCreateDialogComponent } from '../edit-create-dialog/edit-create-dialog.component';
 import { Validators } from '@angular/forms';
+import { CategoryService } from 'src/app/components/core/services/category.service';
 @Component({
   selector: 'app-category-dialog',
   templateUrl: './category-dialog.component.html',
@@ -21,7 +22,7 @@ export class CategoryDialogComponent {
   
   constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private apiService:ApiService,
+        private apiService:CategoryService,
         private _fb: FormBuilder,
         private _coreService: CoreService,
         private _dialogRef: MatDialogRef<EditCreateDialogComponent> ) {}
@@ -62,9 +63,11 @@ export class CategoryDialogComponent {
         console.log(this.data.Data);
         const formData = new FormData();
         formData.append("categoryName",this.empForm.value.categoryName)
+
+        
          
         this.apiService 
-          .updatData(this.data.endpoint,this.data.id, formData)
+          .updateCategory(this.data.id, formData)
           .subscribe({ 
             next: (val: any) => {
               this._coreService.openSnackBar('categoy details updated!');
@@ -75,11 +78,14 @@ export class CategoryDialogComponent {
             },
           });
       } else {
+        const productCategory = {
+          "categoryName": this.empForm.value.categoryName
+      }
         const formData = new FormData();
         console.log(this.empForm.value)
         formData.append("categoryName",this.empForm.value.categoryName)
       
-        this.apiService.postData(this.data.endpoint,formData).subscribe(
+        this.apiService.postCategories(productCategory).subscribe(
           {
             next: (val: any) => {
               this._coreService.openSnackBar('Category successfully added!');

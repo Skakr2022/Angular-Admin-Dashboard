@@ -4,6 +4,8 @@ export interface Product{
   
          productId : number,
          imageUrl : string,
+         quantity:number,
+         price:number,
          description : string,
          name : string,
          creationDate : Date,
