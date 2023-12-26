@@ -85,8 +85,6 @@ import { PTeamComponent } from './components/projects/p-team/p-team.component';
 import { PUsersComponent } from './components/projects/p-users/p-users.component';
 import { ProjectCreateComponent } from './components/projects/project-create/project-create.component';
 import { ProjectsComponent } from './components/projects/projects.component';
-import { BasicTableComponent } from './components/tables/basic-table/basic-table.component';
-import { DataTableComponent } from './components/tables/data-table/data-table.component';
 import { AccordionComponent } from './components/ui-kit/accordion/accordion.component';
 import { AlertsComponent } from './components/ui-kit/alerts/alerts.component';
 import { AutocompleteComponent } from './components/ui-kit/autocomplete/autocomplete.component';
@@ -122,7 +120,6 @@ import { SliderComponent } from './components/ui-kit/slider/slider.component';
 import { SnackbarComponent } from './components/ui-kit/snackbar/snackbar.component';
 import { SpacingComponent } from './components/ui-kit/spacing/spacing.component';
 import { StepperComponent } from './components/ui-kit/stepper/stepper.component';
-import { TableComponent } from './components/ui-kit/table/table.component';
 import { TabsComponent } from './components/ui-kit/tabs/tabs.component';
 import { ToolbarComponent } from './components/ui-kit/toolbar/toolbar.component';
 import { TooltipComponent } from './components/ui-kit/tooltip/tooltip.component';
@@ -133,9 +130,33 @@ import { CryptoComponent } from './components/dashboard/crypto/crypto.component'
 import { HelpDeskComponent } from './components/dashboard/help-desk/help-desk.component';
 import { SaasAppComponent } from './components/dashboard/saas-app/saas-app.component';
 import { ComingSoonComponent } from './components/pages/coming-soon/coming-soon.component';
+import { authGuardGuard, loginGuard } from './components/core/Guards/Auth-guard.guard';
+import { CategoryComponent } from './components/pages/ecommerce/category/category.component';
 
 const routes: Routes = [
-    {path: '', component: EcommerceComponent},
+    { path:'ecommerce',
+      canActivateChild:[authGuardGuard],
+      children: [
+        { path: '', component: EcommerceComponent },
+        { path: 'products', component: ProductsComponent },
+        { path: 'product-details', component: ProductDetailsComponent },
+        { path: 'create', component: CreateProductComponent },
+        { path: 'orders', component: ProductsOrdersComponent },
+        { path: 'order-details', component: ProductsOrderDetailsComponent },
+        { path: 'customers', component: ProductsCustomersComponent },
+        { path: 'cart', component: ProductsCartComponent },
+        { path: 'checkout', component: ProductsCheckoutComponent },
+        { path: 'sellers', component: ProductSellersComponent },
+        { path: 'profile', component: ProfileComponent},
+        { path: 'account', component: AccountComponent},
+        { path: 'security', component: SecurityComponent},
+        { path: 'connections', component: ConnectionsComponent},
+        { path: 'privacy-policy', component: PrivacyPolicyComponent},
+        { path: 'terms-conditions', component: TermsConditionsComponent},
+        { path: 'category', component: CategoryComponent},
+     
+    ]},
+    // {path: '', component: EcommerceComponent},
     {path: 'analytics', component: AnalyticsComponent},
     {path: 'project-management', component: ProjectManagementComponent},
     {path: 'lms-courses', component: LmsCoursesComponent},
@@ -176,15 +197,15 @@ const routes: Routes = [
     {path: 'lesson-preview', component: LessonPreviewComponent},
     {path: 'analytics/customers', component: AnalyticsCustomersComponent},
     {path: 'analytics/reports', component: AnalyticsReportsComponent},
-    {path: 'ecommerce/products', component: ProductsComponent},
-    {path: 'ecommerce/product-details', component: ProductDetailsComponent},
-    {path: 'ecommerce/create', component: CreateProductComponent},
-    {path: 'ecommerce/orders', component: ProductsOrdersComponent},
-    {path: 'ecommerce/order-details', component: ProductsOrderDetailsComponent},
-    {path: 'ecommerce/customers', component: ProductsCustomersComponent},
-    {path: 'ecommerce/cart', component: ProductsCartComponent},
-    {path: 'ecommerce/checkout', component: ProductsCheckoutComponent},
-    {path: 'ecommerce/sellers', component: ProductSellersComponent},
+    // {path: 'ecommerce/products', component: ProductsComponent},
+    // {path: 'ecommerce/product-details', component: ProductDetailsComponent},
+    // {path: 'ecommerce/create', component: CreateProductComponent},
+    // {path: 'ecommerce/orders', component: ProductsOrdersComponent},
+    // {path: 'ecommerce/order-details', component: ProductsOrderDetailsComponent},
+    // {path: 'ecommerce/customers', component: ProductsCustomersComponent},
+    // {path: 'ecommerce/cart', component: ProductsCartComponent},
+    // {path: 'ecommerce/checkout', component: ProductsCheckoutComponent},
+    // {path: 'ecommerce/sellers', component: ProductSellersComponent},
     {path: 'ui-kit/buttons', component: ButtonsComponent},
     {path: 'ui-kit/alerts', component: AlertsComponent},
     {path: 'ui-kit/avatars', component: AvatarsComponent},
@@ -220,7 +241,6 @@ const routes: Routes = [
     {path: 'ui-kit/accordion', component: AccordionComponent},
     {path: 'ui-kit/listbox', component: ListboxComponent},
     {path: 'ui-kit/breadcrumb', component: BreadcrumbComponent},
-    {path: 'ui-kit/table', component: TableComponent},
     {path: 'ui-kit/drag-drop', component: DragDropComponent},
     {path: 'ui-kit/color-picker', component: ColorPickerComponent},
     {path: 'ui-kit/dialog', component: DialogComponent},
@@ -236,19 +256,17 @@ const routes: Routes = [
     {path: 'charts/chartjs', component: ChartjsComponent},
     {path: 'charts/gauge', component: GaugeComponent},
     {path: 'maps', component: MapsComponent},
-    {path: 'tables/basic', component: BasicTableComponent},
-    {path: 'tables/data', component: DataTableComponent},
     {path: 'forms/basic', component: BasicFormComponent},
     {path: 'forms/wizard', component: WizardFormComponent},
     {path: 'forms/advanced', component: AdvancedFormComponent},
     {path: 'forms/editors', component: EditorsComponent},
     {path: 'forms/file-uploader', component: FileUploaderComponent},
-    {path: 'profile', component: ProfileComponent},
-    {path: 'account', component: AccountComponent},
-    {path: 'security', component: SecurityComponent},
-    {path: 'connections', component: ConnectionsComponent},
-    {path: 'privacy-policy', component: PrivacyPolicyComponent},
-    {path: 'terms-conditions', component: TermsConditionsComponent},
+    // {path: 'profile', component: ProfileComponent},
+    // {path: 'account', component: AccountComponent},
+    // {path: 'security', component: SecurityComponent},
+    // {path: 'connections', component: ConnectionsComponent},
+    // {path: 'privacy-policy', component: PrivacyPolicyComponent},
+    // {path: 'terms-conditions', component: TermsConditionsComponent},
     {path: 'pricing', component: PricingComponent},
     {path: 'timeline', component: TimelineComponent},
     {path: 'faq', component: FaqComponent},
@@ -261,7 +279,7 @@ const routes: Routes = [
     {path: 'error-500', component: InternalErrorComponent},
     {path: 'authentication/forgot-password', component: ForgotPasswordComponent},
     {path: 'authentication/reset-password', component: ResetPasswordComponent},
-    {path: 'authentication/login', component: LoginComponent},
+    {path: 'authentication/login',canActivate:[loginGuard], component: LoginComponent},
     {path: 'authentication/register', component: RegisterComponent},
     {path: 'authentication/signin-signup', component: SigninSignupComponent},
     {path: 'authentication/logout', component: LogoutComponent},

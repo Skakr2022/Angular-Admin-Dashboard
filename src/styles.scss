@@ -663,6 +663,7 @@ button {
 
             .tagus-mat-table {
                 .mat-mdc-table {
+                   
                     .mdc-data-table__header-row {
                         .mdc-data-table__header-cell {
                             text-align: center;
@@ -830,7 +831,7 @@ button {
                         }
                     }
                     .mat-sort-header-container {
-                        justify-content: center;
+                        justify-content: start;
 
                         .mat-sort-header-arrow {
                             top: 2px;
@@ -1868,6 +1869,8 @@ quill-editor {
             }
         }
     }
+    
+    
     form {
         padding: 25px;
 

@@ -247,7 +247,6 @@ import { StepperResponsiveComponent } from './components/ui-kit/stepper/stepper-
 import { AccordionComponent } from './components/ui-kit/accordion/accordion.component';
 import { ListboxComponent } from './components/ui-kit/listbox/listbox.component';
 import { BreadcrumbComponent } from './components/ui-kit/breadcrumb/breadcrumb.component';
-import { TableComponent } from './components/ui-kit/table/table.component';
 import { DialogComponent } from './components/ui-kit/dialog/dialog.component';
 import { FlaticonComponent } from './components/pages/icons/flaticon/flaticon.component';
 import { RemixiconComponent } from './components/pages/icons/remixicon/remixicon.component';
@@ -357,27 +356,7 @@ import { SigninSignupComponent } from './components/authentication/signin-signup
 import { LogoutComponent } from './components/authentication/logout/logout.component';
 import { ConfirmMailComponent } from './components/authentication/confirm-mail/confirm-mail.component';
 import { LockScreenComponent } from './components/authentication/lock-screen/lock-screen.component';
-import { BasicTableComponent } from './components/tables/basic-table/basic-table.component';
-import { DataTableComponent } from './components/tables/data-table/data-table.component';
-import { DtTeamMembersComponent } from './components/tables/data-table/dt-team-members/dt-team-members.component';
-import { DtTasksComponent } from './components/tables/data-table/dt-tasks/dt-tasks.component';
-import { AddRemoveArrayBasedDatasourceTableComponent } from './components/ui-kit/table/add-remove-array-based-datasource-table/add-remove-array-based-datasource-table.component';
-import { TableDynamicallyColumnsDisplayedComponent } from './components/ui-kit/table/table-dynamically-columns-displayed/table-dynamically-columns-displayed.component';
-import { StylingColumnsTableComponent } from './components/ui-kit/table/styling-columns-table/styling-columns-table.component';
-import { AddRemoveObservableBasedDatasourceTableComponent } from './components/ui-kit/table/add-remove-observable-based-datasource-table/add-remove-observable-based-datasource-table.component';
-import { ExpandableRowsTableComponent } from './components/ui-kit/table/expandable-rows-table/expandable-rows-table.component';
-import { FilteringTableComponent } from './components/ui-kit/table/filtering-table/filtering-table.component';
-import { FooterRowTableComponent } from './components/ui-kit/table/footer-row-table/footer-row-table.component';
-import { RetrievingDataHttpTableComponent } from './components/ui-kit/table/retrieving-data-http-table/retrieving-data-http-table.component';
-import { MultipleHeaderFooterTableComponent } from './components/ui-kit/table/multiple-header-footer-table/multiple-header-footer-table.component';
-import { SortingPaginationFilteringTableComponent } from './components/ui-kit/table/sorting-pagination-filtering-table/sorting-pagination-filtering-table.component';
-import { PaginationTableComponent } from './components/ui-kit/table/pagination-table/pagination-table.component';
-import { SelectionTableComponent } from './components/ui-kit/table/selection-table/selection-table.component';
-import { SortingTableComponent } from './components/ui-kit/table/sorting-table/sorting-table.component';
-import { StickyColumnsTableComponent } from './components/ui-kit/table/sticky-columns-table/sticky-columns-table.component';
-import { StickyFooterTableComponent } from './components/ui-kit/table/sticky-footer-table/sticky-footer-table.component';
-import { StickyHeaderTableComponent } from './components/ui-kit/table/sticky-header-table/sticky-header-table.component';
-import { RippleTableComponent } from './components/ui-kit/table/ripple-table/ripple-table.component';
+
 import { MenuDialogComponent } from './components/ui-kit/dialog/menu-dialog/menu-dialog.component';
 import { FormDialogComponent } from './components/ui-kit/dialog/form-dialog/form-dialog.component';
 import { BigFormDialogComponent } from './components/ui-kit/dialog/big-form-dialog/big-form-dialog.component';
@@ -418,6 +397,11 @@ import { SaStatsComponent } from './components/dashboard/saas-app/sa-stats/sa-st
 import { SaRevenueSummaryComponent } from './components/dashboard/saas-app/sa-revenue-summary/sa-revenue-summary.component';
 import { SaSalesAnalyticsComponent } from './components/dashboard/saas-app/sa-sales-analytics/sa-sales-analytics.component';
 import { ComingSoonComponent } from './components/pages/coming-soon/coming-soon.component';
+import { TableComponent } from './components/shared/components/table/table.component';
+import { CategoryComponent } from './components/pages/ecommerce/category/category.component';
+import { ApiService } from './components/core/services/api.service';
+import { EditCreateDialogComponent } from './components/shared/components/edit-create-dialog/edit-create-dialog.component';
+import { CategoryDialogComponent } from './components/shared/components/category-dialog/category-dialog.component';
 
 @NgModule({
     declarations: [
@@ -612,7 +596,7 @@ import { ComingSoonComponent } from './components/pages/coming-soon/coming-soon.
         AccordionComponent,
         ListboxComponent,
         BreadcrumbComponent,
-        TableComponent,
+        
         DialogComponent,
         FlaticonComponent,
         RemixiconComponent,
@@ -722,27 +706,7 @@ import { ComingSoonComponent } from './components/pages/coming-soon/coming-soon.
         LogoutComponent,
         ConfirmMailComponent,
         LockScreenComponent,
-        BasicTableComponent,
-        DataTableComponent,
-        DtTeamMembersComponent,
-        DtTasksComponent,
-        AddRemoveArrayBasedDatasourceTableComponent,
-        TableDynamicallyColumnsDisplayedComponent,
-        StylingColumnsTableComponent,
-        AddRemoveObservableBasedDatasourceTableComponent,
-        ExpandableRowsTableComponent,
-        FilteringTableComponent,
-        FooterRowTableComponent,
-        RetrievingDataHttpTableComponent,
-        MultipleHeaderFooterTableComponent,
-        SortingPaginationFilteringTableComponent,
-        PaginationTableComponent,
-        SelectionTableComponent,
-        SortingTableComponent,
-        StickyColumnsTableComponent,
-        StickyFooterTableComponent,
-        StickyHeaderTableComponent,
-        RippleTableComponent,
+      
         MenuDialogComponent,
         FormDialogComponent,
         BigFormDialogComponent,
@@ -783,6 +747,10 @@ import { ComingSoonComponent } from './components/pages/coming-soon/coming-soon.
         SaRevenueSummaryComponent,
         SaSalesAnalyticsComponent,
         ComingSoonComponent,
+        TableComponent,
+        CategoryComponent,
+        EditCreateDialogComponent,
+        CategoryDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -845,7 +813,8 @@ import { ComingSoonComponent } from './components/pages/coming-soon/coming-soon.
         ColorPickerModule
     ],
     providers: [
-        DatePipe
+        DatePipe,
+        ApiService
     ],
     bootstrap: [AppComponent]
 })

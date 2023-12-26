@@ -15,7 +15,7 @@
                     </div>
                     <p>Don’t have an account? <a routerLink="/authentication/register" class="main-color fw-medium">Register now!</a></p>
                 </div>
-                <form>
+                <form name="form" [formGroup]="loginForm" #f="ngForm">
                     <div class="login-with-socials d-md-flex align-items-center justify-content-space-between">
                         <button mat-flat-button class="gray fw-semibold d-block me-5"><img src="assets/img/icon/google.png" alt="google"> Login with Google</button>
                         <button mat-flat-button class="tagus fw-semibold d-block ms-5"><img src="assets/img/icon/facebook.png" alt="facebook"> Login with Facebook</button>
@@ -28,17 +28,23 @@
                             <label class="d-block mb-12 fw-semibold gray-color">Email Address <span>*</span></label>
                             <mat-form-field appearance="fill">
                                 <mat-label>Enter email address</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="email" >
+                                <mat-error *ngIf="loginForm.get('email')?.invalid">
+                                    {{getEmailErrorMessage()}}       
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Password <span>*</span></label>
                             <mat-form-field appearance="fill">
                                 <mat-label>Enter your password</mat-label>
-                                <input matInput [type]="hide ? 'password' : 'text'">
+                                <input matInput formControlName="password"  [type]="hide ? 'password' : 'text'">
                                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>
+                                <mat-error *ngIf="loginForm.get('password')?.invalid">
+                                    {{getPasswordErrorMessage()}}       
+                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -46,7 +52,7 @@
                         <mat-checkbox class="gray-color">Remember me</mat-checkbox>
                         <a routerLink="/authentication/forgot-password" class="d-inline-block main-color fw-medium">Forgot your password?</a>
                     </div>
-                    <button mat-flat-button class="tagus d-block fw-semibold">Log In</button>
+                    <button type="submit" mat-flat-button class="tagus d-block fw-semibold" (click)="onSubmit()">Log In</button>
                 </form>
             </div>
         </div>

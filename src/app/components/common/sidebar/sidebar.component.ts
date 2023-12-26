@@ -22,6 +22,10 @@ export class SidebarComponent {
         });
     }
 
+    toggleSetting(){
+       this.themeService.toggle();
+    }  
+
     toggle() {
         this.toggleService.toggle();
     }
