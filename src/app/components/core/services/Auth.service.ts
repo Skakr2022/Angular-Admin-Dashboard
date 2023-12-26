@@ -17,9 +17,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  register(formData:FormData): Observable<object> {  
+  register(singUp:any): Observable<object> { 
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
     this.isLoggedIn =true;
-    return this.http.post(this.AUTH_API,formData,{responseType:'arraybuffer'});  
+    return this.http.post(this.AUTH_API,singUp,{headers});  
   }  
 
   login(username:any,password:any): Observable<object> {  

@@ -37,7 +37,9 @@ export class EditCreateDialogComponent {
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       category: new FormControl('', [Validators.required, Validators.minLength(4)]),
       description: new FormControl('', Validators.required),
-      imageUrl: new FormControl('', Validators.required)
+      imageUrl: new FormControl('', Validators.required),
+      price : new FormControl('',Validators.required),
+      quantity : new FormControl('',Validators.required)
     });
 
     if(this.data.Data){
@@ -45,7 +47,9 @@ export class EditCreateDialogComponent {
         name:this.data.Data.name,
         description:this.data.Data.description,
         imageUrl:this.data.Data.imageUrl,
-        category:this.data.Data.category.categoryName
+        category:this.data.Data.category.categoryName,
+        price:this.data.Data.price,
+        quantity:this.data.Data.stockQuantity
       })
     }
   }
@@ -65,9 +69,11 @@ export class EditCreateDialogComponent {
         console.log(this.data.Data);
         const formData = new FormData();
         formData.append("description",this.empForm.value.description)
-        formData.append("name",this.empForm.value.name) 
-        formData.append("category",this.empForm.value.category) 
-        formData.append("imageUrl",this.userFile)   
+        formData.append("name",this.empForm.value.name)
+        formData.append("category",this.empForm.value.category)
+        formData.append("imageUrl",this.userFile)
+        formData.append("price",this.empForm.value.price)
+        formData.append("stockQuantity",this.empForm.value.stockQuantity)   
         this.apiService 
           .updatData(this.data.endpoint,this.data.id, formData)
           .subscribe({ 
@@ -86,6 +92,8 @@ export class EditCreateDialogComponent {
         formData.append("name",this.empForm.value.name)
         formData.append("category",this.empForm.value.category)
         formData.append("imageUrl",this.userFile)
+        formData.append("price",this.empForm.value.price)
+        formData.append("stockQuantity",this.empForm.value.quantity)
         this.apiService.postData(this.data.endpoint,formData).subscribe(
           {
             next: (val: any) => {

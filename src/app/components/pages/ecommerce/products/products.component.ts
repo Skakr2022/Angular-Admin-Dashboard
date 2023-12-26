@@ -19,7 +19,7 @@ export class ProductsComponent   {
     Product!:Product[];
     data!:Product;
     ProDataSource=new MatTableDataSource<Product>(this.Product);
-    ProDisplayedColumns: string[] = ['productId','name' ,'category.categoryName', 'description', 'lastUpdate','action'];
+    ProDisplayedColumns: string[] = ['productId','name' ,'category.categoryName','stockQuantity','price', 'description', 'lastUpdate','action'];
     dropdownItems: string[]=['Edit','Delete'];
     product="product";
     sortActive="productId";

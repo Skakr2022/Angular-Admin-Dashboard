@@ -20,6 +20,36 @@
                   </mat-form-field>
                 </div>
               </div>
+
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label class="d-block fw-semibold">Product Quantity</label>
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="quantity" class="input-control" formControlName="quantity">
+                    <mat-error *ngIf="empForm.get('quantity')?.hasError('required') && empForm.get('quantity')?.touched">
+                       name is required.
+                    </mat-error>
+                    <mat-error *ngIf="empForm.get('quantity')?.hasError('minlength')">
+                       name must be at least 4 characters long.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label class="d-block fw-semibold">Product Price</label>
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="price" class="input-control" formControlName="price">
+                    <mat-error *ngIf="empForm.get('price')?.hasError('required') && empForm.get('price')?.touched">
+                       name is required.
+                    </mat-error>
+                    <mat-error *ngIf="empForm.get('price')?.hasError('minlength')">
+                       name must be at least 4 characters long.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
           
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
