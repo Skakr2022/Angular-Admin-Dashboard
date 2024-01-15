@@ -1,5 +1,5 @@
 <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
-    <h5 class="mb-0">Products</h5>
+    <h5 class="mb-0">Customers</h5>
     <ol class="breadcrumb mb-0 ps-0">
         <li class="breadcrumb-item">
             <a routerLink="/">
@@ -7,10 +7,11 @@
                 Dashboard
             </a>
         </li>
-        <li class="breadcrumb-item fw-semibold">eCommerce</li>
         <li class="breadcrumb-item fw-semibold">Products</li>
+        <li class="breadcrumb-item fw-semibold">Customers</li>
     </ol>
 </div>
+
 
 <mat-card class="mb-25 tagus-card">
     <mat-card-header>
@@ -20,27 +21,24 @@
                 <input type="text" class="input-search d-block" (keyup)="applyFilter($event)" placeholder="Search here..">
                 <button type="submit"><i class="ri-search-line"></i></button>
             </form>
-            <a mat-flat-button class="default-btn tagus small" (click)="openDialogCreate()">
-                <i class="ri-add-fill"></i> Create New
-            </a>
         </div>
     </mat-card-header>
-    <mat-card-content> 
+    <mat-card-content >
         <div style="overflow-x:auto; overflow-y:hidden" class="mat-elevation-z8 tagus-mat-table">
          <app-table
          [isLoadingResults]="isLoadingResults"
          [isEmpty]="isEmpty"
          [DataNumber]="DataNumber"
+         [hasImage]="hasImage"
          [hasAction]="hasAction"
          [filterValue]="filterValue"
-         idField="categoryId"
-         [Dialog]="dialog"
-         [dialogData]="dialogCategory"
-         [Items]="dropdownItems"
+         idField="id"
+         [Items]="dropdownItems" 
          [sortActive]="sortActive" 
          [endpoint]="endpoint" 
-         [dataSource]="CatDataSource" 
-         [displayedColumns]="CatDisplayedColumns">
+         [dataSource]="UserDataSource" 
+         [displayedColumns]="UserDisplayedColumns">
+
          </app-table>  
         </div> 
     </mat-card-content>

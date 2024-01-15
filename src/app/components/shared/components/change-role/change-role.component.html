@@ -1,0 +1,26 @@
+<div class="create-dialog-box scrollable-dialog">
+    <div class="title d-flex align-items-center justify-content-space-between">
+        <h4 class="mb-0">Change Role</h4>
+        <button mat-dialog-close class="close-btn bg-transparent p-0 border-none" ><i class="flaticon-close"></i></button>
+    </div>
+    <form [formGroup]="Form">
+        <div class="form-group">
+              <label class="d-block fw-semibold">Role </label>
+              <mat-form-field appearance="outline">
+                <mat-select matInput   formControlName="role" placeholder="role">
+                  <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="Form.get('role')?.hasError('required') && Form.get('role')?.touched">
+                  Category name is required.
+                </mat-error>
+              </mat-form-field>
+        </div>
+        <div class="text-end">
+            <button mat-dialog-close type="button" class="gray" ><i class="ri-close-fill"></i> Cancel</button>
+            <button  mat-flat-button class="save buttons default-btn tagus " (click)="onSubmit()" >
+              Update
+              <mat-icon>{{data.actionButtonText}}</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>

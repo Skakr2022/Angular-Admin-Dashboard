@@ -28,16 +28,19 @@
     <mat-card-content >
         <div style="overflow-x:auto; overflow-y:hidden" class="mat-elevation-z8 tagus-mat-table">
          <app-table
+         [isLoadingResults]="isLoadingResults"
+         [isEmpty]="isEmpty"
+         [DataNumber]="DataNumber"
          [imagePosition]="imagePosition"
          [hasImage]="hasImage"
          [hasAction]="hasAction"
          [filterValue]="filterValue"
-         idField="productId"
+         [idField]="idField"
          [Dialog]="dialog"
          [dialogData]="dialogProduct" 
          [Items]="dropdownItems"
          [sortActive]="sortActive" 
-         [endpoint]="product" 
+         [endpoint]="endpoint" 
          [dataSource]="ProDataSource" 
          [displayedColumns]="ProDisplayedColumns">
 

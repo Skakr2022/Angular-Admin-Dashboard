@@ -139,7 +139,31 @@
         }
     }
 }
-
+::ng-deep .mat-form-field-appearance-outline .mdc-notched-outline__leading
+{
+    border-radius: 20px 0 0 20px !important;
+    // border: 1px solid #B1B5C3 ;
+}
+::ng-deep .mat-form-field-appearance-outline .mdc-notched-outline__trailing  {
+    border-radius: 0 15px 15px 0 !important;
+    // border: 1px solid #B1B5C3 ;
+}
+::ng-deep .mdc-text-field:not(.mdc-text-field--invalid):not(.mdc-text-field--disabled) {
+    .mdc-notched-outline > * {
+      border-color: rgba(117, 115, 115, 0.2) !important;
+    }
+}
+.mat-input {
+    &::placeholder {
+        color: #979ba5!important;
+        transition:.5s!important;
+    }
+    &:focus {
+        &::placeholder {
+            color: transparent !important;
+        }
+    }
+}
 @media only screen and (max-width : 767px) {
 
     .tagus-form {

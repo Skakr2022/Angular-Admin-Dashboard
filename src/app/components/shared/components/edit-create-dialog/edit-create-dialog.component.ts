@@ -32,7 +32,7 @@ export class EditCreateDialogComponent {
   
   ngOnInit(): void {
     this.listProductCategories();
-   
+    console.log(this.empForm);
     this.empForm = this._fb.group({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       category: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -43,6 +43,7 @@ export class EditCreateDialogComponent {
     });
 
     if(this.data.Data){
+      console.log(this.data.Data);
       this.empForm.setValue({
         name:this.data.Data.name,
         description:this.data.Data.description,
@@ -66,16 +67,17 @@ export class EditCreateDialogComponent {
   onSubmit(){
     if(this.empForm.valid){
       if (this.data.Data) {
-        console.log(this.data.Data);
+        console.log(this.data.productId);
+        console.log(this.data);
         const formData = new FormData();
         formData.append("description",this.empForm.value.description)
         formData.append("name",this.empForm.value.name)
         formData.append("category",this.empForm.value.category)
-        formData.append("imageUrl",this.userFile)
+        formData.append("imageUrl", this.userFile || this.empForm.value.imageUrl);
         formData.append("price",this.empForm.value.price)
         formData.append("stockQuantity",this.empForm.value.stockQuantity)   
         this.apiService 
-          .updatData(this.data.endpoint,this.data.id, formData)
+          .updatData(this.data.endpoint,this.data.productId, formData)
           .subscribe({ 
             next: (val: any) => {
               this._coreService.openSnackBar('Product details updated!');
@@ -93,7 +95,7 @@ export class EditCreateDialogComponent {
         formData.append("category",this.empForm.value.category)
         formData.append("imageUrl",this.userFile)
         formData.append("price",this.empForm.value.price)
-        formData.append("stockQuantity",this.empForm.value.quantity)
+        formData.append("stockQuantity",this.empForm.value.quantity) 
         this.apiService.postData(this.data.endpoint,formData).subscribe(
           {
             next: (val: any) => {
@@ -111,27 +113,16 @@ export class EditCreateDialogComponent {
     }
 }
 
-
-    onSelectFile(event: Event) {
-      console.log("file   ....")
-      const e = (event.target as HTMLInputElement);
-      if ( e.files!.length > 0 )
-      {
+  onSelectFile(event: Event) {
+    const e = (event.target as HTMLInputElement);
+      if ( e.files!.length > 0 ){
         const file = e.files![0];
         this.userFile = file;
-       // this.f['profile'].setValue(file);
-   
-      
-   
-      var reader = new FileReader();
-      
-      this.imagePath = file;
-      reader.readAsDataURL(file); 
-      reader.onload = (_event) => { 
+        var reader = new FileReader();
+        reader.readAsDataURL(file); 
+        reader.onload = (_event) => { 
         this.imgURL = reader.result; 
       }
     }
   }
-  
-
 }

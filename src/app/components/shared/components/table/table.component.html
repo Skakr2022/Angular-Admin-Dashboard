@@ -1,5 +1,12 @@
- <div *ngIf="isEmpty ; else noData">
-    <table  
+
+
+<div  class="example-container" [hidden]="isEmpty">
+    <div class="example-loading-shade"
+        *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div>
+       <table  
         mat-table 
         matSort 
         color="primary" 
@@ -39,22 +46,23 @@
             <td class="mat-cell" colspan="4">No data matching the filter {{this.filterValue}} </td>
           </tr>
     </table>
+    </div>
+   
           <mat-paginator 
-                    [length]="categNum"
+                    [length]="DataNumber"
                     [pageSizeOptions]="[5, 10, 20]"
                     showFirstLastButtons
                     >
           </mat-paginator>
 </div>
-    <ng-template #noData> 
+
+<div [hidden]="!isEmpty">
       <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
         <img src="../../../../../assets/img/empty.svg" style="width: 250px;" alt="Logo">
         <h2>No Products Founds </h2>
         <h3>Create Products from here</h3>
       </div>
-    </ng-template>
-    
-    
+</div>
     
     <mat-menu class="dotMenu two monthMenu" xPosition="after" #appMenu="matMenu">
       <ng-template matMenuContent let-element="element">

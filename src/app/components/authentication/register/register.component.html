@@ -18,10 +18,9 @@
                 <form name="form" [formGroup]="signupForm" #f="ngForm">
                     <div class="bg-white border-radius pt-20 ps-20 pe-20">
                         <div class="tagus-form-group without-icon">
-                            <label class="d-block mb-12 fw-semibold gray-color">Full name </label>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter name</mat-label>
-                                <input matInput formControlName="fullName">
+                            <label class="d-block mb-12 fw-semibold gray-color">Full name <span>*</span></label>
+                            <mat-form-field appearance="outline">
+                                <input matInput class="mat-input" formControlName="fullName" placeholder="Enter name">
                                 <mat-error *ngIf="signupForm.get('fullName')?.invalid">
                                     {{getFullNameErrorMessage()}}       
                                 </mat-error>
@@ -29,9 +28,8 @@
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Username <span>*</span></label>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter a username</mat-label>
-                                <input matInput formControlName="username">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="mat-input" formControlName="username" placeholder="Enter a username">
                                 <mat-error *ngIf="signupForm.get('username')?.invalid">
                                     {{getUserNameErrorMessage()}}       
                                 </mat-error>
@@ -39,9 +37,8 @@
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Email Address <span>*</span></label>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter email address</mat-label>
-                                <input matInput formControlName="email">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="mat-input" formControlName="email" placeholder="Enter email address">
                                 <mat-error *ngIf="signupForm.get('email')?.invalid">
                                     {{getEmailErrorMessage()}}       
                                 </mat-error>
@@ -49,12 +46,13 @@
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Password <span>*</span></label>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter your password</mat-label>
+                            <mat-form-field appearance="outline">
                                 <input matInput 
+                                       class="mat-input"
                                        [type]="hide ? 'password' : 'text'"
                                        id="password"
-                                       formControlName="password">
+                                       formControlName="password"
+                                       placeholder="Enter your password">
                                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>
@@ -65,12 +63,13 @@
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Confirm Password <span>*</span></label>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter your password</mat-label>
+                            <mat-form-field appearance="outline">
                                 <input matInput 
+                                       class="mat-input"
                                        [type]="hide ? 'password' : 'text'"
                                        id="ConfirmPass"
-                                       formControlName="confirmPassword">
+                                       formControlName="confirmPassword"
+                                       placeholder="Enter your password">
                                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>

@@ -26,9 +26,8 @@
                     <div class="bg-white border-radius pt-20 ps-20 pe-20">
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Email Address <span>*</span></label>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter email address</mat-label>
-                                <input matInput formControlName="email" >
+                            <mat-form-field appearance="outline">
+                                <input matInput class="mat-input" placeholder="Enter email address" formControlName="email" >
                                 <mat-error *ngIf="loginForm.get('email')?.invalid">
                                     {{getEmailErrorMessage()}}       
                                 </mat-error>
@@ -36,9 +35,8 @@
                         </div>
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Password <span>*</span></label>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Enter your password</mat-label>
-                                <input matInput formControlName="password"  [type]="hide ? 'password' : 'text'">
+                            <mat-form-field appearance="outline">
+                                <input matInput class="mat-input" placeholder="Enter your password" formControlName="password"  [type]="hide ? 'password' : 'text'">
                                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </button>

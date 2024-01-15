@@ -1,12 +1,14 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { catchError, of as observableOf ,map, merge, startWith, switchMap } from 'rxjs';
 import { ApiService } from 'src/app/components/core/services/api.service';
 import { CoreService } from 'src/app/components/core/services/core.service';
 import { SortingDataAccessorService } from 'src/app/components/core/services/sorting-data-accessor.service';
 import { CategoryDialogComponent } from 'src/app/components/shared/components/category-dialog/category-dialog.component';
 import { EditCreateDialogComponent } from 'src/app/components/shared/components/edit-create-dialog/edit-create-dialog.component';
+import { TableComponent } from 'src/app/components/shared/components/table/table.component';
 import { Category } from 'src/app/components/shared/models/Category.model';
 import { dialogData } from 'src/app/components/shared/models/Dialog-data.model';
 import { Product } from 'src/app/components/shared/models/Product.model';
@@ -17,35 +19,108 @@ import { Product } from 'src/app/components/shared/models/Product.model';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent {
+  resultsLength=0;
+  isLoadingResults=false;
+  isEmpty=false;
   CategoryProduct!:Category[];
   data!:Category[];
   CatDataSource=new MatTableDataSource<Category>(this.CategoryProduct);
   CatDisplayedColumns: string[] = ['categoryId' ,'categoryName','ProductNum','CreationDate', 'action'];
   dropdownItems: string[]=['Edit','Delete'];
-  category="product_category";
+  endpoint="product_category";
   sortActive="categoryId";
   dialog = CategoryDialogComponent;
   hasAction=true;
-  
+  DataNumber!:number;
   dialogCategory: dialogData={
     name:"EditCategory",
     title: "Update Category",
     actionButtonText: "Edit",
     data:this.data,
-    endpoint:this.category,
+    endpoint:this.endpoint,
     
     idField:"categoryId"
 
   };
   filterValue!: string ;
-  
+  @ViewChild(TableComponent, { static: true }) table!: TableComponent;
 
-  constructor(private matDialog: MatDialog) { 
+
+  constructor(private matDialog: MatDialog,
+              // private table:TableComponent,
+              private apiService:ApiService,
+              ) { 
 
   }
 
   ngOnInit(){
+    // this.loadData();
+    this.listData();
     console.log(this.CatDataSource);
+  }
+
+  ngAfterViewInit(){
+    this.table.sort.sortChange.subscribe(() => (this.table.paginator.pageIndex = 0));
+    merge(this.table.paginator.page,this.table.sort.sortChange)
+    .pipe(
+      startWith({}),
+      switchMap(() => {
+          this.isLoadingResults = true;
+          return this.apiService
+          .listPageableSortableData(
+            this.endpoint,
+            this.table.paginator?.pageIndex ?? 0,
+            this.table.paginator?.pageSize ?? 5,
+            this.table.sort?.active ?? this.sortActive,
+            this.table.sort?.direction ?? "asc")
+            .pipe(catchError(() => observableOf(null)));
+            
+      }),
+      map(data => {
+          this.isLoadingResults = false;
+
+          if (data === null) {
+            return [];
+          }
+
+        // Only refresh the result length if there is new data. In case of rate
+        // limit errors, we do not want to reset the paginator to zero, as that
+        // would prevent users from re-triggering requests.
+        // this.resultsLength = data.total_count;
+        return data;
+          
+      }),
+     )
+     .subscribe((data)=>{
+      this.CatDataSource=new MatTableDataSource(data.content);
+    });
+  }
+ 
+  loadData():void{
+    this.apiService
+    .listPageableSortableData(
+      this.endpoint,
+      this.table.paginator?.pageIndex ?? 0,
+      this.table.paginator?.pageSize ?? 5,
+      this.table.sort?.active ?? this.sortActive,
+      this.table.sort?.direction ?? "asc")
+      .subscribe((data)=>{
+        console.log(data);
+       this.CatDataSource=new MatTableDataSource(data.content);
+      // this.ProDataSource.data = data.content ;
+      });
+  }
+
+  listData(){
+    console.log("listData");
+    this.apiService
+    .getData(this.endpoint).subscribe(data=> {
+      console.log(data.length);
+      this.DataNumber=data.length;
+      if(data.length==0){
+        this.isEmpty=true;
+      }
+    })
   }
  
   
@@ -65,7 +140,7 @@ export class CategoryComponent {
       name: "CreateCategory",
       title: "Create category",
       actionButtonText: "Create",
-      endpoint:this.category,
+      endpoint:this.endpoint,
      
       idField:"categoryId"
     }

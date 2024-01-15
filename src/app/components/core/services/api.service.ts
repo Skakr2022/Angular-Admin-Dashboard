@@ -14,9 +14,7 @@ export class ApiService {
     }
 
     postData(endpoint:string,formData:FormData):Observable<any>{
-        return this.http.post(`${this.URL}/${endpoint}`,formData,{ 
-           responseType:'arraybuffer'
-        } );
+        return this.http.post(`${this.URL}/${endpoint}`,formData);
     }
 
     updatData(endpoint:string,id:number,formData:FormData): Observable<any>{
@@ -25,10 +23,6 @@ export class ApiService {
     
     deleteData(endpoint:string,id:number):Observable<any>{
        return this.http.delete(`${this.URL}/${endpoint}/${id}`);
-    }
-
-    public getphoto(endpoint:string,id:number): Observable<ArrayBuffer>{
-       return this.http.get(`${this.URL}/${endpoint}`+'/img/'+`${id}`,{responseType:'arraybuffer'})
     }
     
     listPageableSortableData(
