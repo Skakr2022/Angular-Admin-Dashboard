@@ -34,7 +34,7 @@ export class ChangeRoleComponent implements OnInit {
 
     this.roleService.putRole(this.data.Data.id,formData).subscribe({
      next: ()=>{
-      this._coreService.openSnackBar('role has changed successfully!');
+      this._coreService.openSuccessSnackBar('role has changed successfully!');
       this._dialogRef.close(true);
      },
      error: (err:any)=>{

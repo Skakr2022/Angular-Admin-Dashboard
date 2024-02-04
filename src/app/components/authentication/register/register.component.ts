@@ -6,6 +6,7 @@ import { AuthValidatorsService } from '../../core/services/Auth-Validators.servi
 import { user } from '../../shared/models/user.model';
 import { AuthService } from '../../core/services/Auth.service';
 import { CoreService } from '../../core/services/core.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-register',
@@ -103,11 +104,11 @@ export class RegisterComponent implements OnInit {
       this.authService.register(signup).subscribe({
         next: (val: any) => {
           console.log("test")
-          this.coreService.openSnackBar('successfully added!');
+          this.coreService.openSuccessSnackBar('successfully added!');
           this.router.navigate(['/authentication/login']);  
         },
-        error: (err: any) => {
-          console.error(err);
+        error: (err: HttpErrorResponse) => {
+          this.coreService.openErrorSnackBar(err.error);
         },
       })  
      }

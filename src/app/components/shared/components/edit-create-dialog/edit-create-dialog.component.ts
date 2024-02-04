@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/components/core/services/api.service';
 import { CoreService } from 'src/app/components/core/services/core.service';
 import { Category } from '../../models/Category.model';
 import { ProductService } from 'src/app/components/core/services/product.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-create-dialog',
@@ -80,11 +81,12 @@ export class EditCreateDialogComponent {
           .updatData(this.data.endpoint,this.data.productId, formData)
           .subscribe({ 
             next: (val: any) => {
-              this._coreService.openSnackBar('Product details updated!');
+              this._coreService.openSuccessSnackBar('Product details updated!');
               this._dialogRef.close(true);
             },
-            error: (err: any) => {
-              console.error(err);
+            error: (err: HttpErrorResponse) => {
+              console.error(err)
+              this._coreService.openErrorSnackBar(err.error.message);
             },
           });
       } else {
@@ -99,11 +101,12 @@ export class EditCreateDialogComponent {
         this.apiService.postData(this.data.endpoint,formData).subscribe(
           {
             next: (val: any) => {
-              this._coreService.openSnackBar('Product successfully added!');
+              this._coreService.openSuccessSnackBar('Product successfully added!');
               this._dialogRef.close(true);
             },
-            error: (err: any) => {
-              console.error(err);
+            error: (err: HttpErrorResponse) => {
+              console.error(err)
+              this._coreService.openErrorSnackBar(err.error.message);
             },
           }
         );

@@ -94,17 +94,10 @@ import { UsersComponent } from './components/pages/ecommerce/users/users.compone
 import { ProductsCartComponent } from './components/pages/ecommerce/products-cart/products-cart.component';
 import { ProductsCheckoutComponent } from './components/pages/ecommerce/products-checkout/products-checkout.component';
 import { ProductSellersComponent } from './components/pages/ecommerce/product-sellers/product-sellers.component';
-import { PoStatsComponent } from './components/pages/ecommerce/products-orders/po-stats/po-stats.component';
-
 import { FlaticonComponent } from './components/pages/icons/flaticon/flaticon.component';
 
 import { MapsComponent } from './components/pages/maps/maps.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
-import { PersonalInfoComponent } from './components/pages/profile/personal-info/personal-info.component';
-import { ActivityTimelineComponent } from './components/pages/profile/activity-timeline/activity-timeline.component';
-import { StatsComponent } from './components/pages/profile/stats/stats.component';
-import { OverviewComponent } from './components/pages/profile/overview/overview.component';
-import { TasksComponent } from './components/pages/profile/tasks/tasks.component';
 import { AccountComponent } from './components/pages/account/account.component';
 import { SecurityComponent } from './components/pages/security/security.component';
 import { ConnectionsComponent } from './components/pages/connections/connections.component';
@@ -135,6 +128,8 @@ import { CategoryDialogComponent } from './components/shared/components/category
 import { httpInterceptorProviders } from './components/core/interceptors/auth.interceptor';
 import { ChangeRoleComponent } from './components/shared/components/change-role/change-role.component';
 import { TestimonialsComponent } from './components/pages/testimonials/testimonials.component';
+import { RoleTransformPipe } from './components/core/pipes/role-transform.pipe';
+import { SnackBarComponent } from './components/shared/components/snack-bar/snack-bar.component';
 
 @NgModule({
     declarations: [
@@ -157,7 +152,7 @@ import { TestimonialsComponent } from './components/pages/testimonials/testimoni
         NewCustomersComponent,
         LiveVisitsOnOurSiteComponent,
         RevenueStatusComponent,
-    
+        RoleTransformPipe,
         AnalyticsCustomersComponent,
         AnalyticsReportsComponent,
         AcAudienceOverviewComponent,
@@ -175,15 +170,9 @@ import { TestimonialsComponent } from './components/pages/testimonials/testimoni
         ProductsCartComponent,
         ProductsCheckoutComponent,
         ProductSellersComponent,
-        PoStatsComponent,
         FlaticonComponent,
         MapsComponent,
         ProfileComponent,
-        PersonalInfoComponent,
-        ActivityTimelineComponent,
-        StatsComponent,
-        OverviewComponent,
-        TasksComponent,
         AccountComponent,
         SecurityComponent,
         ConnectionsComponent,
@@ -213,6 +202,7 @@ import { TestimonialsComponent } from './components/pages/testimonials/testimoni
         EditCreateDialogComponent,
         CategoryDialogComponent,
         ChangeRoleComponent,
+        SnackBarComponent,
     ],
     imports: [
         BrowserModule,
@@ -277,8 +267,8 @@ import { TestimonialsComponent } from './components/pages/testimonials/testimoni
     providers: [
         DatePipe,
         ApiService,
-        httpInterceptorProviders,
-        TableComponent
+        TableComponent,
+        SnackBarComponent
     ],
     bootstrap: [AppComponent]
 })

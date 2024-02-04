@@ -1,45 +1,33 @@
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
-    <h5 class="mb-0">Profile</h5>
-    <ol class="breadcrumb mb-0 ps-0">
-        <li class="breadcrumb-item">
-            <a routerLink="/">
-                <i class="ri-home-8-line"></i>
-                Dashboard
-            </a>
-        </li>
-        <li class="breadcrumb-item fw-semibold">Profile</li>
-    </ol>
-</div>
-
-<div class="row">
-    <div class="col-xxl-4">
-
-        <div
-            class="welcome-box border-radius bg-white box-shadow mb-25"
-            [class.component-dark-theme]="themeService.isDark()"
-            [class.card-borderd-theme]="themeService.isCardBorder()"
-            [class.card-border-radius]="themeService.isCardBorderRadius()"
-            [class.component-rtl-enabled]="themeService.isRTLEnabled()"
-        >
-            <div class="top border-radius position-relative">
-                <img src="assets/img/shape.png" alt="welcome">
-                <h4>Welcome to Tagus Dashboard !</h4>
-                <p>You have done 68% 😎 more sales today. Check your new badge in your profile.</p>
+<mat-card
+    class="mb-25 tagus-card"
+    [class.component-dark-theme]="themeService.isDark()"
+    [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+>
+    <mat-card-header class="border-bottom">
+        <h5 class="mb-0">Profile</h5>
+    </mat-card-header>
+    <mat-card-content>
+            <div class="container">
+            
+            <div class="left-side">
+              <h5 class="fw-semibold mb-8 mt-5">Your Photo</h5>
+              <img src="assets/img/user/user15.jpg" class="" width="250" alt="user">
             </div>
-        </div>
-
-        <app-personal-info></app-personal-info>
-
-        <app-activity-timeline></app-activity-timeline>
-
-    </div>
-    <div class="col-xxl-8">
-
-        <app-stats></app-stats>
-
-        <app-overview></app-overview>
-
-        <app-tasks></app-tasks>
-
-    </div>
-</div>
+            <div class="right-side">
+                    <div class="d-flex">
+                        <h5 class="gray-color">Full Name:</h5>
+                        <span>{{userData.fullName}}</span>
+                    </div>
+                    <div class="d-flex">
+                        <h5 class="gray-color">Username:</h5>
+                         <span >{{userData.username}}</span>  
+                    </div>
+                    <div class="d-flex">
+                        <h5 class="gray-color">Email Address:</h5>
+                        <span class="">{{userData.email}}</span> 
+                    </div>
+                
+            </div>
+            </div>
+    </mat-card-content>
+</mat-card>

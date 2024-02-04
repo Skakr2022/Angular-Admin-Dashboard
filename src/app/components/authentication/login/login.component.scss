@@ -164,6 +164,10 @@
         }
     }
 }
+.custom-snackbar {
+    background-color: green !important;
+    color: white; /* Set the text color as per your requirement */
+  }
 @media only screen and (max-width : 767px) {
 
     .tagus-form {

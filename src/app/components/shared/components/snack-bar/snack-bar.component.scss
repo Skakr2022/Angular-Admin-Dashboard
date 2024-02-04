@@ -1,0 +1,29 @@
+.cus-snackbar {
+    display: flex;
+    align-items: center;
+
+    .mat-icon {
+        font-size: 2rem;
+        height: 2rem;
+        width: 2rem;
+        margin-right: .5rem;
+    }
+}
+
+$snack-bar-button-color: white;
+$snackbar-container-default-color: red;
+$snackbar-supporting-text-color: white;
+
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: $snack-bar-button-color;
+  --mdc-snackbar-container-color: $snackbar-container-default-color;
+  --mdc-snackbar-supporting-text-color: $snackbar-supporting-text-color;
+}
+
+.success-snackbar {
+  --mdc-snackbar-container-color: green;
+}
+
+.success-snackbar {
+    --mdc-snackbar-container-color: red;
+}

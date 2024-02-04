@@ -36,7 +36,7 @@ const routes: Routes = [
         pathMatch: 'full' 
       },
     { path:'ecommerce',
-      canActivateChild:[authGuardGuard],
+      // canActivateChild:[authGuardGuard],
       children: [
         { path: '', component: EcommerceComponent },
         { path: 'products', component: ProductsComponent },
@@ -60,7 +60,10 @@ const routes: Routes = [
     {path: 'error-500', component: InternalErrorComponent},
     {path: 'authentication/forgot-password', component: ForgotPasswordComponent},
     {path: 'authentication/reset-password', component: ResetPasswordComponent},
-    {path: 'authentication/login',canActivate:[loginGuard], component: LoginComponent},
+    {path: 'authentication/login',
+    //  canActivate:[loginGuard],
+     component: LoginComponent
+    },
     {path: 'authentication/register', component: RegisterComponent},
     {path: 'authentication/signin-signup', component: SigninSignupComponent},
     {path: 'authentication/logout', component: LogoutComponent},

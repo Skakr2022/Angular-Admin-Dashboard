@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewEncapsulation } from '@angular/core';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/Auth.service';
 import { CoreService } from '../../core/services/core.service';
 import { TokenStorageService } from '../../core/services/token-storage.sevice';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit{
     isCorrect:boolean=false;
     isEmpty:boolean=false;
     roles: string[] = [];
-
+    errorMessage:string ;
     constructor(
         public themeService: CustomizerSettingsService,
         private fb: FormBuilder,
@@ -66,10 +67,14 @@ export class LoginComponent implements OnInit{
               this.tokenStorage.saveUser(data);
               window.location.reload();
             } 
-              this.coreService.openSnackBar('user successfully conected!');
+              this.coreService.openSuccessSnackBar('user successfully conected!');
           },
-          error: (err: any) => {
-            console.error(err);
+          error: (error: HttpErrorResponse) => {
+            if (error.error.message) {
+               this.errorMessage = error.error.message;
+               this.coreService.openErrorSnackBar(this.errorMessage); 
+            }
+        
           },
         })
       }

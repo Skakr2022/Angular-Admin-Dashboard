@@ -8,14 +8,6 @@ import {
     ChartComponent
 } from "ng-apexcharts";
 
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    labels: string[];
-    colors: any;
-    plotOptions: ApexPlotOptions;
-    fill: ApexFill;
-};
 
 @Component({
     selector: 'app-profile',
@@ -23,54 +15,25 @@ export type ChartOptions = {
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-
-    @ViewChild("chart") chart: ChartComponent;
-    public chartOptions: Partial<ChartOptions>;
-
+    userData!:any;
     constructor(
         public themeService: CustomizerSettingsService
-    ) {
-        this.chartOptions = {
-            series: [50],
-            chart: {
-                height: 110,
-                width: 110,
-                offsetX: 2.5,
-                type: "radialBar",
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            colors: ["#00B69B"],
-            plotOptions: {
-                radialBar: {
-                    startAngle: -120,
-                    endAngle: 120,
-                    dataLabels: {
-                        name: {
-                            show: false
-                        },
-                        value: {
-                            offsetY: 3,
-                            fontSize: "14px",
-                            fontWeight: "700",
-                        }
-                    }
-                }
-            }
-        };
+    ) {}
+
+    ngOnInit(): void {
+    const userDataString = sessionStorage.getItem('auth-user');
+    if (userDataString) {
+      // Parse the string into a JavaScript object
+      this.userData = JSON.parse(userDataString);
+    } else {
+      console.log('No user data found in session storage');
     }
+    }
+
+    
 
     toggleTheme() {
         this.themeService.toggleTheme();
-    }
-
-    toggleCardBorderTheme() {
-        this.themeService.toggleCardBorderTheme();
-    }
-
-    toggleCardBorderRadiusTheme() {
-        this.themeService.toggleCardBorderRadiusTheme();
     }
 
     toggleRTLEnabledTheme() {

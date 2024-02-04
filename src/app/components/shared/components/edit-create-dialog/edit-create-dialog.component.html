@@ -1,6 +1,6 @@
 <div class="create-dialog-box scrollable-dialog">
     <div class="title d-flex align-items-center justify-content-space-between">
-        <h4 class="mb-0">Create New User</h4>
+        <h4 class="mb-0">Create New Product</h4>
         <button mat-dialog-close class="close-btn bg-transparent p-0 border-none" ><i class="flaticon-close"></i></button>
     </div>
     <form [formGroup]="empForm">
@@ -24,12 +24,9 @@
                 <div class="form-group">
                   <label class="d-block fw-semibold">Product Quantity</label>
                   <mat-form-field appearance="outline">
-                    <input matInput placeholder="quantity" class="input-control" formControlName="quantity">
+                    <input matInput type="number" min="0" placeholder="quantity" class="input-control" formControlName="quantity">
                     <mat-error *ngIf="empForm.get('quantity')?.hasError('required') && empForm.get('quantity')?.touched">
-                       name is required.
-                    </mat-error>
-                    <mat-error *ngIf="empForm.get('quantity')?.hasError('minlength')">
-                       name must be at least 4 characters long.
+                      Quantity is required.
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -39,12 +36,9 @@
                 <div class="form-group">
                   <label class="d-block fw-semibold">Product Price</label>
                   <mat-form-field appearance="outline">
-                    <input matInput placeholder="price" class="input-control" formControlName="price">
+                    <input matInput type="number" min="0" placeholder="price" class="input-control" formControlName="price">
                     <mat-error *ngIf="empForm.get('price')?.hasError('required') && empForm.get('price')?.touched">
-                       name is required.
-                    </mat-error>
-                    <mat-error *ngIf="empForm.get('price')?.hasError('minlength')">
-                       name must be at least 4 characters long.
+                      Price is required.
                     </mat-error>
                   </mat-form-field>
                 </div>

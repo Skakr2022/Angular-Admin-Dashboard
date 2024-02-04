@@ -86,12 +86,10 @@ export class TableComponent implements OnInit,AfterViewInit {
 
   openDialogEdit(data:any):void {
     this.editEvent.emit(data);
-
   }
 
   deleteData(data: any){
     this.deleteEvent.emit(data);
-
   }
 
   announceSortChange(sortState: Sort) {

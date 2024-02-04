@@ -8,6 +8,7 @@ import { Category } from '../../models/Category.model';
 import { EditCreateDialogComponent } from '../edit-create-dialog/edit-create-dialog.component';
 import { Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/components/core/services/category.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-category-dialog',
   templateUrl: './category-dialog.component.html',
@@ -70,11 +71,12 @@ export class CategoryDialogComponent {
           .updateCategory(this.data.id, formData)
           .subscribe({ 
             next: (val: any) => {
-              this._coreService.openSnackBar('categoy details updated!');
+              this._coreService.openSuccessSnackBar('categoy details updated!');
               this._dialogRef.close(true);
             },
-            error: (err: any) => {
+            error: (err: HttpErrorResponse) => {
               console.error(err);
+              this._coreService.openErrorSnackBar(err.error);
             },
           });
       } else {
@@ -88,11 +90,12 @@ export class CategoryDialogComponent {
         this.apiService.postCategories(productCategory).subscribe(
           {
             next: (val: any) => {
-              this._coreService.openSnackBar('Category successfully added!');
+              this._coreService.openSuccessSnackBar('Category successfully added!');
               this._dialogRef.close(true);
             },
             error: (err: any) => {
               console.error(err);
+              this._coreService.openErrorSnackBar(err.error);
             },
           }
         );
@@ -101,9 +104,4 @@ export class CategoryDialogComponent {
       console.log("no valid data")
     }
 }
-
-
-    
-  
-
 }

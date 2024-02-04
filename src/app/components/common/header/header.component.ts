@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ToggleService } from './toggle.service';
 import { DatePipe } from '@angular/common';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
-
+export class HeaderComponent implements OnInit {
+    user:any;
     isSticky: boolean = false;
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
@@ -23,7 +23,16 @@ export class HeaderComponent {
             this.isSticky = false;
         }
     }
-
+    ngOnInit(){
+        const userDataString = sessionStorage.getItem('auth-user');
+        if (userDataString) {
+            // Parse the string into a JavaScript object
+            this.user = JSON.parse(userDataString);
+            console.log(this.user.roles[0]);
+          } else {
+            console.log('No user data found in session storage');
+          }
+    }
     isToggled = false;
     
     constructor(
