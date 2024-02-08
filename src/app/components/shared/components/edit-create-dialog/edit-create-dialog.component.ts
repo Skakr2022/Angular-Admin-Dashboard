@@ -76,7 +76,7 @@ export class EditCreateDialogComponent {
         formData.append("category",this.empForm.value.category)
         formData.append("imageUrl", this.userFile || this.empForm.value.imageUrl);
         formData.append("price",this.empForm.value.price)
-        formData.append("stockQuantity",this.empForm.value.stockQuantity)   
+        formData.append("stockQuantity",this.empForm.value.quantity)   
         this.apiService 
           .updatData(this.data.endpoint,this.data.productId, formData)
           .subscribe({ 

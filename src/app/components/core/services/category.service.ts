@@ -18,12 +18,10 @@ export class CategoryService {
      return this.http.get<Category>(this.CategoriesURL);
    }
    
-   postCategories(productCategory:any):Observable<any>{
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+   postCategories(productCategory:FormData):Observable<any>{
       return this.http.post(
          this.CategoriesURL,
          productCategory,
-         { headers }
           );
    }
 

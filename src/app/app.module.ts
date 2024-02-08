@@ -268,7 +268,8 @@ import { SnackBarComponent } from './components/shared/components/snack-bar/snac
         DatePipe,
         ApiService,
         TableComponent,
-        SnackBarComponent
+        SnackBarComponent,
+        httpInterceptorProviders
     ],
     bootstrap: [AppComponent]
 })

@@ -10,29 +10,15 @@ export class AuthService {
   private AUTH_API  =  'http://localhost:8080/user/signup';
   private AUTH_API1 = 'http://localhost:8080/user/login'  ;
   private AUTH_API2 = 'http://localhost:8080/user/signout';
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  private isLoggedIn :boolean = false;
 
   constructor(private http: HttpClient) { }
 
-  register(singUp:any): Observable<object> { 
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    this.isLoggedIn =true;
-    return this.http.post(this.AUTH_API,singUp,{headers});  
+  register(singUp:FormData): Observable<object> { 
+    return this.http.post(this.AUTH_API,singUp);  
   }  
 
-  login(username:any,password:any): Observable<object> {  
-    return this.http.post(this.AUTH_API1, 
-    
-      {
-        username,
-        password
-      },
-      this.httpOptions
-    
-     );  
+  login(loginRequest:FormData): Observable<object> {  
+    return this.http.post(this.AUTH_API1, loginRequest);  
   }
 
   // Sign out

@@ -64,11 +64,8 @@ export class CategoryDialogComponent {
         console.log(this.data.Data);
         const formData = new FormData();
         formData.append("categoryName",this.empForm.value.categoryName)
-
-        
-         
         this.apiService 
-          .updateCategory(this.data.id, formData)
+          .updateCategory(this.data.Data.categoryId, formData)
           .subscribe({ 
             next: (val: any) => {
               this._coreService.openSuccessSnackBar('categoy details updated!');
@@ -80,14 +77,11 @@ export class CategoryDialogComponent {
             },
           });
       } else {
-        const productCategory = {
-          "categoryName": this.empForm.value.categoryName
-      }
         const formData = new FormData();
         console.log(this.empForm.value)
         formData.append("categoryName",this.empForm.value.categoryName)
       
-        this.apiService.postCategories(productCategory).subscribe(
+        this.apiService.postCategories(formData).subscribe(
           {
             next: (val: any) => {
               this._coreService.openSuccessSnackBar('Category successfully added!');
