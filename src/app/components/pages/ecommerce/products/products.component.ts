@@ -233,6 +233,6 @@ export class ProductsComponent implements OnInit, AfterViewInit {
             EditCreateDialogComponent,
             dialogConfig
         );
-        dialogRef.afterClosed().subscribe((result) => {});
+        dialogRef.afterClosed().subscribe((result) => {this.loadData();});
     }
 }

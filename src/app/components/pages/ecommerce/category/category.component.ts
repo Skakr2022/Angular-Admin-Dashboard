@@ -205,6 +205,8 @@ export class CategoryComponent {
             CategoryDialogComponent,
             dialogConfig
         );
-        dialogRef.afterClosed().subscribe((result) => {});
+        dialogRef.afterClosed().subscribe((result) => {
+            this.loadData();
+        });
     }
 }
