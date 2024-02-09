@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
   
 export class RoleService {
-   URLRole='http://localhost:8080';
+   URLRole='http://localhost:8080/user';
 
    constructor(private http:HttpClient){
 

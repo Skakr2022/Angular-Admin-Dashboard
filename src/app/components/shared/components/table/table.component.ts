@@ -85,6 +85,8 @@ export class TableComponent implements OnInit,AfterViewInit {
   }
 
   openDialogEdit(data:any):void {
+
+    console.log("etst0" + data);
     this.editEvent.emit(data);
   }
 

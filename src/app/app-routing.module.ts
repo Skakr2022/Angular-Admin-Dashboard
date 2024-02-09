@@ -36,7 +36,7 @@ const routes: Routes = [
         pathMatch: 'full' 
       },
     { path:'ecommerce',
-      // canActivateChild:[authGuardGuard],
+      canActivateChild:[authGuardGuard],
       children: [
         { path: '', component: EcommerceComponent },
         { path: 'products', component: ProductsComponent },

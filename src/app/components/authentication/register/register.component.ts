@@ -87,21 +87,13 @@ export class RegisterComponent implements OnInit {
       }else{ 
 
         const formData = new FormData();
-        formData.append('fullName',this.signupForm.value.fullName)
+        formData.append('firstName',this.signupForm.value.fullName)
+        formData.append('lastName',this.signupForm.value.fullName)
         formData.append('email',this.signupForm.value.email)
         formData.append('password',this.signupForm.value.password)
         formData.append('username',this.signupForm.value.username)
-        
-        console.log(formData);
-        const signup = {
-            'fullName':this.signupForm.value.fullName,
-            'email':this.signupForm.value.email,
-            'password':this.signupForm.value.password,
-            'username':this.signupForm.value.username
-        };
-  
 
-      this.authService.register(signup).subscribe({
+      this.authService.register(formData).subscribe({
         next: (val: any) => {
           console.log("test")
           this.coreService.openSuccessSnackBar('successfully added!');
