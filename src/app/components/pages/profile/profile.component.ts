@@ -7,6 +7,9 @@ import {
     ApexFill,
     ChartComponent
 } from "ng-apexcharts";
+import { TokenStorageService } from "../../core/services/token-storage.sevice";
+import { AuthenticationResponse } from "../../shared/models/authentication-response.model";import { user } from "../../shared/models/user.model";
+ 
 
 
 @Component({
@@ -15,19 +18,27 @@ import {
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+
+    username? : string;
+    email? : string ;
+    image? : string ;
     userData!:any;
     constructor(
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        private tokenStorage : TokenStorageService
     ) {}
 
     ngOnInit(): void {
-    const userDataString = sessionStorage.getItem('auth-user');
-    if (userDataString) {
-      // Parse the string into a JavaScript object
-      this.userData = JSON.parse(userDataString);
-    } else {
-      console.log('No user data found in session storage');
-    }
+
+        const data = this.tokenStorage.getUser();
+        console.log(data)
+        console.log(JSON.parse(data).user)
+        const user  = JSON.parse(data).user;
+        console.log(user);
+        
+        console.log(user);
+        this.email = user.email;
+        this.username = user.username;
     }
 
     
