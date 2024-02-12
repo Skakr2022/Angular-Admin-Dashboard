@@ -5,7 +5,8 @@ export interface user {
     firstName?:string;
     lastName?:string;
     username?:string;
-    Email?:string;
+    email?:string;
     role?:role;
-    Password?:string;
+    password?:string;
+    imageUrl:string;
 }
