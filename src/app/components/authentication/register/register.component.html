@@ -18,11 +18,20 @@
                 <form name="form" [formGroup]="signupForm" #f="ngForm">
                     <div class="bg-white border-radius pt-20 ps-20 pe-20">
                         <div class="tagus-form-group without-icon">
-                            <label class="d-block mb-12 fw-semibold gray-color">Full name <span>*</span></label>
+                            <label class="d-block mb-12 fw-semibold gray-color">First Name <span>*</span></label>
                             <mat-form-field appearance="outline">
-                                <input matInput class="mat-input" formControlName="fullName" placeholder="Enter name">
-                                <mat-error *ngIf="signupForm.get('fullName')?.invalid">
-                                    {{getFullNameErrorMessage()}}       
+                                <input matInput class="mat-input" formControlName="firstName" placeholder="Enter the first name">
+                                <mat-error *ngIf="signupForm.get('firstName')?.invalid">
+                                    {{getFirstNameErrorMessage()}}       
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="tagus-form-group without-icon">
+                            <label class="d-block mb-12 fw-semibold gray-color">Last Name <span>*</span></label>
+                            <mat-form-field appearance="outline">
+                                <input matInput class="mat-input" formControlName="lastName" placeholder="Enter the last name">
+                                <mat-error *ngIf="signupForm.get('lastName')?.invalid">
+                                    {{getlastNameErrorMessage()}}       
                                 </mat-error>
                             </mat-form-field>
                         </div>

@@ -11,10 +11,15 @@ export class UserService {
 
    usersURL='http://localhost:8080/user';
    userPaginationUrl='http://localhost:8080/user/paginate';
+   userUpdate=''
    constructor(private http:HttpClient){ } 
    
    getUsers():Observable<any> {
      return this.http.get<user>(this.usersURL);
+   }
+
+   updatUser(userId:number,formData:FormData): Observable<any> {
+     return this.http.put(`${this.usersURL}/${userId}`,formData);
    }
 
    findUsers(

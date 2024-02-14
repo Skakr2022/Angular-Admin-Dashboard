@@ -14,9 +14,15 @@
               <p>Update your photo and personal details here.</p>
               <div class=" mt-20">
                     <div class="tagus-form-group without-icon">
-                        <label class="d-block mb-12 fw-semibold gray-color">Full Name</label>
+                        <label class="d-block mb-12 fw-semibold gray-color">First Name</label>
                         <mat-form-field appearance="outline">
-                            <input matInput class="mat-input" formControlName="fullName">
+                            <input matInput class="mat-input" formControlName="firstName">
+                        </mat-form-field>
+                    </div>
+                    <div class="tagus-form-group without-icon">
+                        <label class="d-block mb-12 fw-semibold gray-color">Last Name</label>
+                        <mat-form-field appearance="outline">
+                            <input matInput class="mat-input" formControlName="lastName">
                         </mat-form-field>
                     </div>
                     <div class="tagus-form-group without-icon">
@@ -47,7 +53,7 @@
            </div>
             
             <br><br><br>
-            <button mat-raised-button class="tagus fw-semibold">Update</button>
+            <button (click)="onSubmit()" mat-raised-button  class="tagus fw-semibold">Update</button>
         </form>
     </mat-card-content>
 </mat-card>

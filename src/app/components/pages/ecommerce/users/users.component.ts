@@ -28,7 +28,7 @@ export class UsersComponent {
     sortActive: string="id";
     endpoint: string="user";
     UserDataSource =new MatTableDataSource<user>(this.user);
-    UserDisplayedColumns: string[]=['id','fullName','email','role.name','action'];
+    UserDisplayedColumns: string[]=['id','firstName','lastName','email','role.name','action'];
     @ViewChild(TableComponent, { static: true }) table!: TableComponent;
 
     constructor(

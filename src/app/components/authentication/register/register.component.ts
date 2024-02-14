@@ -37,7 +37,8 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit(): void {
         this.signupForm=this.fb.group({
-            fullName:['',[Validators.required,this.authValidators.validateFullName]],
+            firstName:['',[Validators.required]],
+            lastName:['',[Validators.required]],
             username:['',[Validators.required]],
             email:['',[Validators.required,Validators.email]],
             role:[''],
@@ -46,12 +47,19 @@ export class RegisterComponent implements OnInit {
           })
     }
 
-    getFullNameErrorMessage() {
-      if ((this.isEmpty && this.signupForm.get('fullName')?.hasError('required')) || (this.signupForm.get('fullName')?.hasError('required') && this.signupForm.get('fullName')?.touched)) {
+    getFirstNameErrorMessage() {
+      if ((this.isEmpty && this.signupForm.get('firstName')?.hasError('required')) || (this.signupForm.get('firstName')?.hasError('required') && this.signupForm.get('firstName')?.touched)) {
           return 'You must enter a value';
       }
-          return this.signupForm.get('fullName')?.hasError('invalidName') && this.signupForm.get('fullName')?.touched  && this.signupForm.get('fullName')?.value ? 'Not a valid fullName' : '';
+          return this.signupForm.get('firstName')?.hasError('invalidName') && this.signupForm.get('firstName')?.touched  && this.signupForm.get('firstName')?.value ? 'Not a valid fullName' : '';
     }
+
+    getlastNameErrorMessage() {
+        if ((this.isEmpty && this.signupForm.get('lastName')?.hasError('required')) || (this.signupForm.get('lastName')?.hasError('required') && this.signupForm.get('lastName')?.touched)) {
+            return 'You must enter a value';
+        }
+            return this.signupForm.get('lastName')?.hasError('invalidName') && this.signupForm.get('lastName')?.touched  && this.signupForm.get('latName')?.value ? 'Not a valid fullName' : '';
+      }
 
     getUserNameErrorMessage() {
         if ((this.isEmpty && this.signupForm.get('username')?.hasError('required')) || (!this.signupForm.get('username')?.valid && this.signupForm.get('username')?.touched)) {
@@ -66,6 +74,7 @@ export class RegisterComponent implements OnInit {
         }
             return !this.signupForm.get('email')?.valid && this.signupForm.get('email')?.touched && this.signupForm.get('email')?.value? 'Not a valid email' : '';
     }
+    
 
     getPasswordErrorMessage() {
         if ((this.isEmpty && this.signupForm.get('password')?.hasError('required')) || (this.signupForm.get('password')?.hasError('required') && this.signupForm.get('password')?.touched)) {
@@ -87,8 +96,8 @@ export class RegisterComponent implements OnInit {
       }else{ 
 
         const formData = new FormData();
-        formData.append('firstName',this.signupForm.value.fullName)
-        formData.append('lastName',this.signupForm.value.fullName)
+        formData.append('firstName',this.signupForm.value.firstName)
+        formData.append('lastName',this.signupForm.value.lastName)
         formData.append('email',this.signupForm.value.email)
         formData.append('password',this.signupForm.value.password)
         formData.append('username',this.signupForm.value.username)

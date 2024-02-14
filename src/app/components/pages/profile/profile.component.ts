@@ -18,11 +18,13 @@ import { AuthenticationResponse } from "../../shared/models/authentication-respo
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-
+   
     username? : string;
     email? : string ;
     image? : string ;
     userData!:any;
+    firstName?: string;
+    lastName?: string;
     constructor(
         public themeService: CustomizerSettingsService,
         private tokenStorage : TokenStorageService
@@ -31,14 +33,17 @@ export class ProfileComponent {
     ngOnInit(): void {
 
         const data = this.tokenStorage.getUser();
-        console.log(data)
-        console.log(JSON.parse(data).user)
+        console.log(data);
+        console.log(JSON.parse(data).user);
         const user  = JSON.parse(data).user;
         console.log(user);
         
         console.log(user);
         this.email = user.email;
         this.username = user.username;
+        this.firstName=user.firstName;
+        this.lastName=user.lastName;
+        this.image=user.imageUrl;
     }
 
     

@@ -12,8 +12,13 @@ import { Router } from '@angular/router';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+    isToggled = false;
     user:any;
     isSticky: boolean = false;
+    userRole:string;
+    firstName:string;
+    lastName:string;
+    image?:string;
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
         const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -23,18 +28,7 @@ export class HeaderComponent implements OnInit {
             this.isSticky = false;
         }
     }
-    ngOnInit(){
-        const userDataString = sessionStorage.getItem('auth-user');
-        if (userDataString) {
-            // Parse the string into a JavaScript object
-            this.user = JSON.parse(userDataString);
-            console.log(this.user.roles[0]);
-          } else {
-            console.log('No user data found in session storage');
-          }
-    }
-    isToggled = false;
-    
+
     constructor(
         private toggleService: ToggleService,
         private datePipe: DatePipe,
@@ -47,6 +41,26 @@ export class HeaderComponent implements OnInit {
             this.isToggled = isToggled;
         });
     }
+
+    ngOnInit(){
+        const userDataString = this.tokenStorage.getUser();
+        if (userDataString) {
+            // Parse the string into a JavaScript object
+            this.user = JSON.parse(userDataString).user;
+            this.userRole=this.user.role.name;
+            this.firstName=this.user.firstName;
+            this.lastName=this.user.lastName;
+            this.image=this.user.imageUrl;
+            console.log(this.user.role.name);
+          } else {
+            console.log('No user data found in session storage');
+          }
+        
+        
+    }
+    
+    
+    
 
     toggleTheme() {
         this.themeService.toggleTheme();
