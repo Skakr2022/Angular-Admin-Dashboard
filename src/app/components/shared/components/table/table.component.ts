@@ -64,7 +64,7 @@ export class TableComponent implements OnInit,AfterViewInit {
       let nestedValue = element;
       for (const prop of nestedProperties) {
         nestedValue = nestedValue[prop];
-      }
+      } 
        return this.formatValue(nestedValue);
     } else {
        return this.formatValue(element[column]);

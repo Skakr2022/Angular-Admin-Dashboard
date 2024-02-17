@@ -130,7 +130,7 @@ import { ChangeRoleComponent } from './components/shared/components/change-role/
 import { TestimonialsComponent } from './components/pages/testimonials/testimonials.component';
 import { RoleTransformPipe } from './components/core/pipes/role-transform.pipe';
 import { SnackBarComponent } from './components/shared/components/snack-bar/snack-bar.component';
-import { OrderDialogComponent } from './components/shared/components/order-dialog/order-dialog/order-dialog.component';
+import { OrderDialogComponent } from './components/shared/components/order-dialog/order-dialog.component';
 
 @NgModule({
     declarations: [

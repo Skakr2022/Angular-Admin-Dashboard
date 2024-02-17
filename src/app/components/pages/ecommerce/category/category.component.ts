@@ -36,8 +36,6 @@ export class CategoryComponent {
     CatDisplayedColumns: string[] = [
         'categoryId',
         'categoryName',
-        'ProductNum',
-        'CreationDate',
         'action',
     ];
     dropdownItems: string[] = ['Edit', 'Delete'];

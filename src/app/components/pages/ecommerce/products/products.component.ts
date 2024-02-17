@@ -68,7 +68,6 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     @ViewChild(TableComponent, { static: true }) table!: TableComponent;
     constructor(
         private matDialog: MatDialog,
-        private sortTable: TableComponent,
         private apiService: ApiService,
         private _liveAnnouncer: LiveAnnouncer,
         private _coreService: CoreService,

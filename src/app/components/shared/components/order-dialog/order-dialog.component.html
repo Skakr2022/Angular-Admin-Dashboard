@@ -1,0 +1,26 @@
+<div class="create-dialog-box scrollable-dialog">
+    <div class="title d-flex align-items-center justify-content-space-between">
+        <h4 class="mb-0">Change Status</h4>
+        <button mat-dialog-close class="close-btn bg-transparent p-0 border-none" ><i class="flaticon-close"></i></button>
+    </div>
+    <form [formGroup]="Form">
+        <div class="form-group">
+              <label class="d-block fw-semibold">Status </label>
+              <mat-form-field appearance="outline">
+                <mat-select matInput   formControlName="orderStatus" placeholder="orderStatus">
+                  <mat-option *ngFor="let status of orderStatus" [value]="status">{{status}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="Form.get('orderStatus')?.hasError('required') && Form.get('orderStatus')?.touched">
+                  Category name is required.
+                </mat-error>
+              </mat-form-field>
+        </div>
+        <div class="text-end">
+            <button mat-dialog-close type="button" class="gray" ><i class="ri-close-fill"></i> Cancel</button>
+            <button  mat-flat-button class="save buttons default-btn tagus " (click)="onSubmit()" >
+              Update
+              <mat-icon>{{data.actionButtonText}}</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>
