@@ -58,7 +58,7 @@ export class CategoryComponent {
     constructor(
         private matDialog: MatDialog,
         // private table:TableComponent,
-        private apiService: ApiService,
+        private categoryService:CategoryService,
         private _coreService: CoreService
     ) {}
 
@@ -79,9 +79,8 @@ export class CategoryComponent {
                 startWith({}),
                 switchMap(() => {
                     this.isLoadingResults = true;
-                    return this.apiService
-                        .listPageableSortableData(
-                            this.endpoint,
+                    return this.categoryService
+                        .findCategory(
                             this.table.paginator?.pageIndex ?? 0,
                             this.table.paginator?.pageSize ?? 5,
                             this.table.sort?.active ?? this.sortActive,
@@ -110,7 +109,7 @@ export class CategoryComponent {
 
     onDelete(data: any): void {
         console.log(data);
-        this.apiService.deleteData(this.endpoint, data.categoryId).subscribe(
+        this.categoryService.deleteCategoryById( data.categoryId).subscribe(
             (data) => {
                 console.log(data);
                 this.loadData();
@@ -152,9 +151,8 @@ export class CategoryComponent {
     }
 
     loadData(): void {
-        this.apiService
-            .listPageableSortableData(
-                this.endpoint,
+        this.categoryService
+            .findCategory(
                 this.table.paginator?.pageIndex ?? 0,
                 this.table.paginator?.pageSize ?? 5,
                 this.table.sort?.active ?? this.sortActive,
@@ -169,7 +167,7 @@ export class CategoryComponent {
 
     listData() {
         console.log('listData');
-        this.apiService.getData(this.endpoint).subscribe((data) => {
+        this.categoryService.getCategories().subscribe((data) => {
             console.log(data.length);
             this.DataNumber = data.length;
             if (data.length == 0) {

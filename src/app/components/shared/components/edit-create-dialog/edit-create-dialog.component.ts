@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Validators } from '@angular/forms';
-import { ApiService } from 'src/app/components/core/services/api.service';
 import { CoreService } from 'src/app/components/core/services/core.service';
 import { Category } from '../../models/Category.model';
 import { ProductService } from 'src/app/components/core/services/product.service';
@@ -25,7 +24,6 @@ export class EditCreateDialogComponent {
   
   constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private apiService:ApiService,
         private productService :ProductService,
         private _fb: FormBuilder,
         private _coreService: CoreService,
@@ -77,8 +75,8 @@ export class EditCreateDialogComponent {
         formData.append("imageUrl", this.userFile || this.empForm.value.imageUrl);
         formData.append("price",this.empForm.value.price)
         formData.append("stockQuantity",this.empForm.value.quantity)   
-        this.apiService 
-          .updatData(this.data.endpoint,this.data.productId, formData)
+        this.productService 
+          .updateProduct(this.data.productId, formData)
           .subscribe({ 
             next: (val: any) => {
               this._coreService.openSuccessSnackBar('Product details updated!');
@@ -98,7 +96,7 @@ export class EditCreateDialogComponent {
         formData.append("imageUrl",this.userFile)
         formData.append("price",this.empForm.value.price)
         formData.append("stockQuantity",this.empForm.value.quantity) 
-        this.apiService.postData(this.data.endpoint,formData).subscribe(
+        this.productService.createProduct(formData).subscribe(
           {
             next: (val: any) => {
               this._coreService.openSuccessSnackBar('Product successfully added!');

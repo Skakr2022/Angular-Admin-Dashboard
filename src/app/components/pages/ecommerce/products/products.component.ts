@@ -20,6 +20,7 @@ import {
 } from 'rxjs';
 import { ApiService } from 'src/app/components/core/services/api.service';
 import { CoreService } from 'src/app/components/core/services/core.service';
+import { ProductService } from 'src/app/components/core/services/product.service';
 import { SortingDataAccessorService } from 'src/app/components/core/services/sorting-data-accessor.service';
 import { EditCreateDialogComponent } from 'src/app/components/shared/components/edit-create-dialog/edit-create-dialog.component';
 import { TableComponent } from 'src/app/components/shared/components/table/table.component';
@@ -68,7 +69,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     @ViewChild(TableComponent, { static: true }) table!: TableComponent;
     constructor(
         private matDialog: MatDialog,
-        private apiService: ApiService,
+        private productService: ProductService,
         private _liveAnnouncer: LiveAnnouncer,
         private _coreService: CoreService,
         private sortingService: SortingDataAccessorService
@@ -92,9 +93,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
                 startWith({}),
                 switchMap(() => {
                     this.isLoadingResults = true;
-                    return this.apiService
-                        .listPageableSortableData(
-                            this.endpoint,
+                    return this.productService
+                        .findProduct(
                             this.table.paginator?.pageIndex ?? 0,
                             this.table.paginator?.pageSize ?? 5,
                             this.table.sort?.active ?? this.sortActive,
@@ -152,7 +152,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
     onDelete(data: any): void {
         console.log(data);
-        this.apiService.deleteData(this.endpoint, data.productId).subscribe(
+        this.productService.deleteProductById(data.productId).subscribe(
             (data) => {
                 console.log(data);
                 this.loadData();
@@ -168,9 +168,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     }
 
     loadData(): void {
-        this.apiService
-            .listPageableSortableData(
-                this.endpoint,
+        this.productService
+            .findProduct(
                 this.table.paginator?.pageIndex ?? 0,
                 this.table.paginator?.pageSize ?? 5,
                 this.table.sort?.active ?? this.sortActive,
@@ -185,7 +184,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
     listData() {
         console.log('listData');
-        this.apiService.getData(this.endpoint).subscribe((data) => {
+        this.productService.getProducts().subscribe((data) => {
             console.log(data.length);
             this.DataNumber = data.length;
             if (data.length == 0) {
