@@ -25,21 +25,101 @@
     </mat-card-header>
     <mat-card-content >
         <div style="overflow-x:auto; overflow-y:hidden" class="mat-elevation-z8 tagus-mat-table">
-         <app-table
-         [isLoadingResults]="isLoadingResults"
-         [isEmpty]="isEmpty"
-         [DataNumber]="DataNumber"
-         [hasImage]="hasImage"
-         [hasAction]="hasAction"
-         [filterValue]="filterValue"
-         idField="id"
-         [Items]="dropdownItems" 
-         [sortActive]="sortActive" 
-         [endpoint]="endpoint" 
-         [dataSource]="UserDataSource" 
-         [displayedColumns]="UserDisplayedColumns">
+        
+         
+<div  class="example-container" [hidden]="isEmpty">
+    <div class="example-loading-shade"
+        *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div>
+       <table  
+        mat-table 
+        matSort 
+        
+        matSortActive="{{sortActive}}"
+        matSortDirection="asc"
+        [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-start">
+                user ID
+            </th>
+            <td
+                mat-cell
+                *matCellDef="let element"
+                class="fw-semibold text-start"
+            >
+                {{ element.id }}
+            </td>
+    </ng-container>
 
-         </app-table>  
+    <ng-container matColumnDef="firstName">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef >first name</th>
+            <td mat-cell *matCellDef="let element" class="text-start">
+                {{ element.firstName }}
+            </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef >last name</th>
+            <td mat-cell *matCellDef="let element" class="text-start">
+                {{ element.lastName }}
+            </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email" >
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>email</th>
+            <td mat-cell *matCellDef="let element" class="text-start">
+                {{ element.email }} 
+            </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role.name" >
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let element" class="text-start">
+                <div class="role-infor"> 
+                    <img [src]="getIconPath(element.role.name)" alt="">
+                    {{ element.role.name }}
+                </div> 
+            </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+            <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="actionMenu">
+                <i class="ri-more-fill"></i>
+            </button>
+            <mat-menu #actionMenu="matMenu" class="dotMenu two monthMenu" xPosition="before">
+                <button (click)="onEdit(element)" mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                    <i class="ri-edit-line"></i> Edit
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+          <tr mat-header-row  *matHeaderRowDef="displayedColumns"  ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter {{this.filterValue}} </td>
+          </tr>
+       </table>
+    </div>
+   
+          <mat-paginator 
+                    [length]="DataNumber"
+                    [pageSizeOptions]="[5, 10, 20]"
+                    showFirstLastButtons
+                    >
+          </mat-paginator>
+</div>
+
+<div [hidden]="!isEmpty">
+      <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+        <img src="../../../../../assets/img/empty.svg" style="width: 250px;" alt="Logo">
+        <h2>No Products Founds </h2>
+        <h3>Create Products from here</h3>
+      </div>
+</div>
+    
         </div> 
     </mat-card-content>
 </mat-card>

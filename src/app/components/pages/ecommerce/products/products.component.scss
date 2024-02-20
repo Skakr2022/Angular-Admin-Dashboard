@@ -1,1 +1,17 @@
 // The CSS is Available on the Style.scss file because of Angular Material CSS didn't work in Component CSS.
+
+.example-container {
+    position: relative;
+}
+.example-loading-shade {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    bottom: 0px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.15);
+}

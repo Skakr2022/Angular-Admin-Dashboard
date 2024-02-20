@@ -1,6 +1,8 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {
     catchError,
@@ -32,8 +34,8 @@ export class CategoryComponent {
     isEmpty = false;
     CategoryProduct!: Category[];
     data!: Category[];
-    CatDataSource = new MatTableDataSource<Category>(this.CategoryProduct);
-    CatDisplayedColumns: string[] = [
+    dataSource = new MatTableDataSource<Category>(this.CategoryProduct);
+    displayedColumns: string[] = [
         'categoryId',
         'categoryName',
         'action',
@@ -53,8 +55,9 @@ export class CategoryComponent {
         idField: 'categoryId',
     };
     filterValue!: string;
-    @ViewChild(TableComponent, { static: true }) table!: TableComponent;
-
+    @ViewChild(MatSort, { static: true }) sort!: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+   
     constructor(
         private matDialog: MatDialog,
         // private table:TableComponent,
@@ -65,28 +68,29 @@ export class CategoryComponent {
     ngOnInit() {
         // this.loadData();
         this.listData();
-        console.log(this.CatDataSource);
-        this.table.editEvent.subscribe((data) => this.onEdit(data));
-        this.table.deleteEvent.subscribe((data) => this.onDelete(data));
-    }
+        console.log(this.dataSource);
+       }
 
     ngAfterViewInit() {
-        this.table.sort.sortChange.subscribe(
-            () => (this.table.paginator.pageIndex = 0)
+        this.sort.sortChange.subscribe(
+            () => (this.paginator.pageIndex = 0)
         );
-        merge(this.table.paginator.page, this.table.sort.sortChange)
+        merge(this.paginator.page, this.sort.sortChange)
             .pipe(
+                
                 startWith({}),
                 switchMap(() => {
                     this.isLoadingResults = true;
+                    console.log(this.paginator.page);
                     return this.categoryService
                         .findCategory(
-                            this.table.paginator?.pageIndex ?? 0,
-                            this.table.paginator?.pageSize ?? 5,
-                            this.table.sort?.active ?? this.sortActive,
-                            this.table.sort?.direction ?? 'asc'
+                            this.paginator?.pageIndex ?? 0,
+                            this.paginator?.pageSize ?? 5,
+                            this.sort?.active ?? this.sortActive,
+                            this.sort?.direction ?? 'asc'
                         )
                         .pipe(catchError(() => observableOf(null)));
+
                 }),
                 map((data) => {
                     this.isLoadingResults = false;
@@ -103,31 +107,28 @@ export class CategoryComponent {
                 })
             )
             .subscribe((data) => {
-                this.CatDataSource = new MatTableDataSource(data.content);
+                this.dataSource = new MatTableDataSource(data.content);
             });
     }
 
     onDelete(data: any): void {
         console.log(data);
         this.categoryService.deleteCategoryById( data.categoryId).subscribe(
-            (data) => {
+           { next: (data) => {
                 console.log(data);
                 this.loadData();
                 this._coreService.openSuccessSnackBar(
                     'data with id :  has deleted'
                 );
             },
-            (error) => {
+            error:(error) => {
                 console.error(error);
                 this._coreService.openErrorSnackBar(error.error);
             }
-        );
+         } );
     }
 
     onEdit(data: any): void {
-        console.log(data);
-        console.log(this.endpoint);
-        console.log(data.categoryId);
         const dialogConfig = new MatDialogConfig();
         // The user can't close the dialog by clicking outside its body
         dialogConfig.disableClose = true;
@@ -153,14 +154,14 @@ export class CategoryComponent {
     loadData(): void {
         this.categoryService
             .findCategory(
-                this.table.paginator?.pageIndex ?? 0,
-                this.table.paginator?.pageSize ?? 5,
-                this.table.sort?.active ?? this.sortActive,
-                this.table.sort?.direction ?? 'asc'
+                this.paginator?.pageIndex ?? 0,
+                this.paginator?.pageSize ?? 5,
+                this.sort?.active ?? this.sortActive,
+                this.sort?.direction ?? 'asc'
             )
             .subscribe((data) => {
                 console.log(data);
-                this.CatDataSource = new MatTableDataSource(data.content);
+                this.dataSource = new MatTableDataSource(data.content);
                 // this.ProDataSource.data = data.content ;
             });
     }
@@ -179,8 +180,8 @@ export class CategoryComponent {
     applyFilter(event: KeyboardEvent) {
         this.filterValue = (event.target as HTMLInputElement).value;
 
-        this.CatDataSource.filter = this.filterValue.trim().toLowerCase();
-        console.log(this.CatDataSource);
+        this.dataSource.filter = this.filterValue.trim().toLowerCase();
+        console.log(this.dataSource);
     }
 
     openDialogCreate(): void {

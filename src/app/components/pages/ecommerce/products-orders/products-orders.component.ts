@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderSpec } from '@fullcalendar/core/internal';
 import { merge, startWith, switchMap, catchError, map ,of as observableOf} from 'rxjs';
@@ -27,9 +28,8 @@ export class ProductsOrdersComponent implements AfterViewInit {
     isLoadingResults = false;
     isEmpty = false;
     Order!: Order[];
-    data!: Order[];
-    OrderDataSource = new MatTableDataSource<Order>(this.Order);
-    OrderDisplayedColumns: string[] = [
+    dataSource = new MatTableDataSource<Order>(this.Order);
+    displayedColumns: string[] = [
         'orderId',
         'user.username',
         'price',
@@ -37,15 +37,12 @@ export class ProductsOrdersComponent implements AfterViewInit {
         'status',
         'action'
     ];
-    dropdownItems: string[] = ['Edit', 'Delete'];
-    endpoint = 'order';
     sortActive = 'orderId';
-    hasAction = true;
     DataNumber!: number;
     
     filterValue!: string;
-    @ViewChild(TableComponent, { static: true }) table!: TableComponent;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(
         private matDialog: MatDialog,
@@ -54,27 +51,25 @@ export class ProductsOrdersComponent implements AfterViewInit {
         ){}
     
     ngOnInit() {
-        this.loadData();
-        this.OrderDataSource.sortingDataAccessor =this.sortingService.sortingDataAccessor;
-        this.table.editEvent.subscribe((data) => this.onEdit(data));
-
+        this.listData();
+        this.dataSource.sortingDataAccessor =this.sortingService.sortingDataAccessor;
     }
 
     ngAfterViewInit() {
-        this.table.sort.sortChange.subscribe(
-            () => (this.table.paginator.pageIndex = 0)
+        this.sort.sortChange.subscribe(
+            () => (this.paginator.pageIndex = 0)
         );
-        merge(this.table.paginator.page, this.table.sort.sortChange)
+        merge(this.paginator.page, this.sort.sortChange)
             .pipe(
                 startWith({}),
                 switchMap(() => {
                     this.isLoadingResults = true;
                     return this.orderService
                         .getPagedAndSortedOrder(
-                            this.table.paginator?.pageIndex ?? 0,
-                            this.table.paginator?.pageSize ?? 5,
-                            this.table.sort?.active ?? this.sortActive,
-                            this.table.sort?.direction ?? 'asc'
+                            this.paginator?.pageIndex ?? 0,
+                            this.paginator?.pageSize ?? 5,
+                            this.sort?.active ?? this.sortActive,
+                            this.sort?.direction ?? 'asc'
                         )
                         .pipe(catchError(() => observableOf(null)));
                 }),
@@ -93,25 +88,40 @@ export class ProductsOrdersComponent implements AfterViewInit {
                 })
             )
             .subscribe((data) => {
-                this.OrderDataSource = new MatTableDataSource(data.content);
+                this.dataSource = new MatTableDataSource(data.content);
             });
     }
 
-    loadData(): void{
+    loadData(): void {
         this.orderService
-            .getOrders()
+            .getPagedAndSortedOrder(
+                this.paginator?.pageIndex ?? 0,
+                this.paginator?.pageSize ?? 5,
+                this.sort?.active ?? 'orderId',
+                this.sort?.direction ?? 'asc'
+            )
             .subscribe((data) => {
                 console.log(data);
-                this.OrderDataSource = new MatTableDataSource(data);
+                this.dataSource = new MatTableDataSource(data.content);
                 // this.ProDataSource.data = data.content ;
             });
     }
 
+    listData() {
+        this.orderService.getOrders().subscribe((data) => {
+            console.log(data.length);
+            this.DataNumber = data.length;
+            if (data.length == 0) {
+                this.isEmpty = true;
+            }
+        });
+    }
+
     applyFilter(event: KeyboardEvent) {
         this.filterValue = (event.target as HTMLInputElement).value;
-        this.OrderDataSource.filter = this.filterValue.trim().toLowerCase();
+        this.dataSource.filter = this.filterValue.trim().toLowerCase();
 
-        this.OrderDataSource.filterPredicate = (data: any, filter: string) => {
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
             const username = JSON.stringify(data.user.username).toLowerCase();
             // const price = JSON.stringify(data.price).toLowerCase();
             const orderDate = JSON.stringify(data.orderDate).toLowerCase();
@@ -144,6 +154,5 @@ export class ProductsOrdersComponent implements AfterViewInit {
         );
         dialogRef.afterClosed().subscribe((result) => {this.loadData();});
     }
-
 
 }

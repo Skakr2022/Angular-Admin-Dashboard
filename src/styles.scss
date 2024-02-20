@@ -724,9 +724,9 @@ button {
                                         margin-right: 12px;
                                         border-radius: 10px;
                                     }
-                                    &:hover {
-                                        color: var(--heraBlueColor);
-                                    }
+                                    // &:hover {
+                                    //     // color: var(--heraBlueColor);
+                                    // }
                                 }
                                 .badge {
                                     font-size: 14px;
@@ -742,6 +742,10 @@ button {
                                     &.outOfStock {
                                         color: #ee368c;
                                         background: rgba(238, 54, 140, 0.1);
+                                    }
+                                    &.shipped {
+                                        background: rgba(33, 150, 243, 0.1); /* Blue color */
+                                        color: #2196F3; /* Blue color */
                                     }
                                 }
                                 .mat-mdc-checkbox {
@@ -2256,9 +2260,9 @@ quill-editor {
                                     .product-info {
                                         color: #828690;
                                         
-                                        &:hover {
-                                            color: var(--heraBlueColor);
-                                        }
+                                        // &:hover {
+                                        //     color: var(--heraBlueColor);
+                                        // }
                                     }
                                     .mat-mdc-checkbox {
                                         .mdc-checkbox {            

@@ -26,22 +26,70 @@
         </div>
     </mat-card-header>
     <mat-card-content> 
-        <div style="overflow-x:auto; overflow-y:hidden" class="mat-elevation-z8 tagus-mat-table">
-         <app-table
-         [isLoadingResults]="false"
-         [isEmpty]="isEmpty"
-         [DataNumber]="DataNumber"
-         [hasAction]="hasAction"
-         [filterValue]="filterValue"
-         idField="categoryId"
-         [Dialog]="dialog"
-         [dialogData]="dialogCategory"
-         [Items]="dropdownItems"
-         [sortActive]="sortActive" 
-         [endpoint]="endpoint" 
-         [dataSource]="CatDataSource" 
-         [displayedColumns]="CatDisplayedColumns">
-         </app-table>  
+    <div style="overflow-x:auto; overflow-y:hidden" class="mat-elevation-z8 tagus-mat-table">
+          <div  class="example-container" [hidden]="isEmpty">
+    <div class="example-loading-shade"
+        *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div>
+       <table  
+        mat-table 
+        matSort 
+        matSortActive="{{sortActive}}"
+        matSortDirection="asc"
+        [dataSource]="dataSource">
+        <ng-container matColumnDef="categoryId">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">category ID</th>
+            <td mat-cell *matCellDef="let element" class="text-start">{{element.categoryId}}</td>
+        </ng-container>
+    
+        <!-- Price Column -->
+        <ng-container matColumnDef="categoryName">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">Category Name</th>
+            <td mat-cell *matCellDef="let element" class="text-start">{{element.categoryName}}</td>
+        </ng-container>
+    
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+            <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="actionMenu">
+                <i class="ri-more-fill"></i>
+            </button>
+            <mat-menu #actionMenu="matMenu" class="dotMenu two monthMenu" xPosition="before">
+                <button (click)="onEdit(element)" mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                    <i class="ri-edit-line"></i> Edit
+                </button>
+                <button (click)="onDelete(element)" mat-menu-item type="button" class="bg-transparent border-none position-relative">
+                    <i class="ri-delete-bin-line"></i> Remove
+                </button>
+            </mat-menu>
+        </td>
+        </ng-container>
+      
+          <tr mat-header-row  *matHeaderRowDef="displayedColumns"  ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter {{this.filterValue}} </td>
+          </tr>
+       </table>
+       <mat-paginator
+       [length]="DataNumber"
+       [pageSizeOptions]="[5, 10, 20]"
+       showFirstLastButtons
+        >
+        </mat-paginator>   
+    </div>
+</div>
+<div [hidden]="!isEmpty">
+      <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+        <img src="../../../../../assets/img/empty.svg" style="width: 250px;" alt="Logo">
+        <h2>No Category Founds </h2>
+        <h3>Create Category from here</h3>
+      </div>
+</div>
         </div> 
     </mat-card-content>
 </mat-card>
+

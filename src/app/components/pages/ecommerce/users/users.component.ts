@@ -8,6 +8,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ChangeRoleComponent } from 'src/app/components/shared/components/change-role/change-role.component';
 import { catchError, map, startWith, switchMap } from 'rxjs';
 import { merge, of as observableOf } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { SortingDataAccessorService } from 'src/app/components/core/services/sorting-data-accessor.service';
 
 @Component({
     selector: 'app-users',
@@ -27,47 +30,54 @@ export class UsersComponent {
     dropdownItems: string[]=['Edit'];
     sortActive: string="id";
     endpoint: string="user";
-    UserDataSource =new MatTableDataSource<user>(this.user);
-    UserDisplayedColumns: string[]=['id','firstName','lastName','email','role.name','action'];
-    @ViewChild(TableComponent, { static: true }) table!: TableComponent;
-
+    dataSource =new MatTableDataSource<user>(this.user);
+    displayedColumns: string[]=['id','firstName','lastName','email','role.name','action'];
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
     constructor(
         public themeService: CustomizerSettingsService,
         private userService:UserService,
-        private matDialog: MatDialog
+        private matDialog: MatDialog,
+        private sortingService: SortingDataAccessorService
         // private table: TableComponent,
     ) {}
 
     ngOnInit(): void {
-        this.loadData();
+        // this.loadData();
         this.listData();
-        this.table.editEvent.subscribe((data) => this.onEdit(data));
+        this.dataSource.sortingDataAccessor =this.sortingService.sortingDataAccessor;
 
     }
 
     ngAfterViewInit(){
-     this.table.sort.sortChange.subscribe(() => (this.table.paginator.pageIndex = 0));
-     merge(this.table.paginator.page,this.table.sort.sortChange) 
+      this.sort.sortChange.subscribe(
+        () => (this.paginator.pageIndex = 0)
+      );
+     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+     merge(this.paginator.page,this.sort.sortChange) 
      .pipe(
       startWith({}),
       switchMap(() => {
           this.isLoadingResults = true;
           return this.userService
           .findUsers(
-            this.table.paginator?.pageIndex ?? 0,
-            this.table.paginator?.pageSize ?? 5,
-            this.table.sort?.active ?? this.sortActive,
-            this.table.sort?.direction ?? "asc")
+            this.paginator?.pageIndex ?? 0,
+            this.paginator?.pageSize ?? 5,
+            this.sort?.active ?? this.sortActive,
+            this.sort?.direction ?? "asc")
             .pipe(catchError(() => observableOf(null)));
             
       }),
       map(data => {
           this.isLoadingResults = false;
+          if (data === null) {
+            return [];
+          }
           return data;
       }),
      )
       .subscribe((data)=>{
-        this.UserDataSource = new MatTableDataSource(data.content) ;
+        this.dataSource = new MatTableDataSource(data.content) ;
       });
 
       // this.table.sort.sortChange
@@ -98,13 +108,13 @@ export class UsersComponent {
     loadData():void{
         this.userService
         .findUsers(
-          this.table.paginator?.pageIndex ?? 0,
-          this.table.paginator?.pageSize ?? 5,
-          this.table.sort?.active ?? this.sortActive,
-          this.table.sort?.direction ?? "asc")
+          this.paginator?.pageIndex ?? 0,
+          this.paginator?.pageSize ?? 5,
+          this.sort?.active ?? this.sortActive,
+          this.sort?.direction ?? "asc")
           .subscribe((data)=>{
             console.log(data);
-           this.UserDataSource=new MatTableDataSource(data.content);
+           this.dataSource=new MatTableDataSource(data.content);
           // this.ProDataSource.data = data.content ;
           });
       }
@@ -124,21 +134,36 @@ export class UsersComponent {
     applyFilter(event: KeyboardEvent) {
     
         this.filterValue = (event.target as HTMLInputElement).value;
-        this.UserDataSource.filter = this.filterValue.trim().toLowerCase();
+        this.dataSource.filter = this.filterValue.trim().toLowerCase();
 
-        this.UserDataSource.filterPredicate = (data: any, filter: string) => {
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
           const role = JSON.stringify(data.role.name).toLowerCase();
           const email = JSON.stringify(data.email).toLowerCase();
-          const fullName = JSON.stringify(data.fullName).toLowerCase();
+          const firstName = JSON.stringify(data.firstName).toLowerCase();
+          const lastName = JSON.stringify(data.lastName).toLowerCase();
           const id = JSON.stringify(data.id).toLowerCase();
           filter = filter.toLowerCase(); 
-         return      role.includes(filter) 
+         return (  role.includes(filter) 
                   || email.includes(filter) 
-                  || fullName.includes(filter) 
-                  || id.includes(filter);
+                  || firstName.includes(filter) 
+                  || lastName.includes(filter) 
+                  || id.includes(filter)
+                 ) ;
        };
-   
+    }
+
+    getIconPath(roleName: string): string {
+      switch (roleName) {
+        case 'ROLE_USER':
+          return 'assets/img/icon/admin.png';
+        case 'ROLE_MODERATOR':
+          return 'assets/img/icon/maintainer.png';
+        case 'ROLE_ADMIN':
+          return 'assets/img/icon/editor.png';
+        default:
+          return ''; // Provide a default image path or handle the case where role name doesn't match any expected value.
       }
+    }
     
     toggleTheme() {
         this.themeService.toggleTheme();
