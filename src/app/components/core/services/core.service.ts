@@ -15,7 +15,7 @@ export class CoreService {
       panelClass: 'app-notification-success',
       verticalPosition: 'top',
       horizontalPosition: 'right',
-      duration:2000
+      duration:4000
     });
   }
 
@@ -25,7 +25,7 @@ export class CoreService {
       panelClass: 'app-notification-error',
       verticalPosition: 'top',
       horizontalPosition: 'right',
-      duration:2000
+      duration:4000
     });
   }
 

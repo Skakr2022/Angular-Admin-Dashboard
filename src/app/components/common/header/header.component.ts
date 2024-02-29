@@ -1,23 +1,25 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { ToggleService } from './toggle.service';
 import { DatePipe } from '@angular/common';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { AuthService } from '../../core/services/Auth.service';
 import { TokenStorageService } from '../../core/services/token-storage.sevice';
 import { Router } from '@angular/router';
+import { CoreService } from '../../core/services/core.service';
+import { of } from 'rxjs';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,AfterViewInit{
     isToggled = false;
-    user:any;
+    user:any ;
     isSticky: boolean = false;
     userRole:string;
-    firstName:string;
-    lastName:string;
+    firstName?:string;
+    lastName?:string;
     image?:string;
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
@@ -35,7 +37,8 @@ export class HeaderComponent implements OnInit {
         public themeService: CustomizerSettingsService,
         private authService: AuthService,
         private tokenStorage: TokenStorageService,
-        private router: Router
+        private router: Router,
+        private coreService:CoreService
     ) {
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -43,20 +46,24 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(){
-        const userDataString = this.tokenStorage.getUser();
+         const userDataString = window.sessionStorage.getItem('auth-user');
         if (userDataString) {
-            // Parse the string into a JavaScript object
-            this.user = JSON.parse(userDataString).user;
-            this.userRole=this.user.role.name;
-            this.firstName=this.user.firstName;
-            this.lastName=this.user.lastName;
-            this.image=this.user.imageUrl;
-            console.log(this.user.role.name);
-          } else {
-            console.log('No user data found in session storage');
-          }
-        
-        
+        this.user = of(JSON.parse(userDataString));
+        this.user.subscribe(  (data: any) => {
+            const user=JSON.parse(data).user;
+            console.log(JSON.parse(data).user.firstName);
+            
+                this.userRole = user.role.name;
+                this.firstName = user.firstName;
+                this.lastName = user.lastName;
+                this.image = user.imageUrl;
+            console.log(JSON.parse(data).user.firstName);
+
+        });
+        }
+    }
+    ngAfterViewInit(){
+          
     }
     
     

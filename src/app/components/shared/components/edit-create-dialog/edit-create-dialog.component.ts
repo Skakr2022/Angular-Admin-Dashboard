@@ -19,7 +19,7 @@ export class EditCreateDialogComponent {
   public categories: Category[] = [];
   userFile: any;
   message: string = "";
-  imgURL: any = "";
+  imgURL: any ;
   imagePath: any;
   
   constructor(
@@ -43,13 +43,20 @@ export class EditCreateDialogComponent {
 
     if(this.data.Data){
       console.log(this.data.Data);
-      this.empForm.setValue({
+      this.empForm.patchValue({
         name:this.data.Data.name,
         description:this.data.Data.description,
-        imageUrl:this.data.Data.imageUrl,
         category:this.data.Data.category.categoryName,
         price:this.data.Data.price,
         quantity:this.data.Data.stockQuantity
+      })
+      this.productService.getProductById(this.data.productId).subscribe({
+        next:(data:any)=>{
+        this.imgURL=data.imageUrl ;
+        },
+        error:(err:HttpErrorResponse)=> {
+          this._coreService.openErrorSnackBar(err.error)
+        }
       })
     }
   }
@@ -72,14 +79,14 @@ export class EditCreateDialogComponent {
         formData.append("description",this.empForm.value.description)
         formData.append("name",this.empForm.value.name)
         formData.append("category",this.empForm.value.category)
-        formData.append("imageUrl", this.userFile || this.empForm.value.imageUrl);
+        formData.append("imageUrl", this.userFile);
         formData.append("price",this.empForm.value.price)
         formData.append("stockQuantity",this.empForm.value.quantity)   
         this.productService 
           .updateProduct(this.data.productId, formData)
           .subscribe({ 
             next: (val: any) => {
-              this._coreService.openSuccessSnackBar('Product details updated!');
+              this._coreService.openSuccessSnackBar('Product details with id: '+this.data.productId+' updated!');
               this._dialogRef.close(true);
             },
             error: (err: HttpErrorResponse) => {
@@ -114,16 +121,21 @@ export class EditCreateDialogComponent {
     }
 }
 
-  onSelectFile(event: Event) {
-    const e = (event.target as HTMLInputElement);
-      if ( e.files!.length > 0 ){
-        const file = e.files![0];
-        this.userFile = file;
-        var reader = new FileReader();
-        reader.readAsDataURL(file); 
-        reader.onload = (_event) => { 
-        this.imgURL = reader.result; 
-      }
+  onSelectFile(event: any) {
+
+    const file = event.target.files[0];
+    this.userFile = file;
+    this.empForm.patchValue({
+    imageUrl: file
+    });
+
+   //to change image when you edit product use the following code :
+   if(event.target.files) {
+    var reader=new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload=(event:any) => {
+      this.imgURL=event.target.result;
     }
+  }
   }
 }

@@ -11,7 +11,9 @@
             
             <div class="left-side">
               <h5 class="fw-semibold mb-8 mt-5">Your Photo</h5>
-              <img src="assets/img/user/user15.jpg" class="" width="250" alt="user">
+              <div style="width: 250px; height: 250px; overflow: hidden;">
+                <img [src]="image" style="width: 100%; height: 100%;"  alt="user">
+              </div>
             </div>
             <div class="right-side">
                     <div class="d-flex">

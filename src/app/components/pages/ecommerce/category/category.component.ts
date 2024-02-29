@@ -77,7 +77,6 @@ export class CategoryComponent {
         );
         merge(this.paginator.page, this.sort.sortChange)
             .pipe(
-                
                 startWith({}),
                 switchMap(() => {
                     this.isLoadingResults = true;

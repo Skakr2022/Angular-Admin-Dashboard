@@ -79,8 +79,8 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label class="d-block fw-semibold">image</label>
-                    <input formControlName="imageUrl" type="file" class="input-control" (change)="onSelectFile($event)">
-                    <img [src]="imgURL" height="200">
+                    <input type="file" class="input-control" (change)="onSelectFile($event)">
+                    <img  [src]="imgURL" height="200">
                     
                 </div>
               </div>

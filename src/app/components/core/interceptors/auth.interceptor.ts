@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const storedUser = this.tokenStorage.getUser();
     if (storedUser) {
-      const authResponse: AuthenticationResponse = JSON.parse(storedUser);
+      const authResponse: AuthenticationResponse = JSON.parse(storedUser );
       const token = authResponse.token;
       if (token) {
         const authReq = request.clone({

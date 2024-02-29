@@ -43,10 +43,12 @@
               <h5 class="fw-semibold mb-8 mt-5">Your Photo</h5>
               <p>This will be displayed on your profile.</p>
               <div class="d-flex align-items-center">
-                <img src="assets/img/user/user15.jpg" class="rounded-circle" width="110" alt="user">
+                <div style="width: 110px; height: 100px; overflow: hidden;">
+                    <img [src]="image" style="width: 100%; height: 100%;" class="rounded-circle" alt="user">
+                </div>
                 <div class="tagus-form-group ms-20">
                     <label class="d-block mb-12 fw-semibold gray-color">Upload Image</label>
-                    <input type="file">
+                    <input type="file" (change)="onFileSelected($event)">
                 </div>
                </div>  
             </div>

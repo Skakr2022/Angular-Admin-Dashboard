@@ -19,7 +19,7 @@ export class UserService {
    }
 
    updatUser(userId:number,formData:FormData): Observable<any> {
-     return this.http.put(`${this.usersURL}/${userId}`,formData);
+     return this.http.put(`${this.usersURL}/update/${userId}`,formData);
    }
 
    findUsers(

@@ -82,10 +82,10 @@ export class LoginComponent implements OnInit {
                     this.coreService.openSuccessSnackBar(
                         'user successfully conected!'
                     );
-                    console.log("before");
-                    this.router.navigate(['/authentication/login']);  
+                    
+                    // this.router.navigate(['/authentication/login']);  
                     this.router.navigate(['/ecommerce']);
-                    console.log("after");
+                   
                 },
                 error: (error: HttpErrorResponse) => {
                     console.log(error)

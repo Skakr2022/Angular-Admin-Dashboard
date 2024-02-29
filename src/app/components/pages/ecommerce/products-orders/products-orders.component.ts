@@ -73,7 +73,7 @@ export class ProductsOrdersComponent implements AfterViewInit {
                         )
                         .pipe(catchError(() => observableOf(null)));
                 }),
-                map((data) => {
+                map((data: any) => {
                     this.isLoadingResults = false;
 
                     if (data === null) {
@@ -88,6 +88,7 @@ export class ProductsOrdersComponent implements AfterViewInit {
                 })
             )
             .subscribe((data) => {
+                
                 this.dataSource = new MatTableDataSource(data.content);
             });
     }
@@ -109,7 +110,7 @@ export class ProductsOrdersComponent implements AfterViewInit {
 
     listData() {
         this.orderService.getOrders().subscribe((data) => {
-            console.log(data.length);
+            console.log(data);
             this.DataNumber = data.length;
             if (data.length == 0) {
                 this.isEmpty = true;
