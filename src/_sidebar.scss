@@ -369,9 +369,11 @@
 
         .logo {
             padding: {
-                left: 12px;
-                right: 12px;
+                left: 10px;
+                right: 10px;
+                top:12px;
             };
+            margin:0;
             a {
                 span {
                     display: none;

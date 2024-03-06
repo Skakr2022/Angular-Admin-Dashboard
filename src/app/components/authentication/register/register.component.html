@@ -10,14 +10,19 @@
             <div class="tagus-form ms-auto me-auto">
                 <div class="title">
                     <div class="d-flex mb-10 align-items-center">
-                        <h2 class="mb-0 me-30">Get Started</h2>
-                        <img src="assets/img/logo-icon.png" alt="logo-icon">
+                        <h2 class="mb-0 me-15">Get Started</h2>
+                        <!-- <img src="assets/img/logo-icon.png" alt="logo-icon"> -->
+                        <div class="My-Logo">
+                            <div>S</div><div>Z</div> 
+                        </div>
                     </div>
                     <p>Already have an account? <a routerLink="/authentication/login" class="main-color fw-medium">Login now!</a></p>
                 </div>
                 <form name="form" [formGroup]="signupForm" #f="ngForm">
                     <div class="bg-white border-radius pt-20 ps-20 pe-20">
-                        <div class="tagus-form-group without-icon">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                           <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">First Name <span>*</span></label>
                             <mat-form-field appearance="outline">
                                 <input matInput class="mat-input" formControlName="firstName" placeholder="Enter the first name">
@@ -25,8 +30,10 @@
                                     {{getFirstNameErrorMessage()}}       
                                 </mat-error>
                             </mat-form-field>
+                           </div>
                         </div>
-                        <div class="tagus-form-group without-icon">
+                        <div class="col-lg-6 col-md-6">
+                           <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Last Name <span>*</span></label>
                             <mat-form-field appearance="outline">
                                 <input matInput class="mat-input" formControlName="lastName" placeholder="Enter the last name">
@@ -34,7 +41,10 @@
                                     {{getlastNameErrorMessage()}}       
                                 </mat-error>
                             </mat-form-field>
+                           </div>  
                         </div>
+                    </div>
+                        
                         <div class="tagus-form-group without-icon">
                             <label class="d-block mb-12 fw-semibold gray-color">Username <span>*</span></label>
                             <mat-form-field appearance="outline">

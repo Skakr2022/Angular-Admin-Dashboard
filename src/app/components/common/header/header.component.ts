@@ -44,31 +44,22 @@ export class HeaderComponent implements OnInit,AfterViewInit{
             this.isToggled = isToggled;
         });
     }
-
+  
     ngOnInit(){
-         const userDataString = window.sessionStorage.getItem('auth-user');
-        if (userDataString) {
-        this.user = of(JSON.parse(userDataString));
-        this.user.subscribe(  (data: any) => {
-            const user=JSON.parse(data).user;
-            console.log(JSON.parse(data).user.firstName);
-            
-                this.userRole = user.role.name;
-                this.firstName = user.firstName;
-                this.lastName = user.lastName;
-                this.image = user.imageUrl;
-            console.log(JSON.parse(data).user.firstName);
-
-        });
-        }
+        this.tokenStorage.currentUser$.subscribe((data:any) => {
+            const userData=JSON.parse(data);
+            console.log(userData);
+            this.firstName=userData.user.firstName;
+            this.lastName=userData.user.lastName;
+            this.userRole=userData.user.role.name;
+            this.image=userData.user.imageUrl;
+        })
     }
+
     ngAfterViewInit(){
           
     }
     
-    
-    
-
     toggleTheme() {
         this.themeService.toggleTheme();
     }

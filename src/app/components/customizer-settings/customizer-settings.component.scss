@@ -1,3 +1,18 @@
+.My-Logo {
+    letter-spacing :-15px; 
+    font-size: 45px;
+    font-weight: 900;
+    display: flex;
+    padding-right: 15px;
+}
+.My-Logo :nth-child(2) {
+    color:#8E44AD ;
+}
+
+.My-Logo :nth-child(1) {
+    color:  #B0DFF7 ;
+}
+
 .settings-sidebar {
     bottom: 0;
     opacity: 0;

@@ -44,7 +44,7 @@ export class VisitsByDayComponent {
                 }
             ],
             chart: {
-                height: 580,
+                height: 400,
                 type: "radar",
                 toolbar: {
                     show: false,

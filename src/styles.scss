@@ -139,7 +139,19 @@ button {
         size: var(--fontSize) !important;
     };
 }
+.My-Logo {
+    letter-spacing :-15px; 
+    font-size: 45px;
+    font-weight: 900;
+    display: flex;
+}
+.My-Logo :nth-child(2) {
+    color:#8E44AD ;
+}
 
+.My-Logo :nth-child(1) {
+    color:  #B0DFF7 ;
+}
 // Default BTN
 .default-btn {
     border: 0;
@@ -1588,6 +1600,9 @@ button {
 }
 
 // Chart CSS
+::ng-deep .apexcharts-inner {
+    width: 100%!important;
+}
 .chart {
     .apexcharts-datalabel {
         color: var(--blackColor);
