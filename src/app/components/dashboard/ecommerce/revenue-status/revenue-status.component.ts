@@ -98,7 +98,7 @@ export class RevenueStatusComponent {
                 },
                 y: {
                     formatter: function (val) {
-                        return "$" + val + "k";
+                        return "$" + val ;
                     },
                 }
             }

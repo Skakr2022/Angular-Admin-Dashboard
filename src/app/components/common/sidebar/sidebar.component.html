@@ -49,7 +49,7 @@
                         <i class="flaticon-user"></i>
                         <span class="title">Profile</span>
                     </a>
-                    <a (click)="toggleSetting()" [ngClass]="{'active': isToggled}" [class.component-rtl-enabled]="themeService.isRTLEnabled()" class=" sidebar-menu-link">
+                    <a routerLink="/ecommerce/account" routerLinkActive="active" class=" sidebar-menu-link">
                         <i class="flaticon-setting"></i>
                         <span class="title">Settings</span>
                     </a>

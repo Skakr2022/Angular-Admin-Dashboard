@@ -41,22 +41,25 @@
         matSortActive="orderId"
         matSortDirection="asc">   
         <ng-container matColumnDef="orderId">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-start">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">
                     Order ID
                 </th>
-                <td
-                    mat-cell
-                    *matCellDef="let element"
-                    class="fw-semibold text-start"
-                >
+                <td mat-cell *matCellDef="let element" class="text-start">
                     {{ element.orderId }}
                 </td>
         </ng-container>
-
+        
         <ng-container matColumnDef="user.username">
                 <th mat-sort-header mat-header-cell *matHeaderCellDef >Customer</th>
                 <td mat-cell *matCellDef="let element" class="text-start">
-                    {{ element.user.username }}
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center product-info">
+                            <div style="padding-right:10px; width: 50px; height: 40px; overflow: hidden;">
+                                <img [src]="element.user.imageUrl" style="width: 100%; height: 100%;"  alt="user">
+                            </div>
+                            {{element.user.username}}
+                        </div>
+                    </div>
                 </td>
         </ng-container>
 
@@ -114,8 +117,8 @@
     <div [hidden]="!isEmpty">
         <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
           <img src="../../../../../assets/img/empty.svg" style="width: 250px;" alt="Logo">
-          <h2>No Products Founds </h2>
-          <h3>Create Products from here</h3>
+          <br>
+          <h3>No Orders Yet</h3>
         </div>
   </div>
         

@@ -37,6 +37,7 @@ export class AccountComponent implements OnInit{
           lastName: new FormControl('', [Validators.required]),
           username: new FormControl('', [Validators.required]),
           email: new FormControl('', [Validators.required]),
+          // image: new FormControl(''),
             
           });
 
@@ -63,12 +64,15 @@ export class AccountComponent implements OnInit{
       formData.append("lastName",this.form.value.lastName)
       formData.append("email",this.form.value.email)
       formData.append("username",this.form.value.username)
-      formData.append('imageUrl',this.userImage )
+      if(this.userImage != null){
+              formData.append('imageUrl',this.userImage )
+      }
       
       this.userService 
         .updatUser(this.userData.id,formData)
         .subscribe({ 
           next: (val: any) => {
+            window.alert("you should to signIn again to make these changes");
             this._coreService.openSuccessSnackBar('user details updated successfully! you should SignIn again to save changes');
             this.logout();
           },
@@ -90,7 +94,7 @@ export class AccountComponent implements OnInit{
           console.log(err);
         }
       });
-  }
+    }
 
     onFileSelected(event: any) {
       const file = event.target.files[0];

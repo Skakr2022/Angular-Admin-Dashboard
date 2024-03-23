@@ -104,7 +104,6 @@ import { ConnectionsComponent } from './components/pages/connections/connections
 import { PrivacyPolicyComponent } from './components/pages/privacy-policy/privacy-policy.component';
 import { TermsConditionsComponent } from './components/pages/terms-conditions/terms-conditions.component';
 import { PricingComponent } from './components/pages/pricing/pricing.component';
-import { TimelineComponent } from './components/pages/timeline/timeline.component';
 import { FaqComponent } from './components/pages/faq/faq.component';
 import { GalleryComponent } from './components/pages/gallery/gallery.component';
 import { NotificationsComponent } from './components/pages/notifications/notifications.component';
@@ -180,7 +179,6 @@ import { OrderDialogComponent } from './components/shared/components/order-dialo
         PrivacyPolicyComponent,
         TermsConditionsComponent,
         PricingComponent,
-        TimelineComponent,
         FaqComponent,
         GalleryComponent,
         NotificationsComponent,

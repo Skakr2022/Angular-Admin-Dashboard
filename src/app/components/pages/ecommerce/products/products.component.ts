@@ -138,9 +138,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
             next: (data) => {
                 console.log(data);
                 this.loadData();
-                this._coreService.openSuccessSnackBar(
-                    'data with id :  has deleted'
-                );
+                this._coreService.openSuccessSnackBar('data has deleted');
             },
             error:(error) => {
                 console.error(error);

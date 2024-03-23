@@ -36,7 +36,7 @@ export class EditCreateDialogComponent {
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       category: new FormControl('', [Validators.required, Validators.minLength(4)]),
       description: new FormControl('', Validators.required),
-      imageUrl: new FormControl('', Validators.required),
+      imageUrl: new FormControl(''),
       price : new FormControl('',Validators.required),
       quantity : new FormControl('',Validators.required)
     });
@@ -79,7 +79,9 @@ export class EditCreateDialogComponent {
         formData.append("description",this.empForm.value.description)
         formData.append("name",this.empForm.value.name)
         formData.append("category",this.empForm.value.category)
-        formData.append("imageUrl", this.userFile);
+        if(this.userFile !=null){
+          formData.append("imageUrl", this.userFile);
+        }
         formData.append("price",this.empForm.value.price)
         formData.append("stockQuantity",this.empForm.value.quantity)   
         this.productService 

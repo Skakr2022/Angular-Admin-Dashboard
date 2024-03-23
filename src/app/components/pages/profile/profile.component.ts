@@ -33,12 +33,7 @@ export class ProfileComponent {
     ngOnInit(): void {
 
         const data = this.tokenStorage.getUser();
-        console.log(data);
-        console.log(JSON.parse(data).user);
         const user  = JSON.parse(data).user;
-        console.log(user);
-        
-        console.log(user);
         this.email = user.email;
         this.username = user.username;
         this.firstName=user.firstName;
