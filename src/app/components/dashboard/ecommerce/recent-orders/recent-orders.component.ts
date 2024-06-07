@@ -165,7 +165,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     {
         position: '#SK251',
         product: {
-            productName: 'Tagus Airpod x-Zon',
+            productName: ' Airpod x-Zon',
             productImage: 'assets/img/recent-orders/product8.jpg',
         },
         customer: 'Lucas Oliver',

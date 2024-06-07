@@ -29,9 +29,9 @@
                     <div class="bg-white border-radius pt-20 ps-20 pe-20">
                         <!-- <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div> -->
                         <div class="tagus-form-group without-icon">
-                            <label class="d-block mb-12 fw-semibold gray-color">Email Address <span>*</span></label>
+                            <label class="d-block mb-12 fw-semibold gray-color">Email Address or Username <span>*</span></label>
                             <mat-form-field appearance="outline">
-                                <input matInput class="mat-input" placeholder="Enter email address" formControlName="email" >
+                                <input matInput class="mat-input" placeholder="Enter email address or Username" formControlName="email" >
                                 <mat-error *ngIf="loginForm.get('email')?.invalid">
                                     {{getEmailErrorMessage()}}       
                                 </mat-error>

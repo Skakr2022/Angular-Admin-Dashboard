@@ -69,9 +69,9 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.sort.sortChange.subscribe(
-            () => (this.paginator.pageIndex = 0)
-        );
+        // this.sort.sortChange.subscribe(
+        //     () => (this.paginator.pageIndex = 0)
+        // );
         merge(this.paginator.page, this.sort.sortChange)
             .pipe(
                 startWith({}),
