@@ -31,23 +31,23 @@
                     <span class="sub-title gray-color">PAGES</span>
                     <a routerLink="/ecommerce/products" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link">
                         <i class="flaticon-shopping-cart-2"></i>
-                        <span class="title">Products</span>
-                        <span class="badge two">{{productNumber}}</span>
+                        <span class="title">{{ "products" | translate }}</span>
+                        <span [ngClass]="{'hide':isToggled, 'badge':true,'two':true}">{{productNumber}}</span>
                     </a>
                     <a routerLink="/ecommerce/category" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link">
                         <i class="flaticon-menu-1"></i>
-                        <span class="title">Category</span>
-                        <span class="badge">{{categoryNumber}}</span>
+                        <span class="title">{{"category" | translate }}</span>
+                        <span [ngClass]="{'hide':isToggled, 'badge':true}">{{categoryNumber}}</span>
                     </a>
                     <a routerLink="/ecommerce/orders" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link">
                         <i class="flaticon-shopping-cart"></i>
                         <span class="title">Orders</span>
-                        <span class="badge three">{{orderNumber}}</span>
+                        <span [ngClass]="{'hide':isToggled, 'badge':true,'three':true}">{{orderNumber}}</span>
                     </a>
                     <a routerLink="/ecommerce/customers" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link">
                         <i class="flaticon-people"></i>
                         <span class="title">Users</span>
-                        <span class="badge">{{userNumber}} </span>
+                        <span [ngClass]="{'hide':isToggled, 'badge':true}">{{userNumber}} </span>
                     </a>
                     <a routerLink="/ecommerce/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link">
                         <i class="flaticon-user"></i>

@@ -3,7 +3,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatMenuModule } from '@angular/material/menu';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { NgxEditorModule } from 'ngx-editor';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -72,7 +72,6 @@ import { EcommerceRatingsComponent } from './components/dashboard/ecommerce/ecom
 import { VisitsByDayComponent } from './components/dashboard/ecommerce/visits-by-day/visits-by-day.component';
 import { NewCustomersComponent } from './components/dashboard/ecommerce/new-customers/new-customers.component';
 import { RevenueStatusComponent } from './components/dashboard/ecommerce/revenue-status/revenue-status.component';
-
 import { ProductsComponent } from './components/pages/ecommerce/products/products.component';
 import { ProductDetailsComponent } from './components/pages/ecommerce/product-details/product-details.component';
 import { CreateProductComponent } from './components/pages/ecommerce/create-product/create-product.component';
@@ -82,7 +81,6 @@ import { UsersComponent } from './components/pages/ecommerce/users/users.compone
 import { ProductsCartComponent } from './components/pages/ecommerce/products-cart/products-cart.component';
 import { ProductsCheckoutComponent } from './components/pages/ecommerce/products-checkout/products-checkout.component';
 import { ProductSellersComponent } from './components/pages/ecommerce/product-sellers/product-sellers.component';
-
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { AccountComponent } from './components/pages/account/account.component';
 import { NotFoundComponent } from './components/common/not-found/not-found.component';
@@ -106,7 +104,12 @@ import { ChangeRoleComponent } from './components/shared/components/change-role/
 import { RoleTransformPipe } from './components/core/pipes/role-transform.pipe';
 import { SnackBarComponent } from './components/shared/components/snack-bar/snack-bar.component';
 import { OrderDialogComponent } from './components/shared/components/order-dialog/order-dialog.component';
+import { TranslateLoader,TranslateModule } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+export function HttpLoaderFactory(http:HttpClient) {
+    return new TranslateHttpLoader(http,'./assets/i18n/','.json');
+}
 @NgModule({
     declarations: [
         AppComponent,
@@ -213,7 +216,14 @@ import { OrderDialogComponent } from './components/shared/components/order-dialo
         NgxMatTimepickerModule,
         QuillModule.forRoot(),
         NgxDropzoneModule,
-        ColorPickerModule
+        ColorPickerModule,
+        TranslateModule.forRoot({
+            loader:{
+                provide:TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps:[HttpClient]
+            }
+        })
     ],
     providers: [
         DatePipe,

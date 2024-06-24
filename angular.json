@@ -3,11 +3,19 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tagus": {
+    "tagus": { 
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        }
+      },
+      "i18n": {
+        "sourceLocale":"en-US",
+        "locales": {
+          "fr":"src/assets/i18n/fr.json",
+          "en":"src/assets/i18n/en.json",
+          "ar":"src/assets/i18n/ar.json"
         }
       },
       "root": "",

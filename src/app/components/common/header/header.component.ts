@@ -6,14 +6,26 @@ import { AuthService } from '../../core/services/Auth.service';
 import { TokenStorageService } from '../../core/services/token-storage.sevice';
 import { Router } from '@angular/router';
 import { CoreService } from '../../core/services/core.service';
-import { of } from 'rxjs';
+import { Languages } from '../../shared/models/languages.model';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../core/services/language.service';
+
+
+const languages_data:Languages[] = [
+    { name: 'English', flag: 'usa', code: 'en' },
+    { name: 'Arabic', flag: 'spain', code: 'ar' },
+    { name: 'French', flag: 'germany', code: 'fr' }
+]
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit,AfterViewInit{
+    languages = languages_data;
+    selectedLanguage:Languages ;
     isToggled = false;
     user:any ;
     isSticky: boolean = false;
@@ -34,30 +46,57 @@ export class HeaderComponent implements OnInit,AfterViewInit{
     constructor(
         private toggleService: ToggleService,
         private datePipe: DatePipe,
-        public themeService: CustomizerSettingsService,
+        public  themeService: CustomizerSettingsService,
         private authService: AuthService,
         private tokenStorage: TokenStorageService,
         private router: Router,
+        private translateService:TranslateService,
+        private languageService:LanguageService,
         private coreService:CoreService
     ) {
+
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
     }
   
     ngOnInit(){
-        this.tokenStorage.currentUser$.subscribe((data:any) => {
-            const userData=JSON.parse(data);
-            console.log(userData);
-            this.firstName=userData.user.firstName;
-            this.lastName=userData.user.lastName;
-            this.userRole=userData.user.role.name;
-            this.image=userData.user.imageUrl;
-        })
+        // translation configuration
+        this.languageService.configureTranslation();
+        // Initialize user data
+        this.initializeUserData();
+        // setup lanuage
+        this.setupLanguage();
     }
 
-    ngAfterViewInit(){
-          
+    ngAfterViewInit(){ }
+
+    setupLanguage(): void {
+        const storedLanguage =this.languageService.getStoredLanguage()
+        if (storedLanguage) {
+            this.selectedLanguage = storedLanguage;
+            this.translateService.use(this.selectedLanguage.code);
+        } else {
+            // Default language
+            this.selectedLanguage = this.languages[0];
+        }
+    }
+
+    initializeUserData(): void {
+        this.tokenStorage.currentUser$.subscribe((data: any) => {
+            const userData = JSON.parse(data);
+            this.firstName = userData.user.firstName;
+            this.lastName = userData.user.lastName;
+            this.userRole = userData.user.role.name;
+            this.image = userData.user.imageUrl;
+        });
+    }
+
+    languageSelect(language:Languages):void {
+        this.selectedLanguage=language;
+        this.translateService.use(language.code);
+        // Store the selected language in localStorage
+        this.languageService.storeLanguage(language);
     }
     
     toggleTheme() {

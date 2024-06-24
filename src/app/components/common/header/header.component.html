@@ -24,26 +24,14 @@
         <ul class="header-right-side d-flex align-items-center mt-0 mb-0">
             <li>
                 <button mat-icon-button [matMenuTriggerFor]="languageMenu" class="btn p-0 border-none rounded-circle position-relative">
-                    <img src="assets/img/flag/usa.png" alt="usa">
+                    <img [src]="'assets/img/flag/'+selectedLanguage.flag+'.png'" alt="usa">
                 </button>
                 <mat-menu class="language-menu-dropdown" #languageMenu="matMenu" xPosition="after">
                     <ul class="m-0">
-                        <li>
+                        <li *ngFor="let language of languages" (click)="languageSelect(language)">
                             <button type="button" class="d-flex align-items-center border-none">
-                                <img src="assets/img/flag/usa.png" alt="usa">
-                                English
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="d-fle align-items-center border-none">
-                                <img src="assets/img/flag/spain.png" alt="spain">
-                                Spanish
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="d-fle align-items-center border-none">
-                                <img src="assets/img/flag/germany.png" alt="germany">
-                                German
+                                <img [src]="'assets/img/flag/'+ language.flag +'.png'" alt="usa">
+                                {{language.name}} 
                             </button>
                         </li>
                     </ul>
@@ -65,7 +53,7 @@
                     <ul class="m-0">
                         <li>
                             <a routerLink="/ecommerce/profile">
-                                <i class="ri-user-3-line"></i> Profile
+                                <i class="ri-user-3-line"></i> {{"Profile" | translate}}
                             </a>
                         </li>
                         <li> 

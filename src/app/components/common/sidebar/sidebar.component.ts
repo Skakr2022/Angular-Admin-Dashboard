@@ -5,6 +5,8 @@ import { ProductService } from '../../core/services/product.service';
 import { CategoryService } from '../../core/services/category.service';
 import { OrderService } from '../../core/services/order.service';
 import { UserService } from '../../core/services/user.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -24,12 +26,17 @@ export class SidebarComponent implements OnInit {
 
     constructor(
         private toggleService: ToggleService,
-        public themeService: CustomizerSettingsService,
-        public productService: ProductService,
-        public categoryService: CategoryService,
-        public orderService: OrderService,
-        public userService: UserService
-    ) {
+        public  themeService: CustomizerSettingsService,
+        private productService: ProductService,
+        private categoryService: CategoryService,
+        private orderService: OrderService,
+        private userService: UserService,
+        private languageService: LanguageService
+    ) { 
+        // translation configuration
+        // this.languageService.configureTranslation();
+ 
+        // toggle sidebar
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
