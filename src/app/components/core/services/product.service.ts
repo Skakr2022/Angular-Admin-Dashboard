@@ -18,6 +18,10 @@ export class ProductService {
     return this.http.get<Product[]>(`http://localhost:8080/product`)
   }
 
+  getProductsByCategory(categoryId: number): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}/${categoryId}/products`);
+  }
+
   createProduct(formData:FormData): Observable<object> {  
     return this.http.post(`${this.productUrl}`, formData,{
       responseType:'arraybuffer'

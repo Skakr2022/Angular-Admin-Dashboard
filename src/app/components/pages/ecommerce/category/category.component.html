@@ -39,37 +39,45 @@
         matSortActive="{{sortActive}}"
         matSortDirection="asc"
         [dataSource]="dataSource">
+
+        <!-- categoryId Column -->
         <ng-container matColumnDef="categoryId">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">category ID</th>
-            <td mat-cell *matCellDef="let element" class="text-start">{{element.categoryId}}</td>
+            <mat-header-cell mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">category ID</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element" class="text-start">{{element.categoryId}}</mat-cell>
         </ng-container>
     
-        <!-- Price Column -->
+        <!-- categoryName Column -->
         <ng-container matColumnDef="categoryName">
-            <th mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">Category Name</th>
-            <td mat-cell *matCellDef="let element" class="text-start">{{element.categoryName}}</td>
+            <mat-header-cell mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">Category Name</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element" class="text-start">{{element.categoryName}}</mat-cell>
+        </ng-container>
+
+        <!-- categoryNumber Column -->
+        <ng-container matColumnDef="productNumber">
+            <mat-header-cell mat-sort-header mat-header-cell *matHeaderCellDef class="text-center">Product Number</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element" class="text-start">{{element.product.length}}</mat-cell>
         </ng-container>
     
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let element">
-            <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="actionMenu">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell (click)="$event.stopPropagation()" mat-cell *matCellDef="let element">
+            <button  type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="actionMenu">
                 <i class="ri-more-fill"></i>
             </button>
             <mat-menu #actionMenu="matMenu" class="dotMenu two monthMenu" xPosition="before">
                 <button (click)="onEdit(element)" mat-menu-item type="button" class="bg-transparent border-none position-relative">
-                    <i class="ri-edit-line"></i> Edit
+                    <i class="ri-edit-line"></i> Rename 
                 </button>
                 <button (click)="onDelete(element)" mat-menu-item type="button" class="bg-transparent border-none position-relative">
                     <i class="ri-delete-bin-line"></i> Remove
                 </button>
             </mat-menu>
-        </td>
+        </mat-cell>
         </ng-container>
       
-          <tr mat-header-row  *matHeaderRowDef="displayedColumns"  ></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <mat-header-row mat-header-row  *matHeaderRowDef="displayedColumns"  ></mat-header-row>
+          <mat-row matRipple *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
           <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">No data matching the filter {{this.filterValue}} </td>
           </tr>
