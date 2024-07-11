@@ -13,10 +13,10 @@ import { NotFoundComponent } from './components/common/not-found/not-found.compo
 import { EcommerceComponent } from './components/dashboard/ecommerce/ecommerce.component';
 import { AccountComponent } from './components/pages/account/account.component';
 import { CreateProductComponent } from './components/pages/ecommerce/create-product/create-product.component';
-import { ProductDetailsComponent } from './components/pages/ecommerce/product-details/product-details.component';
+import { ProductDetailsComponent } from './components/home/product-details/product-details.component';
 import { ProductSellersComponent } from './components/pages/ecommerce/product-sellers/product-sellers.component';
 import { ProductsCartComponent } from './components/pages/ecommerce/products-cart/products-cart.component';
-import { ProductsCheckoutComponent } from './components/pages/ecommerce/products-checkout/products-checkout.component';
+import { CheckoutComponent } from './components/home/checkout/checkout.component';
 import { UsersComponent } from './components/pages/ecommerce/users/users.component';
 import { ProductsOrderDetailsComponent } from './components/pages/ecommerce/products-order-details/products-order-details.component';
 import { ProductsOrdersComponent } from './components/pages/ecommerce/products-orders/products-orders.component';
@@ -24,13 +24,16 @@ import { ProductsComponent } from './components/pages/ecommerce/products/product
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { authGuardGuard, loginGuard } from './components/core/Guards/Auth-guard.guard';
 import { CategoryComponent } from './components/pages/ecommerce/category/category.component';
+import { HomeComponent } from './components/home/home.component';
+import { HomeHeaderComponent } from './components/home/common/home-header/home-header.component';
+import { MainComponent } from './components/home/main/main.component';
 
 const routes: Routes = [
     { 
         path: '', 
         redirectTo: 'ecommerce', 
         pathMatch: 'full' 
-      },
+    },
     { path:'ecommerce',
       canActivateChild:[authGuardGuard],
       children: [
@@ -42,7 +45,7 @@ const routes: Routes = [
         { path: 'order-details', component: ProductsOrderDetailsComponent },
         { path: 'customers', component: UsersComponent },
         { path: 'cart', component: ProductsCartComponent },
-        { path: 'checkout', component: ProductsCheckoutComponent },
+        { path: 'checkout', component: CheckoutComponent },
         { path: 'sellers', component: ProductSellersComponent },
         { path: 'profile', component: ProfileComponent},
         { path: 'account', component: AccountComponent},
@@ -52,16 +55,23 @@ const routes: Routes = [
     {path: 'error-500', component: InternalErrorComponent},
     {path: 'authentication/forgot-password', component: ForgotPasswordComponent},
     {path: 'authentication/reset-password', component: ResetPasswordComponent},
-    {path: 'authentication/login',
-    //  canActivate:[loginGuard],
-     component: LoginComponent
-    },
+    {path: 'authentication/login', component: LoginComponent},
     {path: 'authentication/register', component: RegisterComponent},
     {path: 'authentication/signin-signup', component: SigninSignupComponent},
     {path: 'authentication/logout', component: LogoutComponent},
     {path: 'authentication/confirm-mail', component: ConfirmMailComponent},
     {path: 'authentication/lock-screen', component: LockScreenComponent},
-    // Here add new pages component
+
+    // home routing
+    { 
+      path: 'home', 
+      component: HomeComponent,
+      children: [
+          { path: '', component: MainComponent },
+          { path: 'checkout', component: CheckoutComponent },
+          { path: 'detail-product', component: ProductDetailsComponent },
+      ]
+    },
 
     {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
 ];

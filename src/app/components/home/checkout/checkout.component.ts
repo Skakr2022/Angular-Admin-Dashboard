@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 
 @Component({
-    selector: 'app-products-checkout',
-    templateUrl: './products-checkout.component.html',
-    styleUrls: ['./products-checkout.component.scss']
+    selector: 'app-checkout',
+    templateUrl: './checkout.component.html',
+    styleUrls: ['./checkout.component.scss']
 })
-export class ProductsCheckoutComponent {
+export class CheckoutComponent {
 
     constructor(
         public themeService: CustomizerSettingsService

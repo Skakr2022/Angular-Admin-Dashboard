@@ -1,0 +1,29 @@
+<div class="mb-80 slider d-flex align-items-center justify-content-center">
+    <div class="col-lg-11 col-md-6">
+      <div class="carousel-container">
+        <div class="hidden-container"></div>
+        <div class="image-wrapper" *ngFor="let image of images; let i = index">
+          <img
+            [src]="image"
+            [ngClass]="{'image-active': selectedIndex === i}"
+            class="fade"
+            (mouseenter)="pauseAutoSlide()"
+            (mouseleave)="resumeAutoSlide()">
+          <button *ngIf="selectedIndex === i"
+            (click)="onImageClick(i)"
+            class="slider-button fade" mat-fab extended color="primary">find more
+          </button>
+        </div>
+        <div class="carousel-dot-container">
+          <span
+            *ngFor="let dot of images; let i = index"
+            class="dot"
+            [ngClass]="{'active': selectedIndex === i}"
+            (click)="selectedImage(i)">
+          </span>
+        </div>
+      </div>
+    </div>
+</div>
+
+  

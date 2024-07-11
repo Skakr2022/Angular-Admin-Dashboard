@@ -73,13 +73,12 @@ import { VisitsByDayComponent } from './components/dashboard/ecommerce/visits-by
 import { NewCustomersComponent } from './components/dashboard/ecommerce/new-customers/new-customers.component';
 import { RevenueStatusComponent } from './components/dashboard/ecommerce/revenue-status/revenue-status.component';
 import { ProductsComponent } from './components/pages/ecommerce/products/products.component';
-import { ProductDetailsComponent } from './components/pages/ecommerce/product-details/product-details.component';
+import { ProductDetailsComponent } from './components/home/product-details/product-details.component';
 import { CreateProductComponent } from './components/pages/ecommerce/create-product/create-product.component';
 import { ProductsOrderDetailsComponent } from './components/pages/ecommerce/products-order-details/products-order-details.component';
 import { ProductsOrdersComponent } from './components/pages/ecommerce/products-orders/products-orders.component';
 import { UsersComponent } from './components/pages/ecommerce/users/users.component';
 import { ProductsCartComponent } from './components/pages/ecommerce/products-cart/products-cart.component';
-import { ProductsCheckoutComponent } from './components/pages/ecommerce/products-checkout/products-checkout.component';
 import { ProductSellersComponent } from './components/pages/ecommerce/product-sellers/product-sellers.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { AccountComponent } from './components/pages/account/account.component';
@@ -106,6 +105,15 @@ import { SnackBarComponent } from './components/shared/components/snack-bar/snac
 import { OrderDialogComponent } from './components/shared/components/order-dialog/order-dialog.component';
 import { TranslateLoader,TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HomeComponent } from './components/home/home.component';
+import { HomeHeaderComponent } from './components/home/common/home-header/home-header.component';
+import { HomeFooterComponent } from './components/home/common/home-footer/home-footer.component';
+import { CheckoutComponent } from './components/home/checkout/checkout.component';
+import { MainComponent } from './components/home/main/main.component';
+import { SliderComponent } from './components/home/main/slider/slider.component';
+import { ProductListComponent } from './components/home/main/product-list/product-list.component';
+import { GalleriaModule } from 'primeng/galleria';
+// import { CarouselModule } from 'primeng/carousel';
 
 export function HttpLoaderFactory(http:HttpClient) {
     return new TranslateHttpLoader(http,'./assets/i18n/','.json');
@@ -135,7 +143,7 @@ export function HttpLoaderFactory(http:HttpClient) {
         ProductsOrdersComponent,
         UsersComponent,
         ProductsCartComponent,
-        ProductsCheckoutComponent,
+        CheckoutComponent,
         ProductSellersComponent,
         ProfileComponent,
         AccountComponent,
@@ -157,6 +165,14 @@ export function HttpLoaderFactory(http:HttpClient) {
         ChangeRoleComponent,
         SnackBarComponent,
         OrderDialogComponent,
+        HomeComponent,
+        HomeHeaderComponent,
+        HomeFooterComponent,
+        CheckoutComponent,
+        MainComponent,
+        SliderComponent,
+        ProductListComponent,
+        
     ],
     imports: [
         BrowserModule,
@@ -207,6 +223,8 @@ export function HttpLoaderFactory(http:HttpClient) {
         NgxEditorModule,
         DragDropModule,
         HttpClientModule,
+        GalleriaModule,
+        CarouselModule,
         CdkAccordionModule,
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts')

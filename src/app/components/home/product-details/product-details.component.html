@@ -1,19 +1,6 @@
-<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between">
-    <h5 class="mb-0">Product Details</h5>
-    <ol class="breadcrumb mb-0 ps-0">
-        <li class="breadcrumb-item">
-            <a routerLink="/">
-                <i class="ri-home-8-line"></i>
-                Dashboard
-            </a>
-        </li>
-        <li class="breadcrumb-item fw-semibold">eCommerce</li>
-        <li class="breadcrumb-item fw-semibold">Product Details</li>
-    </ol>
-</div>
-
-<mat-card
-    class="mb-25 tagus-card"
+<div class="d-flex align-item-center justify-content-center">
+  <mat-card
+    class="mb-25 tagus-card detail-product col-lg-11 col-md-6 "
     [class.component-dark-theme]="themeService.isDark()"
     [class.component-rtl-enabled]="themeService.isRTLEnabled()"
 >
@@ -21,14 +8,27 @@
         <div class="row align-items-center">
             <div class="col-lg-5 col-md-12">
                 <div class="product-image border-radius">
-                    <owl-carousel-o [options]="imageSlides">
-                        <ng-template carouselSlide>
-                            <img src="assets/img/recent-orders/product-details1.jpg" alt="product-details" class="border-radius">
-                        </ng-template>
-                        <ng-template carouselSlide>
-                            <img src="assets/img/recent-orders/product-details2.jpg" alt="product-details" class="border-radius">
-                        </ng-template>
-                    </owl-carousel-o>
+                    <div class="card">
+                        <p-galleria 
+                            [value]="images" 
+                            [autoPlay]="true"
+                            [circular]="true"
+                            [transitionInterval]="3000"
+                            [showIndicators]="false" 
+                            [showItemNavigatorsOnHover]="true" 
+                            [showItemNavigators]="true"
+                            [responsiveOptions]="responsiveOptions" 
+                            [containerStyle]="{ 'max-width': '640px' }"> 
+                                <ng-template pTemplate="item" let-item>
+                                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" class="border-radius-20">
+                                </ng-template>
+                                <ng-template pTemplate="thumbnail" let-item>
+                                    <div class="grid grid-nogutter justify-content-center">
+                                        <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                                    </div>
+                                </ng-template>
+                        </p-galleria>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-7 col-md-12">
@@ -184,4 +184,5 @@
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>
-</mat-card>
+</mat-card>  
+</div>
