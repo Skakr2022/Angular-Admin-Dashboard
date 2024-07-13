@@ -53,6 +53,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     isLoadingResults!:boolean;
     isEmpty: boolean = false;
     DataNumber!: number;
+    sortActive="productId";
     filterValue!: string;
     @ViewChild(MatSort, { static: true }) sort!: MatSort;
     @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -69,25 +70,28 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.handleRouteQueryParams();
-        
-
         this.listData();
         this.dataSource.sortingDataAccessor =
             this.sortingService.sortingDataAccessor;
     }
 
     ngAfterViewInit() {
-        // this.sort.sortChange.subscribe(
-        //     () => (this.paginator.pageIndex = 0)
-        // );
+        this.sort.sortChange.subscribe(
+            () => (this.paginator.pageIndex = 0)
+        );
         merge(this.paginator.page, this.sort.sortChange)
             .pipe(
                 startWith({}),
                 switchMap(() => {
                     this.isLoadingResults = true;
                     return this.productService
-                        .getProductsByCategory(this.categoryId)
-                        .pipe(catchError(() => observableOf(null)));
+                        .getPagedAndSortedProductsByCategoy(
+                            this.categoryId,
+                            this.paginator?.pageIndex ?? 0,
+                            this.paginator?.pageSize ?? 5,
+                            this.sort?.active ?? this.sortActive ,
+                            this.sort?.direction ?? 'asc'   
+                        ).pipe(catchError(() => observableOf(null)));
                 }),
                 map((data) => {
                     this.isLoadingResults = false;
@@ -104,7 +108,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
                 })
             )
             .subscribe((data) => {
-                this.dataSource = new MatTableDataSource(data);
+                this.dataSource = new MatTableDataSource(data.content);
             });
 
         // this.table.sort.sortChange
@@ -125,6 +129,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
             actionButtonText: 'edit',
             Data: data,
             productId: data.productId,
+            categoryName:this.categoryName
         };
 
         const dialogRef = this.matDialog.open(
@@ -148,9 +153,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
                 console.error(error);
                 this._coreService.openErrorSnackBar(error.error);
             }
-        }
-           
-        );
+        });
     }
 
     loadData(): void {
@@ -164,8 +167,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     }
 
     listData() {
-        this.categoryService.getCategories().subscribe((data) => {
-            console.log(data.length);
+        this.productService.getProductsByCategory(this.categoryId).subscribe((data) => {
+            
             this.DataNumber = data.length;
             if (data.length == 0) {
                 this.isEmpty = true;
@@ -203,6 +206,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         dialogConfig.data = {
             title: 'Create New Product',
             actionButtonText: 'Create',
+            categoryName:this.categoryName
         };
 
         const dialogRef = this.matDialog.open(

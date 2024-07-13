@@ -43,23 +43,6 @@
                   </mat-form-field>
                 </div>
               </div>
-          
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                    <label class="d-block fw-semibold">Category</label>
-                    <mat-form-field appearance="outline">
-                      
-                      <mat-select matInput   formControlName="category" placeholder="Select">
-                        <mat-option>None</mat-option>
-                        <mat-option *ngFor="let category of categories" [value]="category.categoryName">{{category.categoryName}}</mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="empForm.get('category')?.hasError('required') && empForm.get('category')?.touched">
-                         Category is required.   
-                      </mat-error>
-                    </mat-form-field>
-                    
-                </div>
-              </div>
         
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
