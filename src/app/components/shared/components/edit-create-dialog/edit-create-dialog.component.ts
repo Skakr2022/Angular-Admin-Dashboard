@@ -16,7 +16,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class EditCreateDialogComponent {
   empForm!: FormGroup;
 
-  public categories: Category[] = [];
   userFile: any;
   message: string = "";
   imgURL: any ;
@@ -30,11 +29,9 @@ export class EditCreateDialogComponent {
         private _dialogRef: MatDialogRef<EditCreateDialogComponent> ) {}
   
   ngOnInit(): void {
-    this.listProductCategories();
     console.log(this.empForm);
     this.empForm = this._fb.group({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      category: new FormControl('', [Validators.required, Validators.minLength(4)]),
       description: new FormControl('', Validators.required),
       imageUrl: new FormControl(''),
       price : new FormControl('',Validators.required),
@@ -42,11 +39,10 @@ export class EditCreateDialogComponent {
     });
 
     if(this.data.Data){
-      console.log(this.data.Data);
+      
       this.empForm.patchValue({
         name:this.data.Data.name,
         description:this.data.Data.description,
-        category:this.data.Data.category.categoryName,
         price:this.data.Data.price,
         quantity:this.data.Data.stockQuantity
       })
@@ -61,15 +57,6 @@ export class EditCreateDialogComponent {
     }
   }
 
-  listProductCategories(){
-    this.productService.getProductCategories().subscribe(
-      data => {
-        console.log(data)
-        this.categories = data;
-      }
-    )
-  }
-
   onSubmit(){
     if(this.empForm.valid){
       if (this.data.Data) {
@@ -78,7 +65,7 @@ export class EditCreateDialogComponent {
         const formData = new FormData();
         formData.append("description",this.empForm.value.description)
         formData.append("name",this.empForm.value.name)
-        formData.append("category",this.empForm.value.category)
+        formData.append("category",this.data.categoryName)
         if(this.userFile !=null){
           formData.append("imageUrl", this.userFile);
         }
@@ -101,7 +88,7 @@ export class EditCreateDialogComponent {
         console.log(this.empForm.value)
         formData.append("description",this.empForm.value.description)
         formData.append("name",this.empForm.value.name)
-        formData.append("category",this.empForm.value.category)
+        formData.append("category",this.data.categoryName)
         formData.append("imageUrl",this.userFile)
         formData.append("price",this.empForm.value.price)
         formData.append("stockQuantity",this.empForm.value.quantity) 

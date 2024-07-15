@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import {
     catchError,
     of as observableOf,
@@ -38,6 +39,7 @@ export class CategoryComponent {
     displayedColumns: string[] = [
         'categoryId',
         'categoryName',
+        'productNumber',
         'action',
     ];
     dropdownItems: string[] = ['Edit', 'Delete'];
@@ -61,15 +63,15 @@ export class CategoryComponent {
     constructor(
         private matDialog: MatDialog,
         // private table:TableComponent,
+        private router: Router,
         private categoryService:CategoryService,
         private _coreService: CoreService
     ) {}
 
     ngOnInit() {
-        // this.loadData();
         this.listData();
         console.log(this.dataSource);
-       }
+    }
 
     ngAfterViewInit() {
         this.sort.sortChange.subscribe(
@@ -107,6 +109,7 @@ export class CategoryComponent {
             )
             .subscribe((data) => {
                 this.dataSource = new MatTableDataSource(data.content);
+                
             });
     }
 
@@ -166,9 +169,8 @@ export class CategoryComponent {
     }
 
     listData() {
-        console.log('listData');
         this.categoryService.getCategories().subscribe((data) => {
-            console.log(data.length);
+            console.log(data);
             this.DataNumber = data.length;
             if (data.length == 0) {
                 this.isEmpty = true;
@@ -204,5 +206,10 @@ export class CategoryComponent {
         dialogRef.afterClosed().subscribe((result) => {
             this.loadData();
         });
+    }
+
+    // Handle row click event
+    onRowClicked(row: Category): void {
+    this.router.navigate(['ecommerce/products'], { queryParams: { categoryId: row.categoryId, categoryName: row.categoryName} });
     }
 }

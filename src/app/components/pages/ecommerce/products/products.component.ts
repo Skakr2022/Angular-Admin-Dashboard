@@ -11,6 +11,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import {
     catchError,
     of as observableOf,
@@ -20,11 +21,13 @@ import {
     map,
 } from 'rxjs';
 import { ApiService } from 'src/app/components/core/services/api.service';
+import { CategoryService } from 'src/app/components/core/services/category.service';
 import { CoreService } from 'src/app/components/core/services/core.service';
 import { ProductService } from 'src/app/components/core/services/product.service';
 import { SortingDataAccessorService } from 'src/app/components/core/services/sorting-data-accessor.service';
 import { EditCreateDialogComponent } from 'src/app/components/shared/components/edit-create-dialog/edit-create-dialog.component';
 import { TableComponent } from 'src/app/components/shared/components/table/table.component';
+import { Category } from 'src/app/components/shared/models/Category.model';
 import { dialogData } from 'src/app/components/shared/models/Dialog-data.model';
 import { Product } from 'src/app/components/shared/models/Product.model';
 
@@ -35,11 +38,12 @@ import { Product } from 'src/app/components/shared/models/Product.model';
 })
 export class ProductsComponent implements OnInit, AfterViewInit {
     Product!: Product[];
+    categoryId:number;
+    categoryName:string;
     dataSource=new MatTableDataSource<Product>(this.Product);
     displayedColumns: string[]= [
         'productId',
         'name',
-        'category.categoryName',
         'stockQuantity',
         'price',
         'description',
@@ -49,6 +53,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     isLoadingResults!:boolean;
     isEmpty: boolean = false;
     DataNumber!: number;
+    sortActive="productId";
     filterValue!: string;
     @ViewChild(MatSort, { static: true }) sort!: MatSort;
     @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -58,33 +63,35 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         private productService: ProductService,
         private _liveAnnouncer: LiveAnnouncer,
         private _coreService: CoreService,
-        private sortingService: SortingDataAccessorService
+        private sortingService: SortingDataAccessorService,
+        private categoryService: CategoryService,
+        private route:ActivatedRoute
     ) {}
 
     ngOnInit() {
-        //  this.loadData();
+        this.handleRouteQueryParams();
         this.listData();
         this.dataSource.sortingDataAccessor =
             this.sortingService.sortingDataAccessor;
     }
 
     ngAfterViewInit() {
-        // this.sort.sortChange.subscribe(
-        //     () => (this.paginator.pageIndex = 0)
-        // );
+        this.sort.sortChange.subscribe(
+            () => (this.paginator.pageIndex = 0)
+        );
         merge(this.paginator.page, this.sort.sortChange)
             .pipe(
                 startWith({}),
                 switchMap(() => {
                     this.isLoadingResults = true;
                     return this.productService
-                        .findProduct(
+                        .getPagedAndSortedProductsByCategoy(
+                            this.categoryId,
                             this.paginator?.pageIndex ?? 0,
                             this.paginator?.pageSize ?? 5,
-                            this.sort?.active ?? 'productId',
-                            this.sort?.direction ?? 'asc'
-                        )
-                        .pipe(catchError(() => observableOf(null)));
+                            this.sort?.active ?? this.sortActive ,
+                            this.sort?.direction ?? 'asc'   
+                        ).pipe(catchError(() => observableOf(null)));
                 }),
                 map((data) => {
                     this.isLoadingResults = false;
@@ -110,6 +117,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         // });
     }
 
+    
     onEdit(data: any): void {
         console.log(data.productId);
         const dialogConfig = new MatDialogConfig();
@@ -121,6 +129,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
             actionButtonText: 'edit',
             Data: data,
             productId: data.productId,
+            categoryName:this.categoryName
         };
 
         const dialogRef = this.matDialog.open(
@@ -144,19 +153,12 @@ export class ProductsComponent implements OnInit, AfterViewInit {
                 console.error(error);
                 this._coreService.openErrorSnackBar(error.error);
             }
-        }
-           
-        );
+        });
     }
 
     loadData(): void {
-        this.productService
-            .findProduct(
-                this.paginator?.pageIndex ?? 0,
-                this.paginator?.pageSize ?? 5,
-                this.sort?.active ?? 'productId',
-                this.sort?.direction ?? 'asc'
-            )
+        this.categoryService
+            .getCategories()
             .subscribe((data) => {
                 console.log(data);
                 this.dataSource = new MatTableDataSource(data.content);
@@ -165,9 +167,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     }
 
     listData() {
-        console.log('listData');
-        this.productService.getProducts().subscribe((data) => {
-            console.log(data.length);
+        this.productService.getProductsByCategory(this.categoryId).subscribe((data) => {
+            
             this.DataNumber = data.length;
             if (data.length == 0) {
                 this.isEmpty = true;
@@ -205,6 +206,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         dialogConfig.data = {
             title: 'Create New Product',
             actionButtonText: 'Create',
+            categoryName:this.categoryName
         };
 
         const dialogRef = this.matDialog.open(
@@ -213,4 +215,11 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         );
         dialogRef.afterClosed().subscribe((result) => {this.loadData();});
     }
+
+    handleRouteQueryParams(){
+        this.route.queryParams.subscribe(params => {
+            this.categoryId = params['categoryId'];
+            this.categoryName = params['categoryName'];
+        });
+    };
 }

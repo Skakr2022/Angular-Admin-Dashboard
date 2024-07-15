@@ -18,6 +18,10 @@ export class ProductService {
     return this.http.get<Product[]>(`http://localhost:8080/product`)
   }
 
+  getProductsByCategory(categoryId: number): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}/${categoryId}/products`);
+  }
+
   createProduct(formData:FormData): Observable<object> {  
     return this.http.post(`${this.productUrl}`, formData,{
       responseType:'arraybuffer'
@@ -50,7 +54,7 @@ export class ProductService {
     sortField:string,
     sortOrder:string
     ):Observable<any>{
-    return this.http.get(`http://localhost:8080/product/paginate`,
+    return this.http.get( `${this.productUrl}`+`/paginate`,
       { params:new HttpParams()
        .set('page',pageNumber.toString()) 
        .set('size',pageSize.toString())
@@ -59,6 +63,24 @@ export class ProductService {
       }).pipe( 
        map(res=> res) 
       );
+    }
+
+    getPagedAndSortedProductsByCategoy(
+      categoryId:number,
+      pageNumber:number,
+      pageSize:number,
+      sortField:string,
+      sortOrder:string):Observable<any> {
+      
+        return this.http.get(`${this.productUrl}/${categoryId}/paginate`,
+          { params:new HttpParams()
+            .set('page',pageNumber.toString())
+            .set('size',pageSize.toString()) 
+            .set('sortField',sortField) 
+            .set('sortOrder',sortOrder) 
+          }).pipe( 
+            map(res=> res) 
+           );
     }
 
 
