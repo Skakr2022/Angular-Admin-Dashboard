@@ -181,9 +181,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         this.dataSource.filter = this.filterValue.trim().toLowerCase();
 
         this.dataSource.filterPredicate = (data: any, filter: string) => {
-            const category = JSON.stringify(
-                data.category.categoryName
-            ).toLowerCase();
+            const category = JSON.stringify(data.category.categoryName).toLowerCase();
             const name = JSON.stringify(data.name).toLowerCase();
             const description = JSON.stringify(data.description).toLowerCase();
             const lastUpdate = JSON.stringify(data.lastUpdate).toLowerCase();

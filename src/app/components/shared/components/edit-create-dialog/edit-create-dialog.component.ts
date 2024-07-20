@@ -34,16 +34,17 @@ export class EditCreateDialogComponent {
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       description: new FormControl('', Validators.required),
       imageUrl: new FormControl(''),
-      price : new FormControl('',Validators.required),
+      priceBeforeDiscount : new FormControl(''),
+      priceAfterDiscount : new FormControl('',Validators.required),
       quantity : new FormControl('',Validators.required)
     });
 
     if(this.data.Data){
-      
       this.empForm.patchValue({
         name:this.data.Data.name,
         description:this.data.Data.description,
-        price:this.data.Data.price,
+        priceAfterDiscount:this.data.Data.priceAfterDiscount,
+        priceBeforeDiscount:this.data.Data.priceBeforeDiscount,
         quantity:this.data.Data.stockQuantity
       })
       this.productService.getProductById(this.data.productId).subscribe({
@@ -69,7 +70,10 @@ export class EditCreateDialogComponent {
         if(this.userFile !=null){
           formData.append("imageUrl", this.userFile);
         }
-        formData.append("price",this.empForm.value.price)
+        formData.append("priceAfterDiscount",this.empForm.value.priceAfterDiscount)
+        if(this.empForm.value.priceBeforeDiscount) {
+          formData.append("priceBeforeDiscount",this.empForm.value.priceBeforeDiscount)
+        }
         formData.append("stockQuantity",this.empForm.value.quantity)   
         this.productService 
           .updateProduct(this.data.productId, formData)
@@ -90,7 +94,10 @@ export class EditCreateDialogComponent {
         formData.append("name",this.empForm.value.name)
         formData.append("category",this.data.categoryName)
         formData.append("imageUrl",this.userFile)
-        formData.append("price",this.empForm.value.price)
+        formData.append("priceAfterDiscount",this.empForm.value.priceAfterDiscount)
+        if(this.empForm.value.priceBeforeDiscount) {
+          formData.append("priceBeforeDiscount",this.empForm.value.priceBeforeDiscount)
+        }
         formData.append("stockQuantity",this.empForm.value.quantity) 
         this.productService.createProduct(formData).subscribe(
           {

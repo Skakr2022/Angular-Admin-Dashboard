@@ -34,10 +34,19 @@
 
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                  <label class="d-block fw-semibold">Product Price</label>
+                  <label class="d-block fw-semibold">Price Before Discount (optional) </label>
                   <mat-form-field appearance="outline">
-                    <input matInput type="number" min="0" placeholder="price" class="input-control" formControlName="price">
-                    <mat-error *ngIf="empForm.get('price')?.hasError('required') && empForm.get('price')?.touched">
+                    <input matInput type="number" min="0" placeholder="priceBeforeDiscount" class="input-control" formControlName="priceBeforeDiscount">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label class="d-block fw-semibold">Price After Discount</label>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" min="0" placeholder="priceAfterDiscount" class="input-control" formControlName="priceAfterDiscount">
+                    <mat-error *ngIf="empForm.get('priceAfterDiscount')?.hasError('required') && empForm.get('priceAfterDiscount')?.touched">
                       Price is required.
                     </mat-error>
                   </mat-form-field>
