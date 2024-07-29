@@ -1,14 +1,12 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { ToggleService } from '../../../common/header/toggle.service';
-import { DatePipe } from '@angular/common';
 import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
-import { AuthService } from '../../../core/services/Auth.service';
-import { TokenStorageService } from '../../../core/services/token-storage.sevice';
-import { Router } from '@angular/router';
-import { CoreService } from '../../../core/services/core.service';
 import { Languages } from '../../../shared/models/languages.model';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../core/services/language.service';
+import { CategoryService } from 'src/app/components/core/services/category.service';
+import { Category } from 'src/app/components/shared/models/Category.model';
+import { CartService } from 'src/app/components/core/services/cart.service';
 
 
 const languages_data:Languages[] = [
@@ -22,7 +20,9 @@ const languages_data:Languages[] = [
   templateUrl: './home-header.component.html',
   styleUrls: ['./home-header.component.scss']
 })
+
 export class HomeHeaderComponent implements AfterViewInit,OnInit {
+  itemsNumber:number;
   languages = languages_data;
   selectedLanguage:Languages ;
   isToggled = false;
@@ -32,6 +32,7 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
   lastName?:string;
   image?:string;
   scrolled = false;
+  Categories:Category[];
   @HostListener('window:scroll', [])
     checkScroll() {
         const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -44,14 +45,11 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
   
   constructor(
       private toggleService: ToggleService,
-      private datePipe: DatePipe,
       public  themeService: CustomizerSettingsService,
-      private authService: AuthService,
-      private tokenStorage: TokenStorageService,
-      private router: Router,
       private translateService:TranslateService,
       private languageService:LanguageService,
-      private coreService:CoreService
+      private categoryService: CategoryService,
+      private cartService: CartService
   ) { }
  
   ngOnInit(){
@@ -59,12 +57,14 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
       this.languageService.configureTranslation();
       // setup lanuage
       this.setupLanguage();
+      this.getCategories();
+      this.getItemsNumber();
   }
 
   ngAfterViewInit(){ }
 
   setupLanguage(): void {
-      const storedLanguage =this.languageService.getStoredLanguage()
+      const storedLanguage =this.languageService.getStoredLanguage();
       if (storedLanguage) {
           this.selectedLanguage = storedLanguage;
           this.translateService.use(this.selectedLanguage.code);
@@ -80,6 +80,7 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
       this.translateService.use(language.code);
       // Store the selected language in localStorage
       this.languageService.storeLanguage(language);
+
   }
   
   toggleTheme() {
@@ -114,7 +115,18 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
       this.themeService.toggleRTLEnabledTheme();
   }
 
-  currentDate: Date = new Date();
-  formattedDate: any = this.datePipe.transform(this.currentDate, 'dd MMMM yyyy');
+  getCategories() {
+    this.categoryService.getCategories().subscribe({
+    next: (category)=>{
+        this.Categories=category;
+    },
+    error: (error) => {
+        console.log(error);
+    }
+    })
+  }
+  getItemsNumber() {
+    this.itemsNumber= this.cartService.getCart().length;
+  }
 
 }

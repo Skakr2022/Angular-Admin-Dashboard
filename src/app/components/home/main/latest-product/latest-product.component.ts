@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CartService } from 'src/app/components/core/services/cart.service';
 import { ProductService } from 'src/app/components/core/services/product.service';
 import { CustomizerSettingsService } from 'src/app/components/customizer-settings/customizer-settings.service';
 import { Product } from 'src/app/components/shared/models/Product.model';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  selector: 'app-latest-product',
+  templateUrl: './latest-product.component.html',
+  styleUrls: ['./latest-product.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class LatestProductComponent implements OnInit {
 
-    products:Product[];
-	images: any[] ;
+  products:Product[];
+	images: any[];
+  quantity:number=1;
     imageSlides4: OwlOptions = {
 		items:5,
 		nav: true,
@@ -48,11 +50,12 @@ export class ProductListComponent implements OnInit {
 	constructor(
         public themeService: CustomizerSettingsService,
         private productService:ProductService,
-    ) {}
+        private cartService:CartService
+  ) {}
 
 	ngOnInit() {
-	  this.getProducts() ; 
-    }
+	  this.getLatestProducts() ; 
+  }
 
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
@@ -62,16 +65,19 @@ export class ProductListComponent implements OnInit {
         this.themeService.toggleTheme();
     }
 
-    getProducts() {
-       this.productService.getProducts().subscribe({
+    getLatestProducts() {
+       this.productService.getLatestProduct().subscribe({
         next: (product) =>{
           this.products= product;
         },
         error: (error) => {
           console.log(error);
         }
-
        })
+    }
+
+    addToCart(product: Product) {
+      this.cartService.addToCart(product,this.quantity);
     }
 
 }

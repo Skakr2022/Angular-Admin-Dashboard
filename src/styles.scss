@@ -111,6 +111,10 @@ a {
 //     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 //     border-radius: 50% !important;
 // }
+.mat-badge-content {
+    background-color: var(--heraBlueColor) !important;
+}
+
 .d-table {
     width: 100%;
     height: 100%;
@@ -206,6 +210,22 @@ button {
             }
         }
     }
+}
+// snack bar css
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: #ffffff!important;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+
+  &.app-notification-error {
+    --mdc-snackbar-container-color: #f23a2f;
+  }
+
+  &.app-notification-success {
+    --mdc-snackbar-container-color: #43a446;
+  }
+}
+::ng-deep snack-bar-container simple-snack-bar .mat-simple-snackbar-action {
+    color: black !important;
 }
 
 // Menu Dropdown CSS
@@ -411,24 +431,6 @@ button {
         }
     }
 }
-
-.mat-mdc-snack-bar-container {
-  --mat-mdc-snack-bar-button-color: #ffffff!important;
-  --mdc-snackbar-supporting-text-color: #ffffff;
-
-  &.app-notification-error {
-    --mdc-snackbar-container-color: #f23a2f;
-  }
-
-  &.app-notification-success {
-    --mdc-snackbar-container-color: #43a446;
-  }
-}
-
-::ng-deep snack-bar-container simple-snack-bar .mat-simple-snackbar-action {
-    color: black !important;
-}
-
 .language-menu-dropdown {
     &.mat-mdc-menu-panel {
         &.mat-mdc-menu-panel {
@@ -436,6 +438,59 @@ button {
             min-width: unset;
             max-width: unset;
             min-height: auto;
+            border-radius: 10px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            overflow: {
+                y: auto;
+                x: hidden;
+            };
+            ul {
+                padding-left: 0;
+                list-style-type: none;
+
+                li {
+                    position: relative;
+
+                    button {
+                        width: 100%;
+                        display: block;
+                        cursor: pointer;
+                        text-align: start;
+                        padding: 9px 13px 9px 42px;
+                        color: var(--paragraphColor);
+                        transition: var(--transition);
+                        background-color: transparent;
+                        font: {
+                            size: 15px;
+                            weight: 500;
+                            family: var(--headingFontFamily);
+                        };
+                        img {
+                            transform: translateY(-50%);
+                            position: absolute;
+                            width: 20px;
+                            left: 13px;
+                            top: 50%;
+                        }
+                        &:hover {
+                            background-color: #f8fafc;
+                        }
+                    }
+                }
+            }
+            .mat-mdc-menu-content {
+                padding: 10px 0;
+            }
+        }
+    }
+}
+.cart-menu-dropdown {
+    &.mat-mdc-menu-panel {
+        &.mat-mdc-menu-panel {
+            width: 450px;
+            min-width: 450px;
+            max-width: 450px;
+            max-height: auto;
             border-radius: 10px;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
             overflow: {

@@ -3,7 +3,6 @@
     transition: var(--transition);
     padding: 20px 25px;
     
-    
     &.sticky {
         top: 0;
         right: 0px;
@@ -321,6 +320,7 @@
             box-shadow: var(--borderWhiteBoxShadow) !important;
         }
     }
+
     &.component-dark-theme {
         .header-left-side {
             .burger-menu {
@@ -381,12 +381,15 @@
             box-shadow: var(--borderWhiteBoxShadow) !important;
         }
     }
+
     &.card-borderd-theme {
         box-shadow: var(--borderBoxShadow) !important;
     }
+    
     &.card-border-radius {
         border-radius: 0 !important;
     }
+
     &.rtl-enabled {
         .header-left-side {
             .burger-menu {

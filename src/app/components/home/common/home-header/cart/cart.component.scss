@@ -1,0 +1,115 @@
+
+
+/* skin 2 */
+.skin-2 .num-in {
+	background: #FFFFFF;
+	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+	border-radius: 25px;
+	height: 40px;
+	width: 110px;
+    float: left;
+}
+
+.skin-2 .num-in	span {
+  width: 40%;
+  display: block;
+  height: 40px;
+  float: left;
+  position: relative;
+}
+
+.skin-2 .num-in span:before, .skin-2 .num-in span:after {
+  content: '';
+  position: absolute;
+  background-color: #667780;
+  height: 2px;
+  width: 10px;
+  top: 50%;
+  left: 50%;
+  margin-top: -1px;
+  margin-left: -5px;
+}
+
+.skin-2 .num-in span.plus:after {
+  transform: rotate(90deg);
+}
+
+.skin-2 .num-in input {
+		float: left;
+		width: 20%;
+		height: 40px;
+		border: none;
+		text-align: center;
+}
+
+.minus, .plus {
+    cursor: pointer ;
+}
+
+.skin-2 .num-in span.dis:before, .skin-2 .num-in span.dis:after { 
+    background-color: #ccc;
+}
+
+.minus.dis, .plus.dis {
+    cursor: default ;
+}
+
+/* / skin 2 */
+
+
+/* hide the spinner buttons */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.component-dark-theme {
+    &.cart-sidebar {
+        .cart-body {
+            .switch-btn {
+                border-color: #413e3e !important;
+    
+                &::before {
+                    background-color: var(--whiteColor);
+                }
+                &.active {
+                    &::before {
+                        background-color: var(--heraBlueColor);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+@media only screen and (max-width : 767px) {
+
+    .cart-sidebar {
+        width: 260px;
+    }
+    .cart-btn {
+        right: 15px;
+        width: 50px;
+        bottom: 15px;
+        height: 50px;
+    
+        &.active {
+            right: 265px;
+        }
+        &.component-rtl-enabled {
+            right: auto;
+            left: 15px;
+        
+            &.active {
+                right: auto;
+                left: 265px;
+            }
+        }
+    }
+    
+}

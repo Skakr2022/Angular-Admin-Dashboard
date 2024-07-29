@@ -1,0 +1,56 @@
+
+<div class="" (click)="$event.stopPropagation()">
+    <mat-card-header>
+      <h5 class="mb-20">Shopping Cart</h5>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-scrollbar visibility="hover" style="height: 30vh;">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="fw-semibold gray-color text-start">Product</th>
+                <th class="fw-semibold gray-color">Quantity</th>
+                <th class="fw-semibold gray-color">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartItems">
+                <td class="text-start pe-30">
+                  <a class="d-flex align-items-center product-info">
+                    <div style="padding-right:10px; width: 50px; height: 40px; overflow: hidden;">
+                      <img [src]="item.product.imageUrl" class="border-radius" style="width: 100%; height: 100%;">
+                    </div>            
+                    <div class="title">
+                      <h5 class="fw-semibold mb-5">{{ item.product.name.length > 15 ? item.product.name.slice(0, 15) + '. . .' : item.product.name }}</h5>
+                      <span class="d-block muted-color fw-medium">{{item.product.priceAfterDiscount}}</span>
+                    </div>
+                  </a>
+                </td>
+                <td class="gray-color">
+                  <div class="num-block skin-2">
+                    <div class="num-in">
+                      <span class="minus" [ngClass]="{'dis': item.quantity <= 1}" (click)="minusAction(item)"></span>
+                      <input type="number" class="in-num" [(ngModel)]="item.quantity" (ngModelChange)="validateQuantity(item)">
+                      <span class="plus" [ngClass]="{'dis': item.quantity >= item.product.stockQuantity}" (click)="plusAction(item)"></span>
+                    </div>
+                  </div>    
+                </td>
+                <td>
+                  <button mat-button color="warn" (click)="remove(item.product.productId)">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>    
+      </ng-scrollbar>
+      <ul class="list ps-0 mb-0 mt-25">
+        <li class="fw-semibold d-flex align-items-center justify-content-space-between">
+          Total (USD) : <span class="fw-semibold">{{totalPrice}}</span>
+        </li>
+      </ul>
+    </mat-card-content>
+  </div>
+  

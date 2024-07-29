@@ -22,15 +22,27 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.productUrl}/${categoryId}/products`);
   }
 
+  public getProductById(id: number): Observable<any> {
+    return this.http.get<Product>(`${this.productUrl}/${id}`)
+  }
+
+  public getProductCategories(): Observable<any>{
+    return this.http.get(this.apiServerUrl).pipe();
+  }
+
+  getLatestProduct(): Observable<any> {
+    return this.http.get(`${this.productUrl}/latest-products`);
+  }
+
+  getHotDealsProduct(): Observable<any> {
+    return this.http.get(`${this.productUrl}/hot-deals`);
+  }
+
   createProduct(formData:FormData): Observable<object> {  
     return this.http.post(`${this.productUrl}`, formData,{
       responseType:'arraybuffer'
     } );  
   }  
-
-  public getProductById(id: number): Observable<any> {
-    return this.http.get<Product>(`${this.productUrl}/${id}`)
-  }
 
   public deleteProductById(id: number): Observable<any>{
     return this.http.delete(`${this.productUrl}/${id}`);
@@ -38,10 +50,6 @@ export class ProductService {
 
   public updateProduct(id:number,formData:FormData): Observable<any>{
     return this.http.put(`${this.productUrl}/${id}`,formData);
-  }
-
-  public getProductCategories(): Observable<any>{
-    return this.http.get(this.apiServerUrl).pipe();
   }
 
   public getphoto(id:number): Observable<ArrayBuffer>{
@@ -63,7 +71,7 @@ export class ProductService {
       }).pipe( 
        map(res=> res) 
       );
-    }
+  }
 
     getPagedAndSortedProductsByCategoy(
       categoryId:number,
@@ -80,7 +88,7 @@ export class ProductService {
             .set('sortOrder',sortOrder) 
           }).pipe( 
             map(res=> res) 
-           );
+          );
     }
 
 

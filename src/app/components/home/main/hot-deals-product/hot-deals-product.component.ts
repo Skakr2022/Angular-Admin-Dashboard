@@ -3,17 +3,19 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ProductService } from 'src/app/components/core/services/product.service';
 import { CustomizerSettingsService } from 'src/app/components/customizer-settings/customizer-settings.service';
 import { Product } from 'src/app/components/shared/models/Product.model';
+import { CookieService } from 'ngx-cookie-service';
+import { CartService } from 'src/app/components/core/services/cart.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  selector: 'app-hot-deals-product',
+  templateUrl: './hot-deals-product.component.html',
+  styleUrls: ['./hot-deals-product.component.scss']
 })
-export class ProductListComponent implements OnInit {
-
-    products:Product[];
+export class HotDealsProductComponent implements OnInit {
+  quantity: number=1;
+  products:Product[];
 	images: any[] ;
-    imageSlides4: OwlOptions = {
+  imageSlides4: OwlOptions = {
 		items:5,
 		nav: true,
 		loop: true,
@@ -26,32 +28,35 @@ export class ProductListComponent implements OnInit {
 			"<i class='flaticon-chevron-1'></i>",
 			"<i class='flaticon-chevron'></i>"
 		],
-        responsive: {
-            0: {
-                items: 1
-            },
-            515: {
-                items: 2
-            },
-            695: {
-                items: 3
-            },
-            935: {
-                items: 4
-            },
+    responsive: {
+      0: {
+        items: 1
+      },
+      515: {
+        items: 2
+      },
+      695: {
+        items: 3
+      },
+      935: {
+        items: 4
+      },
 			1360: {
 				items:5
 			}
-        }
     }
+  }
+ 
 
 	constructor(
         public themeService: CustomizerSettingsService,
         private productService:ProductService,
-    ) {}
+        private cookieService: CookieService,
+        private cartService: CartService
+  ) {}
 
-	ngOnInit() {
-	  this.getProducts() ; 
+	  ngOnInit() {
+	  this.getHotDealsProduct() ; 
     }
 
     toggleRTLEnabledTheme() {
@@ -62,16 +67,20 @@ export class ProductListComponent implements OnInit {
         this.themeService.toggleTheme();
     }
 
-    getProducts() {
-       this.productService.getProducts().subscribe({
+    getHotDealsProduct() {
+       this.productService.getHotDealsProduct().subscribe({
         next: (product) =>{
           this.products= product;
         },
         error: (error) => {
           console.log(error);
         }
-
        })
     }
+
+    addToCart(product: Product) {
+      this.cartService.addToCart(product,this.quantity);
+    }
+ 
 
 }

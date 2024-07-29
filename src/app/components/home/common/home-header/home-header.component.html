@@ -17,14 +17,8 @@
             </div>
             <!-- category -->
             <ul class="header-left-side d-flex align-items-center mt-0 mb-0">
-                <li>
-                  Phone
-                </li>
-                <li>
-                    Smartwatch
-                </li>
-                <li>
-                    Earphones
+                <li *ngFor="let category of Categories">
+                  {{category.categoryName}}
                 </li>
             </ul>
         </div>
@@ -42,90 +36,10 @@
             </li>
             <li>
                 <button mat-button class="icon" [matMenuTriggerFor]="cardMenu">
-                    <i class="flaticon-shopping-cart "></i>
+                    <i [matBadge]="itemsNumber" matBadgeOverlap="true" matBadgeSize="small" matBadgeColor="primary" class="flaticon-shopping-cart "></i>
                 </button>
-                <mat-menu class="" #cardMenu="matMenu" xPosition="after">
-                    <mat-card class="tagus-card">
-                        <mat-card-header>
-                            <h5 class="mb-0">Shopping Cart</h5>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="fw-semibold gray-color text-start">Product</th>
-                                            <th class="fw-semibold gray-color">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-start">
-                                                <a routerLink="/" class="d-flex align-items-center product-info">
-                                                    <img src="assets/img/recent-orders/product1.jpg" class="border-radius me-12" width="50" alt="product">
-                                                    <div class="title">
-                                                        <h5 class="fw-semibold mb-5">Laptop Macos Pro</h5>
-                                                        <span class="d-block muted-color fw-medium">
-                                                            Color: <span class="gray-color">Pink</span>
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </td>
-                                            <td class="gray-color">$200.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                <a routerLink="/" class="d-flex align-items-center product-info">
-                                                    <img src="assets/img/recent-orders/product2.jpg" class="border-radius me-12" width="50" alt="product">
-                                                    <div class="title">
-                                                        <h5 class="fw-semibold mb-5">Smart Camera XD6</h5>
-                                                        <span class="d-block muted-color fw-medium">
-                                                            Color: <span class="gray-color">Red</span>
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </td>
-                                            <td class="gray-color">$150.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                <a routerLink="/" class="d-flex align-items-center product-info">
-                                                    <img src="assets/img/recent-orders/product3.jpg" class="border-radius me-12" width="50" alt="product">
-                                                    <div class="title">
-                                                        <h5 class="fw-semibold mb-5">Pixi 8 Wireless Airphone</h5>
-                                                        <span class="d-block muted-color fw-medium">
-                                                            Color: <span class="gray-color">White</span>
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </td>
-                                            <td class="gray-color">$100.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">
-                                                <a routerLink="/" class="d-flex align-items-center product-info">
-                                                    <img src="assets/img/recent-orders/product4.jpg" class="border-radius me-12" width="50" alt="product">
-                                                    <div class="title">
-                                                        <h5 class="fw-semibold mb-5">Jebble Smart Watch</h5>
-                                                        <span class="d-block muted-color fw-medium">
-                                                            Color: <span class="gray-color">Black</span>
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </td>
-                                            <td class="gray-color">$200.00</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <ul class="list ps-0 mb-0 mt-25">
-                                <li class="fw-semibold d-flex align-items-center justify-content-space-between">
-                                    Total (USD) :
-                                    <span class="fw-semibold">$870.00</span>
-                                </li>
-                            </ul>
-                        </mat-card-content>
-                    </mat-card>
+                <mat-menu class="cart-menu-dropdown" #cardMenu="matMenu"  xPosition="after">
+                        <app-cart></app-cart>
                 </mat-menu>
             </li>
             <li>

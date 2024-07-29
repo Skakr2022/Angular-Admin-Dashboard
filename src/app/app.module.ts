@@ -112,6 +112,10 @@ import { CheckoutComponent } from './components/home/checkout/checkout.component
 import { MainComponent } from './components/home/main/main.component';
 import { SliderComponent } from './components/home/main/slider/slider.component';
 import { ProductListComponent } from './components/home/main/product-list/product-list.component';
+import { HotDealsProductComponent } from './components/home/main/hot-deals-product/hot-deals-product.component';
+import { LatestProductComponent } from './components/home/main/latest-product/latest-product.component';
+import { CartComponent } from './components/home/common/home-header/cart/cart.component';
+
 // import { CarouselModule } from 'primeng/carousel';
 
 export function HttpLoaderFactory(http:HttpClient) {
@@ -171,6 +175,9 @@ export function HttpLoaderFactory(http:HttpClient) {
         MainComponent,
         SliderComponent,
         ProductListComponent,
+        HotDealsProductComponent,
+        LatestProductComponent,
+        CartComponent,
         
     ],
     imports: [

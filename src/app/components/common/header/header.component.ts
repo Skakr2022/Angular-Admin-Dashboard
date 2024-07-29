@@ -33,6 +33,9 @@ export class HeaderComponent implements OnInit,AfterViewInit{
     firstName?:string;
     lastName?:string;
     image?:string;
+    currentDate: Date = new Date();
+    formattedDate: any = this.datePipe.transform(this.currentDate, 'dd MMMM yyyy');
+
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
         const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -130,9 +133,6 @@ export class HeaderComponent implements OnInit,AfterViewInit{
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
-    currentDate: Date = new Date();
-    formattedDate: any = this.datePipe.transform(this.currentDate, 'dd MMMM yyyy');
 
     logout(): void {
         this.authService.logout().subscribe({

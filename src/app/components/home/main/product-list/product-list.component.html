@@ -7,18 +7,18 @@
 <div class="d-flex align-items-center justify-content-center" [class.component-dark-theme]="themeService.isDark()" >
     <div class="col-lg-11 col-md-6">
             <owl-carousel-o [options]="imageSlides4">
-                <ng-template carouselSlide >
+                <ng-template carouselSlide *ngFor="let product of products">
                     <mat-card class="mb-25 tagus-card">
                             <div class="image-container">
-                               <span class="badge text-bg-danger">-43% off</span>
-                               <img src="assets/img/cards/card1.jpg" class="border-radius" alt="card">
+                               <span *ngIf="product.discountPercent != 0" class="badge text-bg-danger"> - {{product.discountPercent}} % off</span>
+                               <img [src]="product.imageUrl" class="border-radius" alt="card">
                             </div>
-                            <p>When you enter into...</p>
-                            <h5 class="mb-8">Nesta Technologies</h5>
+                            <p>{{ product.description.length > 25 ? product.description.slice(0, 25) + '. . .' : product.description }}</p>
+                            <h5 class="mb-8">{{product.name}}</h5>
                             <div class="sale-container d-flex align-item-center justify-content-space-between">
                                 <div class="price-container d-flex align-item-center justify-content-center">
-                                    <p class="afterDiscount">123 <span>DH</span></p>
-                                    <p class="beforeDiscount">177 <span>DH</span></p>
+                                    <p  class="afterDiscount">{{product.priceAfterDiscount}} <span>DH</span></p>
+                                    <p *ngIf="product.discountPercent != 0" class="beforeDiscount"> {{product.priceBeforeDiscount}} <span>DH</span></p>
                                 </div>
                                 <button mat-button >
                                     <mat-icon class="icon">add_shopping_cart</mat-icon>
@@ -26,101 +26,7 @@
                             </div>
                     </mat-card>
                 </ng-template>
-                <ng-template carouselSlide>
-                    <mat-card class="mb-25 tagus-card">
-                        <div class="image-container">
-                           <span class="badge text-bg-danger">-43% off</span>
-                           <img src="assets/img/cards/card1.jpg" class="border-radius" alt="card">
-                        </div>
-                        <p>When you enter into...</p>
-                        <h5 class="mb-8">Nesta Technologies</h5>
-                        <div class="sale-container d-flex align-item-center justify-content-space-between">
-                            <div class="price-container d-flex align-item-center justify-content-center">
-                                <p class="afterDiscount">123 <span>DH</span></p>
-                                <p class="beforeDiscount">177 <span>DH</span></p>
-                            </div>
-                            <button mat-button >
-                                <mat-icon class="icon">add_shopping_cart</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card>
-                </ng-template>
-                <ng-template carouselSlide>
-                    <mat-card class="mb-25 tagus-card">
-                        <div class="image-container">
-                           <span class="badge text-bg-danger">-43% off</span>
-                           <img src="assets/img/cards/card1.jpg" class="border-radius" alt="card">
-                        </div>
-                        <p>When you enter into...</p>
-                        <h5 class="mb-8">Nesta Technologies</h5>
-                        <div class="sale-container d-flex align-item-center justify-content-space-between">
-                            <div class="price-container d-flex align-item-center justify-content-center">
-                                <p class="afterDiscount">123 <span>DH</span></p>
-                                <p class="beforeDiscount">177 <span>DH</span></p>
-                            </div>
-                            <button mat-button >
-                                <mat-icon class="icon">add_shopping_cart</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card>
-                </ng-template>
-                <ng-template carouselSlide>
-                    <mat-card class="mb-25 tagus-card">
-                        <div class="image-container">
-                           <span class="badge text-bg-danger">-43% off</span>
-                           <img src="assets/img/cards/card1.jpg" class="border-radius" alt="card">
-                        </div>
-                        <p>When you enter into...</p>
-                        <h5 class="mb-8">Nesta Technologies</h5>
-                        <div class="sale-container d-flex align-item-center justify-content-space-between">
-                            <div class="price-container d-flex align-item-center justify-content-center">
-                                <p class="afterDiscount">123 <span>DH</span></p>
-                                <p class="beforeDiscount">177 <span>DH</span></p>
-                            </div>
-                            <button mat-button >
-                                <mat-icon class="icon">add_shopping_cart</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card>
-                </ng-template>
-                <ng-template carouselSlide>
-                    <mat-card class="mb-25 tagus-card">
-                        <div class="image-container">
-                           <span class="badge text-bg-danger">-43% off</span>
-                           <img src="assets/img/cards/card1.jpg" class="border-radius" alt="card">
-                        </div>
-                        <p>When you enter into...</p>
-                        <h5 class="mb-8">Nesta Technologies</h5>
-                        <div class="sale-container d-flex align-item-center justify-content-space-between">
-                            <div class="price-container d-flex align-item-center justify-content-center">
-                                <p class="afterDiscount">123 <span>DH</span></p>
-                                <p class="beforeDiscount">177 <span>DH</span></p>
-                            </div>
-                            <button mat-button >
-                                <mat-icon class="icon">add_shopping_cart</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card>
-                </ng-template>
-                <ng-template carouselSlide>
-                    <mat-card class="mb-25 tagus-card">
-                        <div class="image-container">
-                           <span class="badge text-bg-danger">-43% off</span>
-                           <img src="assets/img/cards/card1.jpg" class="border-radius" alt="card">
-                        </div>
-                        <p>When you enter into...</p>
-                        <h5 class="mb-8">Nesta Technologies</h5>
-                        <div class="sale-container d-flex align-item-center justify-content-space-between">
-                            <div class="price-container d-flex align-item-center justify-content-center">
-                                <p class="afterDiscount">123 <span>DH</span></p>
-                                <p class="beforeDiscount">177 <span>DH</span></p>
-                            </div>
-                            <button mat-button >
-                                <mat-icon class="icon">add_shopping_cart</mat-icon>
-                            </button>
-                        </div>
-                    </mat-card>
-                </ng-template>
+               
             </owl-carousel-o>
     </div>  
 </div>

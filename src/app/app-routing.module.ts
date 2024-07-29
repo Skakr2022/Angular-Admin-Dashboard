@@ -65,7 +65,7 @@ const routes: Routes = [
     // home routing
     { 
       path: 'home', 
-      component: HomeComponent,
+      component: HomeComponent,canActivate:[authGuardGuard],
       children: [
           { path: '', component: MainComponent },
           { path: 'checkout', component: CheckoutComponent },
