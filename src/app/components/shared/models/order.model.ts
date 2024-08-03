@@ -1,10 +1,10 @@
 import { List } from 'echarts';
-import { user } from './user.model';
+import { User } from './user.model';
 import { OrderItem } from './orderItem.model';
 
 export interface Order {
     orderId: number;
-    user: user;
+    user: User;
     orderDate: Date;
     status: OrderStatus;
     orderItems: OrderItem[];

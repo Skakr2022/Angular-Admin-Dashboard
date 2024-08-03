@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { user } from 'src/app/components/shared/models/user.model';
+import { User } from 'src/app/components/shared/models/user.model';
 import { UserService } from 'src/app/components/core/services/user.service';
 import { TableComponent } from 'src/app/components/shared/components/table/table.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -23,14 +23,14 @@ export class UsersComponent {
     isLoadingResults=true;
     isEmpty:boolean=false;
     DataNumber!:number;
-    user!:user[];
+    user!:User[];
     hasImage: boolean=false;
     hasAction: boolean;
     filterValue: string;
     dropdownItems: string[]=['Edit'];
     sortActive: string="id";
     endpoint: string="user";
-    dataSource =new MatTableDataSource<user>(this.user);
+    dataSource =new MatTableDataSource<User>(this.user);
     displayedColumns: string[]=['id','firstName','lastName','email','role.name','action'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;

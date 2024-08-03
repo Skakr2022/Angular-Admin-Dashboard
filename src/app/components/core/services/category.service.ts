@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { Category } from "../../shared/models/Category.model";
+import { environment } from "src/environments/environment.dev";
 
 @Injectable({
    providedIn: 'root'
@@ -10,8 +11,7 @@ import { Category } from "../../shared/models/Category.model";
 export class CategoryService {
    
 
-   CategoriesURL='http://localhost:8080/product_category';
-   
+   CategoriesURL= `${environment.baseUrl}/product_category`;
    constructor(private http:HttpClient){ }
    
    getCategories():Observable<any> {

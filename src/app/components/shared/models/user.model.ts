@@ -1,6 +1,6 @@
 import { role } from "./role.model";
 
-export interface user { 
+export interface User { 
     id?:number;
     firstName?:string;
     lastName?:string;

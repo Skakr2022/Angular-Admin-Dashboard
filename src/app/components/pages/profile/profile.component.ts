@@ -8,7 +8,8 @@ import {
     ChartComponent
 } from "ng-apexcharts";
 import { TokenStorageService } from "../../core/services/token-storage.sevice";
-import { AuthenticationResponse } from "../../shared/models/authentication-response.model";import { user } from "../../shared/models/user.model";
+import { AuthenticationResponse } from "../../shared/models/authentication-response.model";
+import { User } from "../../shared/models/user.model";
  
 
 

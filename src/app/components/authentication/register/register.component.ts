@@ -3,7 +3,7 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
 import { NgModel, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthValidatorsService } from '../../core/services/Auth-Validators.service';
-import { user } from '../../shared/models/user.model';
+import { User } from '../../shared/models/user.model';
 import { AuthService } from '../../core/services/Auth.service';
 import { CoreService } from '../../core/services/core.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -90,7 +90,7 @@ export class RegisterComponent implements OnInit {
             return this.signupForm.get('confirmPassword')?.hasError('passwordsMismatch') && this.signupForm.get('confirmPassword')?.touched  && this.signupForm.get('confirmPassword')?.value ? 'Passwords do not match' : '';
     }
 
-    onSubmit(Data:user){
+    onSubmit(Data:User){
       if(this.signupForm.invalid){
             this.isEmpty=true;
       }else{ 

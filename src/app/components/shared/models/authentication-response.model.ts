@@ -1,6 +1,6 @@
-import { user } from './user.model';
+import { User } from './user.model';
 
 export interface AuthenticationResponse {
     token?: string;
-    user: user;
+    user: User;
 }
