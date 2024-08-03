@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-card-content>
       <ng-scrollbar visibility="hover" style="height: 30vh;">
-        <div class="table-responsive">
+        <div *ngIf="cartItems.length !=0" class="table-responsive">
           <table class="table">
             <thead>
               <tr>
@@ -40,17 +40,30 @@
                   <button mat-button color="warn" (click)="remove(item.product.productId)">
                     <mat-icon>delete_forever</mat-icon>
                   </button>
+                  <!-- <a  class="action-btn" (click)="remove(item.product.productId)">
+                    <i class="ri-delete-bin-7-line"></i>
+                  </a> -->
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div *ngIf="cartItems.length ==0" class="mt-25">
+            <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+                <img src="../../../../../assets/img/empty-cart.webp" style="width: 100px;" alt="Logo">
+                <h4>Cart Is Empty</h4>
+            </div>
         </div>    
       </ng-scrollbar>
-      <ul class="list ps-0 mb-0 mt-25">
-        <li class="fw-semibold d-flex align-items-center justify-content-space-between">
+      <div  *ngIf="cartItems.length !=0" class=" ps-0 mb-0 mt-25" >
+        <div class="fw-semibold d-flex align-items-center justify-content-space-between">
           Total (USD) : <span class="fw-semibold">{{totalPrice}}</span>
-        </li>
-      </ul>
+        </div>
+        <a routerLink="/home/checkout" mat-fab extended class="mt-10 default-btn tagus" (click)="goToCheckout()">
+           Go To Checkout
+        </a>
+      </div>
     </mat-card-content>
-  </div>
-  
+</div>
+
+

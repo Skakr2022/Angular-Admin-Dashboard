@@ -26,7 +26,7 @@ import { authGuardGuard, loginGuard } from './components/core/Guards/Auth-guard.
 import { CategoryComponent } from './components/pages/ecommerce/category/category.component';
 import { HomeComponent } from './components/home/home.component';
 import { HomeHeaderComponent } from './components/home/common/home-header/home-header.component';
-import { MainComponent } from './components/home/main/main.component';
+import { HomeMainPageComponent } from './components/home/home-main-page/home-main-page.component';
 
 const routes: Routes = [
     { 
@@ -45,7 +45,7 @@ const routes: Routes = [
         { path: 'order-details', component: ProductsOrderDetailsComponent },
         { path: 'customers', component: UsersComponent },
         { path: 'cart', component: ProductsCartComponent },
-        { path: 'checkout', component: CheckoutComponent },
+        // { path: 'checkout', component: CheckoutComponent },
         { path: 'sellers', component: ProductSellersComponent },
         { path: 'profile', component: ProfileComponent},
         { path: 'account', component: AccountComponent},
@@ -67,7 +67,7 @@ const routes: Routes = [
       path: 'home', 
       component: HomeComponent,canActivate:[authGuardGuard],
       children: [
-          { path: '', component: MainComponent },
+          { path: '', component: HomeMainPageComponent },
           { path: 'checkout', component: CheckoutComponent },
           { path: 'detail-product', component: ProductDetailsComponent },
       ]

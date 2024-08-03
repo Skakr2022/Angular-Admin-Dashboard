@@ -24,6 +24,16 @@ export class AppComponent {
         });
     }
 
+    isBlankPage() {
+        const url = this.router.url;
+        const blankPageUrls = [
+          '/error-500',
+          '/coming-soon',
+          // Add other specific URLs here if needed
+        ];
+        return blankPageUrls.includes(url) || url.startsWith('/home') || url.startsWith('/authentication');
+    }
+
     toggleRightSidebarTheme() {
         this.themeService.toggleRightSidebarTheme();
     }

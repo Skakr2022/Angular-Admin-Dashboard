@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { CartService } from 'src/app/components/core/services/cart.service';
 import { CustomizerSettingsService } from 'src/app/components/customizer-settings/customizer-settings.service';
 import { CartItem } from 'src/app/components/shared/models/cartItem.model';
@@ -14,14 +15,16 @@ export class CartComponent implements OnInit {
   isToggled: boolean = false;
   cartItems: CartItem[];
   totalPrice: number;
-
+  cartIsEmpty:boolean;
   constructor(
     public themeService: CustomizerSettingsService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
     this.getCartItems();
+    this.checkEmptyCart();
     this.getTotal();
   }
 
@@ -71,5 +74,25 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCart(productId);
     this.getCartItems();
     this.getTotal();
+  }
+
+  checkEmptyCart() {
+    if(this.cartItems.length ==0) {
+      this.cartIsEmpty == true;
+    }else {
+      this.cartIsEmpty == false; 
+    }
+  }
+
+  goToCheckout() {
+    const encodedData = encodeURIComponent(JSON.stringify(this.cartItems));
+    this.router.navigate(
+      ['/home/checkout/'], 
+      { queryParams:{ 
+        cartData: encodedData, 
+        totalPrice: this.totalPrice 
+        } 
+      }
+    );
   }
 }
