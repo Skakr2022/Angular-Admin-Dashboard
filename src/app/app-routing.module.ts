@@ -27,6 +27,7 @@ import { CategoryComponent } from './components/pages/ecommerce/category/categor
 import { HomeComponent } from './components/home/home.component';
 import { HomeHeaderComponent } from './components/home/common/home-header/home-header.component';
 import { HomeMainPageComponent } from './components/home/home-main-page/home-main-page.component';
+import { ProductCategoryListComponent } from './components/home/product-category-list/product-category-list.component';
 
 const routes: Routes = [
     { 
@@ -70,6 +71,7 @@ const routes: Routes = [
           { path: '', component: HomeMainPageComponent },
           { path: 'checkout', component: CheckoutComponent },
           { path: 'detail-product', component: ProductDetailsComponent },
+          { path: 'product-category', component: ProductCategoryListComponent },
       ]
     },
 

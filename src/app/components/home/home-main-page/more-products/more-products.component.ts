@@ -5,12 +5,13 @@ import { CustomizerSettingsService } from 'src/app/components/customizer-setting
 import { Product } from 'src/app/components/shared/models/Product.model';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  selector: 'app-more-products',
+  templateUrl: './more-products.component.html',
+  styleUrls: ['./more-products.component.scss']
 })
-export class ProductListComponent implements OnInit {
 
+export class MoreProductsComponent implements OnInit {
+    
     products:Product[];
 	images: any[] ;
     imageSlides4: OwlOptions = {
@@ -70,7 +71,6 @@ export class ProductListComponent implements OnInit {
         error: (error) => {
           console.log(error);
         }
-
        })
     }
 

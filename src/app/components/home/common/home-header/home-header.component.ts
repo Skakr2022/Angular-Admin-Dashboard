@@ -7,6 +7,7 @@ import { LanguageService } from '../../../core/services/language.service';
 import { CategoryService } from 'src/app/components/core/services/category.service';
 import { Category } from 'src/app/components/shared/models/Category.model';
 import { CartService } from 'src/app/components/core/services/cart.service';
+import { Router } from '@angular/router';
 
 
 const languages_data:Languages[] = [
@@ -22,6 +23,7 @@ const languages_data:Languages[] = [
 })
 
 export class HomeHeaderComponent implements AfterViewInit,OnInit {
+
   itemsNumber:number;
   languages = languages_data;
   selectedLanguage:Languages ;
@@ -49,7 +51,8 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
       private translateService:TranslateService,
       private languageService:LanguageService,
       private categoryService: CategoryService,
-      private cartService: CartService
+      private cartService: CartService,
+      private router:Router
   ) { }
  
   ngOnInit(){
@@ -125,6 +128,16 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
     }
     })
   }
+
+  onCategoryClicked(category: Category) {
+    this.router.navigate(['home/product-category'],{
+        queryParams:{
+            categoryId:category.categoryId,
+            categoryName:category.categoryName
+        }
+    });
+  }
+
   getItemsNumber() {
     this.itemsNumber= this.cartService.getCart().length;
   }

@@ -17,8 +17,8 @@
             </div>
             <!-- category -->
             <ul class="header-left-side d-flex align-items-center mt-0 mb-0">
-                <li *ngFor="let category of Categories">
-                  {{category.categoryName}}
+                <li *ngFor="let category of Categories" (click)="onCategoryClicked(category)">
+                        {{category.categoryName}}
                 </li>
             </ul>
         </div>

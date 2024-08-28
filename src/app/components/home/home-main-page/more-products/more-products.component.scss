@@ -13,6 +13,7 @@ img  {
     }
 }
 .sale-container {
+    position: absolute;
   .price-container {  
      .beforeDiscount {
        text-decoration-line: line-through;
@@ -40,9 +41,9 @@ img  {
 
 .mat-mdc-card {
     &.tagus-card {
+        position: relative;
         background-color: var(--bodyColor) !important;
         border-radius: 10px !important;
-        display: block !important;
         border: none !important;
         padding: 25px;
         box-shadow: none !important;

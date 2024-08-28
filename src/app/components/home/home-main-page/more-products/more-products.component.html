@@ -1,0 +1,25 @@
+<div class="d-flex align-item-start justify-content-center">
+   <h2 class="col-lg-11 col-md-6">More Products</h2>
+</div>
+
+<div class="row" [class.component-dark-theme]="themeService.isDark()" >
+    <div *ngFor="let product of products" class=" col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+        <mat-card  class="mb-25 tagus-card">
+            <div class="image-container">
+                <span *ngIf="product.discountPercent != 0" class="badge text-bg-danger"> - {{product.discountPercent}} % off</span>
+                <img [src]="product.imageUrl" class="border-radius" alt="card">
+            </div>
+            <p>{{ product.description.length > 25 ? product.description.slice(0, 25) + '. . .' : product.description }}</p>
+            <h5 class="mb-8">{{product.name}}</h5>
+            <div class="sale-container d-flex align-item-center justify-content-space-between">
+                <div class="price-container d-flex align-item-center justify-content-center">
+                    <p class="afterDiscount">{{product.priceAfterDiscount}} <span>DH</span></p>
+                    <p *ngIf="product.discountPercent != 0" class="beforeDiscount"> {{product.priceBeforeDiscount}} <span>DH</span></p>
+                </div>
+                <button mat-button >
+                    <mat-icon class="icon">add_shopping_cart</mat-icon>
+                </button>
+            </div>
+        </mat-card>
+    </div>  
+</div>
