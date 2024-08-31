@@ -63,7 +63,9 @@ export class CartComponent implements OnInit {
   }
 
   getCartItems() {
-    this.cartItems = this.cartService.getCart();
+    this.cartService.cart$.subscribe(cart => {
+      this.cartItems = cart;
+    }) 
   }
 
   getTotal() {

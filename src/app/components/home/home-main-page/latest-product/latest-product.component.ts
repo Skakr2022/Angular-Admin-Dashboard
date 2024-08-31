@@ -21,7 +21,7 @@ export class LatestProductComponent implements OnInit {
 		loop: true,
 		dots: false,
 		margin: -20,
-		autoplay: false,
+		autoplay: true,
 		smartSpeed: 1000,
 		autoplayHoverPause: true,
         navText: [

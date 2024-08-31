@@ -11,10 +11,10 @@
     <div class="d-md-flex align-items-center justify-content-space-between" style="max-width: 1340px; margin-left: auto; margin-right: auto;">
         <div class="header-left-side d-flex align-items-center">
             <!-- logo  -->
-            <div class="d-flex align-items-center">
+            <a routerLink="/home" class="d-flex align-items-center">
                 <img src="assets/img/logo-icon.png" alt="logo-icon">
-                <h2 class="mb-0 ms-10">Tagus</h2>
-            </div>
+                <h2 class="mb-0 ms-10">Store</h2>
+            </a>
             <!-- category -->
             <ul class="header-left-side d-flex align-items-center mt-0 mb-0">
                 <li *ngFor="let category of Categories" (click)="onCategoryClicked(category)">

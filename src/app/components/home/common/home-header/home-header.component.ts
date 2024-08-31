@@ -53,7 +53,7 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
       private categoryService: CategoryService,
       private cartService: CartService,
       private router:Router
-  ) { }
+  ) {}
  
   ngOnInit(){
       // translation configuration
@@ -139,7 +139,9 @@ export class HomeHeaderComponent implements AfterViewInit,OnInit {
   }
 
   getItemsNumber() {
-    this.itemsNumber= this.cartService.getCart().length;
+    this.cartService.cart$.subscribe(cart => {
+        this.itemsNumber = cart.length;
+    });
   }
 
 }

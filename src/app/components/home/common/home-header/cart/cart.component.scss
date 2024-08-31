@@ -1,4 +1,89 @@
 
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+    &::-webkit-scrollbar:vertical {
+        width: 10px;
+    }
+    &::-webkit-scrollbar:horizontal {
+        height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        border: 2px solid var(--whiteColor);
+        background-color: rgba(0, 0, 0, .2);
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;  
+        background-color: var(--whiteColor);
+    }
+}
+
+// start table style
+table, .table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+        tr {
+            th {
+                vertical-align: middle;
+                white-space: nowrap;
+                text-align: center;
+                position: relative;
+                padding: 15px 20px;
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                text-align: center;
+                padding: 15px 20px;
+                white-space: nowrap;
+                border-bottom-color: #f7faff;
+                border-bottom: 1px solid #F7FAFF;
+
+                .product-info {
+
+                    h5 {
+                        font-size: 15px;
+                    }
+                    span {
+                        font-size: 14px;
+                    }
+                }
+                .action-btn {
+                    color: var(--paragraphColor);
+                    font-size: 20px;
+                    line-height: 1;
+                    cursor: pointer;
+                    &:hover {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+}
+.list {
+    list-style-type: none;
+
+    li {
+        margin-bottom: 20px;
+
+        &:last-child {
+            margin-bottom: 0;
+            padding-top: 20px;
+            border-top: 1px solid #F7FAFF;
+        }
+    }
+}
+// end table style
 
 /* skin 2 */
 .skin-2 .num-in {
@@ -55,6 +140,9 @@
 }
 
 /* / skin 2 */
+
+
+
 
 
 /* hide the spinner buttons */

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Product } from '../../shared/models/Product.model';
 import { CartItem } from '../../shared/models/cartItem.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,18 @@ import { CartItem } from '../../shared/models/cartItem.model';
 export class CartService {
 
   private readonly cartKey = 'cart';
+  private cartSubject: BehaviorSubject<CartItem[]>;
 
-  constructor(private cookieService: CookieService) {}
+  public cart$:Observable<CartItem[]>;
+
+  constructor(private cookieService: CookieService) {
+    const initialCart = this.getCart();
+    this.cartSubject = new BehaviorSubject<CartItem[]>(initialCart);
+    this.cart$ = this.cartSubject.asObservable();
+  }
 
   addToCart(product: Product, quantity: number): void {
-    let cart = this.getCart();
+    let cart = this.cartSubject.getValue();
     const existingItem = cart.find(item => item.product.productId === product.productId);
     if (existingItem) {
       existingItem.quantity += quantity;
@@ -21,7 +29,6 @@ export class CartService {
       cart.push({ product, quantity });
     }
     this.saveCart(cart);
-    console.log(cart);
   }
 
   getCart(): CartItem[] {
@@ -30,10 +37,11 @@ export class CartService {
 
   public saveCart(cart: CartItem[]): void {
     this.cookieService.set(this.cartKey, JSON.stringify(cart));
+    this.cartSubject.next(cart);
   }
 
   removeFromCart(productId: number): void {
-    let cart = this.getCart();
+    let cart = this.cartSubject.getValue();
     cart = cart.filter(item => item.product.productId !== productId);
     this.saveCart(cart);
   }

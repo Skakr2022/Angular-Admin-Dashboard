@@ -10,13 +10,13 @@
             <thead>
               <tr>
                 <th class="fw-semibold gray-color text-start">Product</th>
-                <th class="fw-semibold gray-color">Quantity</th>
+                <th class="fw-semibold gray-color text-center">Quantity</th>
                 <th class="fw-semibold gray-color">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of cartItems">
-                <td class="text-start pe-30">
+                <td class="text-start">
                   <a class="d-flex align-items-center product-info">
                     <div style="padding-right:10px; width: 50px; height: 40px; overflow: hidden;">
                       <img [src]="item.product.imageUrl" class="border-radius" style="width: 100%; height: 100%;">
@@ -27,7 +27,7 @@
                     </div>
                   </a>
                 </td>
-                <td class="gray-color">
+                <td class="gray-color text-center">
                   <div class="num-block skin-2">
                     <div class="num-in">
                       <span class="minus" [ngClass]="{'dis': item.quantity <= 1}" (click)="minusAction(item)"></span>
@@ -37,12 +37,9 @@
                   </div>    
                 </td>
                 <td>
-                  <button mat-button color="warn" (click)="remove(item.product.productId)">
-                    <mat-icon>delete_forever</mat-icon>
-                  </button>
-                  <!-- <a  class="action-btn" (click)="remove(item.product.productId)">
+                  <a class="action-btn" (click)="remove(item.product.productId)">
                     <i class="ri-delete-bin-7-line"></i>
-                  </a> -->
+                  </a> 
                 </td>
               </tr>
             </tbody>
